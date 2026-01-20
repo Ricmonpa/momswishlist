@@ -1,57 +1,172 @@
-# Banner Interactivo Sanborns - Carta a los Reyes Magos
+# Sanborns - Wishlist de San Valentín
 
-Banner HTML5 con IA integrada para campaña navideña DV360.
+Banner interactivo HTML5 300x600px para DV360/CM360 que permite a los usuarios crear wishlists de regalos para San Valentín y enviarlas por email a sus parejas.
 
-## 🚀 Tech Stack
-- HTML5 + Vanilla JavaScript
-- Web Speech API (reconocimiento de voz)
-- Gemini API (IA conversacional)
-- Cloudflare Pages + Functions
-- Google Studio Enabler (DV360 tracking)
+## 🎯 Características
 
-## 📦 Estructura
-```
-/
-├── index.html          # Banner principal
-├── main.js             # Lógica e interacciones
-├── voice.js            # Web Speech API
-├── products-data.js    # 55+ productos Sanborns
-├── styles.css          # Estilos y animaciones
-├── images/             # Assets
-└── functions/
-    └── api/
-        └── gemini.js   # Proxy Gemini API
-```
+- ✨ **Interfaz romántica** con paleta rosa San Valentín
+- 🎤 **Reconocimiento de voz** para búsqueda de productos
+- 🤖 **IA con Gemini** para recomendaciones personalizadas
+- 💝 **Sistema de wishlist** con contador visual
+- 📧 **Envío de wishlist por email** con modal elegante
+- 📱 **Responsive** y optimizado para móviles
+- 🎨 **Microinteracciones** y animaciones suaves
 
-## 🔧 Deploy a Cloudflare Pages
-1. Push a GitHub
-2. Cloudflare Dashboard → Pages → Connect to Git
-3. Seleccionar repo
-4. Build settings: None (static)
-5. Environment variable: `GEMINI_API_KEY`
-6. Deploy
+## 🚀 Deploy en Cloudflare Pages
 
-## 🧪 Testing Local
+### Opción 1: Deploy desde Git (Recomendado)
+
+1. **Crear repositorio en GitHub/GitLab/Bitbucket**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit: Sanborns Wishlist San Valentín"
+   git remote add origin https://github.com/tu-usuario/tu-repo.git
+   git push -u origin main
+   ```
+
+2. **Conectar en Cloudflare Pages**
+   - Ve a [Cloudflare Dashboard](https://dash.cloudflare.com/)
+   - Selecciona **Pages** → **Create a project**
+   - Conecta tu repositorio
+   - Configuración:
+     - **Framework preset**: None (o Static)
+     - **Build command**: (dejar vacío)
+     - **Build output directory**: `/` (raíz)
+     - **Root directory**: `/` (raíz)
+
+3. **Deploy automático**
+   - Cloudflare Pages detectará cambios y hará deploy automático
+   - Tu sitio estará disponible en `https://tu-proyecto.pages.dev`
+
+### Opción 2: Deploy manual con Wrangler CLI
+
 ```bash
-# Usar Wrangler para simular Pages Functions
+# Instalar Wrangler CLI
 npm install -g wrangler
-wrangler pages dev .
+
+# Login en Cloudflare
+wrangler login
+
+# Deploy
+wrangler pages deploy . --project-name=sanborns-wishlist
 ```
 
-## 📊 Tracking Events (DV360)
-- Banner Visible
-- CTA Click
-- Voice Used
-- Message Sent
-- AI Response Success
-- AI Fallback to Local
-- Product Click
+## 📁 Estructura del Proyecto
 
-## 🎯 Sistema Híbrido IA + Local
-El banner intenta usar Gemini API primero (mejores respuestas).
-Si falla o es bloqueado, usa fallback local automático.
-Usuario SIEMPRE recibe productos relevantes.
+```
+.
+├── index.html              # Página principal del banner
+├── main.js                 # Lógica principal
+├── styles.css              # Estilos con paleta rosa San Valentín
+├── gemini-api.js           # Integración con Gemini AI
+├── products-data.js        # Base de datos de productos
+├── voice.js                # Reconocimiento de voz
+├── dynamic-products.js     # Sistema dinámico de productos
+├── functions/
+│   └── api/
+│       └── gemini.js       # Endpoint backend para Gemini
+├── images/                 # Assets de imágenes
+├── Logo_sanborns_bco.png   # Logo Sanborns
+├── san-valentin.svg        # Imagen romántica
+└── README.md              # Este archivo
+```
 
-## 💰 Costos
-- Cloudflare Pages: Gratis (100K requests/día)
-- Gemini API: Gratis (15 requests/min), después ~$0.00025/req
+## ⚙️ Configuración
+
+### Variables de Entorno (Opcional)
+
+Si necesitas configurar la API de Gemini, crea un archivo `config.js`:
+
+```javascript
+const config = {
+    GEMINI_API_KEY: 'tu-api-key-aqui'
+};
+```
+
+**Nota**: Para producción, usa Cloudflare Pages Environment Variables en el dashboard.
+
+### Endpoint de Email (Opcional)
+
+El sistema intenta usar `/api/enviar-wishlist` pero tiene fallback a `mailto:`. Para habilitar envío directo:
+
+1. Crea `functions/api/enviar-wishlist.js` (Cloudflare Workers)
+2. Configura servicio de email (SendGrid, AWS SES, etc.)
+3. Agrega variables de entorno en Cloudflare Pages
+
+## 🎨 Personalización
+
+### Colores (Variables CSS)
+
+Edita las variables en `styles.css`:
+
+```css
+:root {
+    --pink-light: #FFB6C1;
+    --pink-medium: #FFC0CB;
+    --pink-fuchsia: #FF1493;
+    --pink-deep: #DC143C;
+}
+```
+
+### Tracking DV360/CM360
+
+El banner incluye contadores Enabler:
+- `Banner Visible`
+- `CTA Click`
+- `Voice Used`
+- `Product Click`
+- `Wishlist Created`
+- `Email Sent`
+- `Email Modal Opened`
+- `Product Added to Wishlist`
+
+## 📱 Compatibilidad
+
+- ✅ Chrome/Edge (últimas versiones)
+- ✅ Safari (últimas versiones)
+- ✅ Firefox (últimas versiones)
+- ✅ Móviles iOS/Android
+- ✅ DV360/CM360 SafeFrame
+
+## 🔧 Desarrollo Local
+
+```bash
+# Servir localmente (requiere Python o Node.js)
+python -m http.server 8000
+# o
+npx serve .
+
+# Abrir en navegador
+http://localhost:8000
+```
+
+## 📝 Notas Técnicas
+
+- **Tamaño del banner**: 300x600px
+- **Peso objetivo**: < 200KB (compatible con DV360)
+- **Sin dependencias externas**: HTML/CSS/JS vanilla
+- **API Gemini**: Opcional, con fallback local
+- **Email**: Fallback a mailto: si API no disponible
+
+## 🐛 Troubleshooting
+
+### El modal no se abre
+- Verifica que `initializeEmailModal()` se llame en `DOMContentLoaded`
+- Revisa la consola del navegador para errores
+
+### Los productos no se muestran
+- Verifica que `products-data.js` esté cargado
+- Revisa la consola para errores de carga
+
+### El email no se envía
+- Si no hay backend, el sistema usa `mailto:` automáticamente
+- Verifica que el navegador tenga cliente de email configurado
+
+## 📄 Licencia
+
+Proyecto interno para Sanborns México.
+
+## 👥 Créditos
+
+Desarrollado para la campaña de San Valentín 2025.

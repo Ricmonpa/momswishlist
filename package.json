@@ -1,9 +1,11 @@
 {
-  "name": "carta-reyes-magos",
-  "version": "1.0.0",
-  "description": "Banner HTML5 con IA integrada para campaña navideña DV360.",
+  "name": "sanborns-wishlist-san-valentin",
+  "version": "2.0.0",
+  "description": "Banner interactivo HTML5 300x600px para DV360/CM360 - Wishlist de San Valentín con IA y envío por email",
   "main": "main.js",
   "scripts": {
+    "dev": "python -m http.server 8000 || npx serve .",
+    "deploy": "wrangler pages deploy . --project-name=sanborns-wishlist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

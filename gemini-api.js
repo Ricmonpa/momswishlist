@@ -110,7 +110,7 @@ class GeminiAPI {
     // Construir prompt inteligente para Gemini
     // NUEVO ENFOQUE: Gemini identifica CATEGORÍAS y KEYWORDS, no IDs
     buildPrompt(userMessage) {
-        return `Eres un asistente de los Reyes Magos para Sanborns México. Analiza el mensaje del usuario y extrae información.
+        return `Eres un asistente romántico de Sanborns México para San Valentín que ayuda a crear wishlists perfectas. El usuario está buscando regalos para su pareja/enamorado/a. Analiza el mensaje del usuario y extrae información.
 
 MENSAJE DEL USUARIO:
 "${userMessage}"
@@ -134,30 +134,30 @@ CATEGORÍAS DISPONIBLES (usa EXACTAMENTE estos nombres):
 INSTRUCCIONES:
 1. Identifica TODAS las categorías de productos mencionados
 2. Extrae palabras clave específicas (marcas, tipos específicos)
-3. Identifica contexto emocional si existe
-4. Genera un mensaje navideño personalizado
+3. Identifica contexto romántico si existe (regalo para pareja, enamorado/a, etc.)
+4. Genera un mensaje romántico personalizado para San Valentín
 
 RESPONDE SOLO JSON:
 {
   "categorias": ["celular", "pantalla"],
   "keywords": ["iphone", "smart tv"],
-  "mensaje": "Mensaje navideño personalizado",
-  "contexto": "resumen del contexto emocional"
+  "mensaje": "Mensaje romántico personalizado para San Valentín",
+  "contexto": "resumen del contexto romántico"
 }
 
 EJEMPLOS:
 
 Usuario: "Quiero un iPhone"
-→ {"categorias": ["celular"], "keywords": ["iphone", "apple"], "mensaje": "¡Perfecto! Los Reyes Magos encontraron iPhones para ti", "contexto": "deseo directo"}
+→ {"categorias": ["celular"], "keywords": ["iphone", "apple"], "mensaje": "¡Perfecto! Encontré iPhones ideales para tu wishlist de San Valentín ❤️", "contexto": "regalo tecnológico"}
 
-Usuario: "Este año fue difícil pero me porté bien y quiero un iPhone y una smart tv"
-→ {"categorias": ["celular", "pantallas"], "keywords": ["iphone", "smart tv", "television"], "mensaje": "¡Los Reyes Magos reconocen tu esfuerzo! Encontramos lo que pediste", "contexto": "merecido después de año difícil"}
+Usuario: "Busco un regalo para mi novio que le gusta el deporte"
+→ {"categorias": ["audifonos", "relojes"], "keywords": ["deporte", "ejercicio", "audifonos", "reloj"], "mensaje": "¡Qué detalle tan especial! Encontré opciones perfectas para alguien deportista ❤️", "contexto": "regalo para pareja deportista"}
 
-Usuario: "Quiero algo para mi mamá"
-→ {"categorias": ["perfumes", "bolsas", "relojes"], "keywords": ["regalo", "mujer", "mama"], "mensaje": "¡Qué lindo detalle! Encontramos regalos perfectos para mamá", "contexto": "regalo para otra persona"}
+Usuario: "Algo especial para mi pareja"
+→ {"categorias": ["perfumes", "bolsas", "relojes"], "keywords": ["regalo", "especial", "pareja"], "mensaje": "¡Perfecto para San Valentín! Encontré regalos románticos ideales para tu pareja 💕", "contexto": "regalo romántico"}
 
 Usuario: "Quiero una tablet y unos audífonos"
-→ {"categorias": ["tablet", "audifonos"], "keywords": ["tablet", "audifonos"], "mensaje": "¡Excelente! Los Reyes tienen tablets y audífonos para ti", "contexto": "deseo múltiple"}
+→ {"categorias": ["tablet", "audifonos"], "keywords": ["tablet", "audifonos"], "mensaje": "¡Excelente! Encontré tablets y audífonos perfectos para tu wishlist de San Valentín 💝", "contexto": "deseo múltiple"}
 
 RESPUESTA JSON:`;
     }
@@ -191,7 +191,7 @@ RESPUESTA JSON:`;
                 if (!categoriaExiste) {
                     // Categoría detectada pero no en DB (ej: vinos)
                     return {
-                        message: parsed.mensaje || `¡Perfecto! Los Reyes Magos encontraron lo que buscas. Te llevamos a la categoría de ${categoriaDetectada}.`,
+                        message: parsed.mensaje || `¡Perfecto! Encontré lo que buscas para tu wishlist. Te llevamos a la categoría de ${categoriaDetectada}.`,
                         products: [], // Sin productos, solo redirección
                         context: parsed.contexto || 'deseo general',
                         redirectCategory: categoriaDetectada // Flag para redirección
@@ -207,7 +207,7 @@ RESPUESTA JSON:`;
             }
             
             return {
-                message: parsed.mensaje || `¡Los Reyes Magos encontraron ${foundProducts.length} opciones para ti!`,
+                message: parsed.mensaje || `¡Encontré ${foundProducts.length} opciones perfectas para tu wishlist de San Valentín!`,
                 products: foundProducts,
                 context: parsed.contexto || 'deseo general'
             };

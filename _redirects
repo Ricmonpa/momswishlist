@@ -1,0 +1,9 @@
+# Cloudflare Pages Redirects
+# Redirecciones y rewrites
+
+# Si tienes una carpeta específica, redirige a index.html
+# /banner/* /index.html 200
+
+# API routes (si usas Cloudflare Workers)
+# /api/* https://tu-worker.tu-subdomain.workers.dev/api/:splat 200
+

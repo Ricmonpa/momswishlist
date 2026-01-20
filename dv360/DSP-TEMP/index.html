@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=300, height=600, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="ad.size" content="width=300,height=600">
-    <title>Sanborns - Wishlist de San Valentín</title>
+    <title>Sanborns - Carta a los Reyes Magos</title>
     <script src="https://s0.2mdn.net/ads/studio/Enabler.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
 <body>
     <div class="banner-container" style="width: 300px; height: 600px; overflow: hidden; position: relative;">
         <!-- Header -->
         <header class="banner-header">
-            <img src="images/logo.png" alt="Sanborns" class="logo">
+            <img src="assets/Logo_sanborns_bco.png" alt="Sanborns" class="logo">
         </header>
 
         <!-- Zona de personaje IA -->
         <div class="ai-character">
-            <img src="images/reyes-magos.svg" alt="Wishlist de San Valentín" class="reyes-magos-img" onerror="this.src='images/san-valentin.svg'">
+            <img src="assets/reyes-magos.svg" alt="Los Tres Reyes Magos" class="reyes-magos-img">
         </div>
 
         <!-- Bocadillo de diálogo -->
         <div class="dialogue-bubble">
             <p class="greeting-text">
                 ¡Hola! 👋<br>
-                <strong>¿Ya hiciste tu wishlist para San Valentín?</strong>
+                <strong>¿Ya escribiste tu carta a los Reyes Magos?</strong>
             </p>
             <p class="sub-text">
-                Dime qué deseas y te ayudo a crear tu wishlist perfecta
+                Dime qué deseas y te ayudo a encontrarlo en tu Sanborns más cercano
             </p>
         </div>
 
@@ -36,7 +36,7 @@
             <div class="input-container">
                 <input 
                     type="text" 
-                    placeholder="¿Qué quieres en tu wishlist?"
+                    placeholder="Escribe tu deseo..."
                     class="message-input"
                     id="messageInput"
                 />
@@ -46,22 +46,22 @@
             </div>
             
             <p class="benefits-text">
-                💝 Regalos especiales + pickup gratis
+                🎁 Descuento especial + pickup gratis
             </p>
         </div>
 
         <!-- Mini productos decorativos -->
         <div class="floating-products">
-            <span class="product-icon">💝</span>
-            <span class="product-icon">💖</span>
-            <span class="product-icon">💕</span>
+            <span class="product-icon">🎁</span>
+            <span class="product-icon">📱</span>
+            <span class="product-icon">🎮</span>
         </div>
     </div>
 
-    <script src="voice.js"></script>
-    <script src="products-data.js"></script>
-    <script src="dynamic-products.js"></script>
-    <script src="main.js"></script>
+    <script src="js/voice.js"></script>
+    <script src="js/products-data.js"></script>
+    <script src="js/dynamic-products.js"></script>
+    <script src="js/main.js"></script>
     
     <script>
         var clickTag = "https://www.sanborns.com.mx/";
@@ -81,8 +81,7 @@
                 !e.target.closest('.product-card') &&
                 !e.target.closest('.action-button') &&
                 !e.target.closest('.product-cta') &&
-                !e.target.closest('.view-more-btn') &&
-                !e.target.closest('.email-wishlist-btn')) {
+                !e.target.closest('.view-more-btn')) {
                 handleBannerClick();
             }
         });

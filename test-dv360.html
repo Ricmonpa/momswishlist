@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test DV360 - Banner Sanborns Reyes Magos</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #003D7A;
+            margin-bottom: 20px;
+        }
+        .info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .banner-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: inline-block;
+            border: 2px solid #003D7A;
+        }
+        .banner-wrapper {
+            width: 300px;
+            height: 600px;
+            border: 1px solid #ddd;
+            position: relative;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test DV360 - Banner Sanborns Reyes Magos v1.0.0-lite</h1>
+        
+        <div class="info">
+            <h3>📋 Instrucciones:</h3>
+            <ul>
+                <li>Este simulador carga el banner en un iframe (simula SafeFrame de DV360)</li>
+                <li>El banner debe funcionar con <code>Enabler.js</code> cargado</li>
+                <li>Verifica que los clicks usen <code>Enabler.exit()</code></li>
+                <li>Prueba: voz, texto, búsqueda de productos, clicks</li>
+            </ul>
+        </div>
+
+        <div class="banner-container">
+            <div class="banner-wrapper">
+                <iframe id="bannerFrame" src="index.html" title="Banner Sanborns"></iframe>
+            </div>
+            <div id="status" class="status">⏳ Cargando banner...</div>
+        </div>
+
+        <div class="info" style="margin-top: 20px;">
+            <h3>🔍 Verificación:</h3>
+            <ul>
+                <li>✅ Banner carga correctamente</li>
+                <li>✅ Enabler.js está disponible (ver consola)</li>
+                <li>✅ Reconocimiento de voz funciona</li>
+                <li>✅ Búsqueda local muestra productos</li>
+                <li>✅ Clicks redirigen correctamente</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <h3>🌐 URLs Alternativas:</h3>
+            <ul>
+                <li><strong>Local:</strong> <code>http://localhost:8081/index.html</code></li>
+                <li><strong>Cloudflare Pages:</strong> <code>https://sanborns-reyes-magos.pages.dev</code></li>
+                <li><strong>Custom Domain:</strong> <code>https://bannersanborns.pottential.site</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const frame = document.getElementById('bannerFrame');
+        const status = document.getElementById('status');
+
+        frame.addEventListener('load', () => {
+            try {
+                const frameWindow = frame.contentWindow;
+                if (frameWindow && typeof frameWindow.Enabler !== 'undefined') {
+                    status.textContent = '✅ Banner cargado - Enabler disponible';
+                    status.className = 'status success';
+                } else {
+                    status.textContent = '⚠️ Banner cargado - Verificar Enabler en consola';
+                    status.className = 'status';
+                }
+            } catch (e) {
+                status.textContent = '⚠️ Banner cargado (verificar consola para errores)';
+                status.className = 'status';
+            }
+        });
+
+        frame.addEventListener('error', () => {
+            status.textContent = '❌ Error al cargar el banner';
+            status.className = 'status error';
+        });
+
+        // Log clicks para debugging
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'enabler-exit') {
+                console.log('🔗 Enabler.exit() llamado:', event.data.url);
+            }
+        });
+    </script>
+</body>
+</html>
+

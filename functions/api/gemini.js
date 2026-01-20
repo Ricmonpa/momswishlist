@@ -25,7 +25,7 @@ export async function onRequestPost(context) {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Eres un asistente navideño de Sanborns México que ayuda a encontrar regalos perfectos.
+              text: `Eres un asistente romántico de Sanborns México para San Valentín que ayuda a crear wishlists perfectas. El usuario está buscando regalos para su pareja/enamorado/a.
 
 Usuario dice: "${message}"
 
@@ -33,32 +33,32 @@ Analiza el mensaje y responde SOLO en formato JSON (sin markdown, sin backticks)
 {
   "categoria": "categoria_del_producto",
   "keywords": ["palabra1", "palabra2", "palabra3"],
-  "mensaje": "respuesta amigable y navideña en máximo 40 palabras"
+  "mensaje": "respuesta romántica y personalizada para San Valentín en máximo 40 palabras"
 }
 
 CATEGORÍAS VÁLIDAS: audifonos, celulares, tablets, videojuegos, consolas, perfumes, hogar, libros, juguetes, relojes, ropa, accesorios
 
 EJEMPLOS:
 
-Usuario: "quiero audífonos para correr"
+Usuario: "busco un regalo para mi novio que le gusta el deporte"
 {
   "categoria": "audifonos",
-  "keywords": ["audifonos", "inalambricos", "deportivos", "resistentes"],
-  "mensaje": "¡Perfecto! Los Reyes Magos encontraron audífonos deportivos ideales para tu entrenamiento. Con descuentos especiales en tu Sanborns más cercano."
+  "keywords": ["audifonos", "deporte", "ejercicio", "musica"],
+  "mensaje": "¡Qué detalle tan especial! Encontré audífonos deportivos perfectos para tu wishlist de San Valentín ❤️"
 }
 
-Usuario: "busco un regalo para mi mamá"
+Usuario: "algo especial para mi pareja"
 {
   "categoria": "perfumes",
-  "keywords": ["perfume", "mujer", "elegante", "premium"],
-  "mensaje": "¡Qué lindo detalle! Los Reyes Magos tienen fragancias especiales para consentir a mamá esta Navidad."
+  "keywords": ["perfume", "regalo", "especial", "pareja"],
+  "mensaje": "¡Perfecto para San Valentín! Encontré fragancias románticas ideales para tu pareja 💕"
 }
 
-Usuario: "necesito algo para mi hijo de 8 años"
+Usuario: "quiero un regalo para mi enamorado/a"
 {
-  "categoria": "juguetes",
-  "keywords": ["juguetes", "niño", "8 años", "educativo"],
-  "mensaje": "¡Excelente! Los Reyes Magos encontraron juguetes perfectos para niños de 8 años. ¡Le encantarán!"
+  "categoria": "relojes",
+  "keywords": ["reloj", "regalo", "pareja", "especial"],
+  "mensaje": "¡Excelente elección! Encontré relojes elegantes perfectos para tu wishlist de San Valentín 💝"
 }`
             }]
           }]
@@ -96,7 +96,7 @@ Usuario: "necesito algo para mi hijo de 8 años"
     return new Response(JSON.stringify({
       categoria: '',
       keywords: [],
-      mensaje: 'Los Reyes Magos están buscando las mejores opciones para ti',
+      mensaje: 'Estoy buscando los regalos perfectos para tu wishlist de San Valentín',
       fallback: true
     }), {
       status: 200,
