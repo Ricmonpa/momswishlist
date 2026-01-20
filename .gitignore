@@ -9,6 +9,7 @@ yarn-error.log*
 .env.local
 .env.*.local
 config.js
+# CRÍTICO: Nunca subir config.js con API keys
 
 # Build outputs
 dist/
@@ -39,3 +40,4 @@ logs/
 # Cloudflare
 .wrangler/
 .dev.vars
+config.js
