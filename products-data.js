@@ -939,15 +939,40 @@ class ProductMatcher {
       }
     }
     
+    // Si no hay matches directos, buscar en tags de productos
     if (matches.length === 0) {
       for (const category in this.database) {
         this.database[category].forEach(product => {
-          product.tags.forEach(tag => {
-            if (message.includes(tag) && !matches.find(m => m.id === product.id)) {
+          // Buscar en tags
+          if (product.tags && product.tags.some(tag => message.includes(tag.toLowerCase()))) {
+            if (!matches.find(m => m.id === product.id)) {
+              matches.push(product);
+            }
+          }
+          // Buscar en nombre y marca
+          const productText = `${product.nombre} ${product.marca || ''}`.toLowerCase();
+          if (productText.includes(message) || message.split(' ').some(word => productText.includes(word))) {
+            if (!matches.find(m => m.id === product.id)) {
+              matches.push(product);
+            }
+          }
+        });
+      }
+    }
+    
+    // Si aún no hay matches, buscar por palabras clave individuales
+    if (matches.length === 0) {
+      const words = message.split(/\s+/).filter(w => w.length > 3);
+      for (const word of words) {
+        for (const category in this.database) {
+          this.database[category].forEach(product => {
+            const productText = `${product.nombre} ${product.marca || ''} ${product.tags?.join(' ') || ''}`.toLowerCase();
+            if (productText.includes(word) && !matches.find(m => m.id === product.id)) {
               matches.push(product);
             }
           });
-        });
+        }
+        if (matches.length >= 3) break;
       }
     }
     

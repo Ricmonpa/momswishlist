@@ -855,8 +855,8 @@ async function enviarWishlist(emailPareja, nombreUsuario, mensajePersonal, envia
         }
         
     } catch (error) {
-        // Fallback: usar mailto si API falla
-        console.warn('API no disponible, usando fallback mailto:', error);
+        // Fallback: usar mailto si API falla (esto es normal y esperado)
+        console.log('📧 API no disponible, usando fallback mailto: (esto es normal)');
         return enviarWishlistFallback(emailPareja, nombreUsuario, mensajePersonal, products);
     } finally {
         // Quitar loading
