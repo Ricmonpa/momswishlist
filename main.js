@@ -48,11 +48,20 @@ function render() {
 function renderWelcome(container) {
     container.innerHTML = `
         <div class="welcome-screen">
-            <div class="heart-anim">💝</div>
-            <h1 class="screen-title">¿Qué te gustaría regalar este San Valentín?</h1>
-            <p style="text-align: center; margin-bottom: 20px; font-size: 14px;">Ayúdanos a encontrar el regalo perfecto</p>
-            <button class="gender-btn" onclick="selectGender('mujer')">👩 Para una Mujer</button>
-            <button class="gender-btn" onclick="selectGender('hombre')">👨 Para un Hombre</button>
+            <div class="ai-character">
+                <img src="san-valentin.svg" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='reyes-magos.svg'">
+            </div>
+            
+            <div class="chat-bubble">
+                <div class="chat-bubble-tail"></div>
+                <h1 class="chat-title">¿Qué te gustaría regalar este San Valentín?</h1>
+                <p class="chat-subtitle">Encuentra el regalo perfecto</p>
+            </div>
+
+            <div class="gender-selection">
+                <button class="gender-btn" onclick="selectGender('mujer')">👩 Para una Mujer</button>
+                <button class="gender-btn" onclick="selectGender('hombre')">👨 Para un Hombre</button>
+            </div>
         </div>
     `;
 }
