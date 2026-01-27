@@ -3,53 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanborns - Wishlist de San Valentín</title>
+    <title>Sanborns - Gift Finder San Valentín</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="banner-container">
+    <div class="banner-container" id="app">
         <!-- Header -->
         <header class="banner-header">
             <img src="Logo_sanborns_bco.png" alt="Sanborns" class="logo">
             <div class="wishlist-counter" id="wishlistCounter">
                 <span class="heart-icon">❤️</span>
-                <span class="counter-text"><span id="wishlistCount">0</span> productos en tu wishlist</span>
+                <span class="counter-text"><span id="wishlistCount">0</span> en tu wishlist</span>
             </div>
         </header>
 
-        <!-- Zona de personaje IA -->
-        <div class="ai-character">
-            <img src="san-valentin.svg" alt="Wishlist de San Valentín" class="reyes-magos-img" onerror="this.src='reyes-magos.svg'">
-        </div>
-
-        <!-- Bocadillo de diálogo -->
-        <div class="dialogue-bubble">
-            <p class="greeting-text">
-                ¡Hola! 👋<br>
-                <strong>¿Ya hiciste tu wishlist para San Valentín?</strong>
-            </p>
-            <p class="sub-text">
-                Dime qué deseas y te ayudo a crear tu wishlist perfecta
-            </p>
-        </div>
-
-        <!-- CTA Section - Input directo estilo WhatsApp -->
-        <div class="cta-section">
-            <div class="input-container">
-                <input 
-                    type="text" 
-                    placeholder="¿Qué quieres en tu wishlist?"
-                    class="message-input"
-                    id="messageInput"
-                />
-                <button class="action-button" id="actionButton" data-mode="mic">
-                    🎤
-                </button>
-            </div>
-            
-            <p class="benefits-text">
-                💝 Regalos especiales + pickup gratis
-            </p>
+        <!-- Contenido Dinámico -->
+        <div id="screen-container" class="fade-in">
+            <!-- Las pantallas se renderizan aquí -->
         </div>
 
         <!-- Mini productos decorativos -->
@@ -65,94 +35,23 @@
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-content">
             <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
-            
             <div class="modal-header">
-                <h2>💌 Envía tu Wishlist a tu pareja</h2>
+                <h2>💌 Envía tu Wishlist</h2>
             </div>
-            
             <form class="modal-form" id="wishlistForm">
                 <div class="form-group">
-                    <label for="emailPareja">Email de tu pareja *</label>
-                    <input 
-                        type="email" 
-                        id="emailPareja" 
-                        name="emailPareja" 
-                        required 
-                        placeholder="pareja@email.com"
-                        class="form-input"
-                    />
-                    <span class="error-message" id="emailError"></span>
+                    <label for="emailPareja">Email de destino *</label>
+                    <input type="email" id="emailPareja" name="emailPareja" required placeholder="email@ejemplo.com" class="form-input" />
                 </div>
-                
-                <div class="form-group">
-                    <label for="nombreUsuario">Tu nombre (opcional)</label>
-                    <input 
-                        type="text" 
-                        id="nombreUsuario" 
-                        name="nombreUsuario" 
-                        placeholder="Tu nombre"
-                        class="form-input"
-                    />
-                </div>
-                
-                <div class="form-group">
-                    <label for="mensajePersonal">Mensaje personal (opcional)</label>
-                    <textarea 
-                        id="mensajePersonal" 
-                        name="mensajePersonal" 
-                        placeholder="¡Sorpréndeme! 💕"
-                        rows="3"
-                        class="form-textarea"
-                    ></textarea>
-                </div>
-                
-                <div class="form-checkbox">
-                    <input 
-                        type="checkbox" 
-                        id="enviarCopia" 
-                        name="enviarCopia"
-                        class="checkbox-input"
-                    />
-                    <label for="enviarCopia">Enviarme una copia</label>
-                </div>
-                
-                <!-- Preview del email -->
-                <div class="email-preview">
-                    <p class="preview-title">Así se verá tu wishlist en el email ❤️</p>
-                    <div class="preview-content" id="emailPreview">
-                        <!-- Se genera dinámicamente -->
-                    </div>
-                </div>
-                
                 <div class="modal-actions">
-                    <button type="submit" class="btn-send" id="btnEnviar">
-                        <span class="btn-text">✉️ Enviar Wishlist</span>
-                        <span class="btn-loading" style="display: none;">Enviando...</span>
-                    </button>
+                    <button type="submit" class="btn-send" id="btnEnviar">✉️ Enviar Wishlist</button>
                     <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
-                    <button type="button" class="btn-copy-link" id="btnCopiarLink" style="display: none;">
-                        📋 Copiar link para compartir
-                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal de confirmación -->
-    <div class="email-modal success-modal" id="successModal" style="display: none;">
-        <div class="modal-overlay"></div>
-        <div class="modal-content success-content">
-            <div class="success-icon">✅</div>
-            <h2>¡Wishlist enviada!</h2>
-            <p class="success-message" id="successMessage"></p>
-            <button class="btn-send" id="btnCerrarSuccess">Cerrar</button>
-        </div>
-    </div>
-
-    <script src="voice.js"></script>
     <script src="products-data.js"></script>
-    <script src="gemini-api.js"></script>
-    <script src="dynamic-products.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

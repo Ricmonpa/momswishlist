@@ -1,0 +1,288 @@
+PROYECTO: Gift Finder San Valentín - Sanborns
+PLATAFORMA: Replit
+ARCHIVOS BASE: Ya importados desde GitHub
+
+CAMBIO CRÍTICO: Transformar Wishlist de San Valentín en Gift Finder Interactivo
+
+CONTEXTO:
+El cliente solicita que en lugar de mostrar productos directamente, el banner guíe al usuario a través de un flujo de preguntas para personalizar las recomendaciones de regalos.
+
+INSTRUCCIONES PARA REPLIT:
+1. Localiza el archivo principal (index.html o similar)
+2. Modifica el código existente para implementar el nuevo flujo
+3. Crea archivos adicionales si es necesario (products-data.js, styles.css)
+4. Asegúrate de que el preview funcione correctamente
+5. Mantén el código organizado y comentado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NUEVO FLUJO REQUERIDO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PANTALLA 1: BIENVENIDA + PREGUNTA INICIAL
+[Icono corazón animado]
+💝 ¿Qué te gustaría regalar
+este San Valentín?
+Ayúdanos a encontrar el regalo perfecto
+[Botón grande] 👩 Para una Mujer
+[Botón grande] 👨 Para un Hombre
+
+DISEÑO:
+- Fondo rosa San Valentín (degradado suave)
+- Botones grandes, claros, con iconos
+- Animación sutil de entrada (fade-in)
+- Sin productos visibles aún
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PANTALLA 2: SELECCIÓN DE CATEGORÍA
+
+CONTENIDO (ejemplo si eligió "Mujer"):
+[Botón back: ← ]
+Regalo para Mujer 👩
+¿Qué le gustaría?
+[Grid de categorías]
+💄 Maquillaje
+💅 Cuidado de la Piel
+👜 Bolsas de Mano
+💍 Joyería
+👗 Moda
+💐 Perfumería
+📚 Libros
+🎧 Tecnología
+☕ Hogar & Cocina
+
+CATEGORÍAS ESPECÍFICAS:
+
+PARA MUJER:
+1. 💄 Maquillaje
+2. 💅 Cuidado de la Piel
+3. 👜 Bolsas de Mano
+4. 💍 Joyería
+5. 💐 Perfumería
+6. 📚 Libros
+7. 🎧 Tecnología
+8. ☕ Hogar & Cocina
+
+PARA HOMBRE:
+1. 🕶️ Accesorios
+2. 👔 Moda
+3. 💼 Tecnología
+4. 🧴 Cuidado Personal
+5. ⌚ Relojes
+6. 🎮 Gaming & Gadgets
+7. 📚 Libros
+8. 🏃 Deportes
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PANTALLA 3: PRODUCTOS FILTRADOS
+[← Volver] Regalo para Mujer > Perfumería
+✨ Encontramos ofertas especiales para ti
+[Carrusel horizontal de productos]
+❤️ 2 productos en tu wishlist
+[Botón principal] 💌 ENVIAR WISHLIST POR EMAIL
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMPLEMENTACIÓN TÉCNICA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ESTRUCTURA DE ARCHIVOS EN REPLIT:
+
+/
+├── index.html (archivo principal)
+├── products-data.js (base de datos de productos)
+├── styles.css (estilos - opcional si usas inline)
+└── README.md (documentación)
+
+1. ESTRUCTURA DE DATOS (products-data.js):
+
+const productosDatabase = {
+  mujer: {
+    maquillaje: [
+      { 
+        id: 1, 
+        nombre: "Set Maquillaje Urban Decay", 
+        precio: "$2,499", 
+        precioOriginal: "$3,299",
+        img: "https://via.placeholder.com/200x200/FF69B4/FFFFFF?text=Maquillaje", 
+        descuento: "20% OFF", 
+        url: "https://www.sanborns.com.mx"
+      },
+      // Mínimo 3 productos por categoría
+    ],
+    perfumeria: [
+      {
+        id: 4,
+        nombre: "Carolina Herrera Good Girl",
+        precio: "$2,199",
+        precioOriginal: "$2,999",
+        img: "https://via.placeholder.com/200x200/FF69B4/FFFFFF?text=Perfume",
+        descuento: "30% OFF",
+        url: "https://www.sanborns.com.mx"
+      },
+      // ... más productos
+    ],
+    bolsas: [...],
+    joyeria: [...],
+    cuidado: [...],
+    libros: [...],
+    tecnologia: [...],
+    hogar: [...]
+  },
+  hombre: {
+    tecnologia: [...],
+    accesorios: [...],
+    moda: [...],
+    cuidado: [...],
+    relojes: [...],
+    gaming: [...],
+    libros: [...],
+    deportes: [...]
+  }
+};
+
+2. ESTADO DE LA APLICACIÓN:
+
+let estadoActual = {
+  pantalla: 'inicio', // 'inicio' | 'categorias' | 'productos'
+  generoSeleccionado: null, // 'mujer' | 'hombre'
+  categoriaSeleccionada: null,
+  wishlist: []
+};
+
+3. FUNCIONES PRINCIPALES:
+
+function navegarA(pantalla, datos = {}) {
+  // Fade out pantalla actual
+  // Actualizar estado
+  // Renderizar nueva pantalla
+  // Fade in
+}
+
+function seleccionarGenero(genero) {
+  estadoActual.generoSeleccionado = genero;
+  navegarA('categorias');
+}
+
+function seleccionarCategoria(categoria) {
+  estadoActual.categoriaSeleccionada = categoria;
+  navegarA('productos');
+}
+
+function agregarAWishlist(producto) {
+  if (!estadoActual.wishlist.find(p => p.id === producto.id)) {
+    estadoActual.wishlist.push(producto);
+    actualizarContador();
+    animacionCorazon();
+  }
+}
+
+function volverAtras() {
+  if (estadoActual.pantalla === 'productos') {
+    navegarA('categorias');
+  } else if (estadoActual.pantalla === 'categorias') {
+    navegarA('inicio');
+  }
+}
+
+4. TRANSICIONES Y ANIMACIONES:
+
+CSS:
+.fade-in {
+  animation: fadeIn 300ms ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 300ms ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+5. TRACKING (DV360/CM360):
+
+function trackEvent(eventName, eventData) {
+  // Integrar con tags existentes
+  if (window.google_tag_manager) {
+    dataLayer.push({
+      event: eventName,
+      ...eventData
+    });
+  }
+}
+
+// Eventos a trackear:
+// - genero_seleccionado: 'mujer' | 'hombre'
+// - categoria_seleccionada: nombre categoría
+// - producto_agregado: id producto
+// - wishlist_enviada: cantidad productos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTENIDO DE PRODUCTOS PLACEHOLDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Crear mínimo 3 productos POR CATEGORÍA con:
+- Nombres realistas de marcas populares
+- Precios entre $299 - $5,999
+- Descuentos variados (15%, 20%, 30%, 50% OFF)
+- Imágenes placeholder con colores rosa/fucsia
+- URLs a categorías de Sanborns
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPONSIVE DESIGN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mobile (< 768px):
+- Grid categorías: 2 columnas
+- Botones táctiles grandes (min 44px)
+- Texto legible (min 16px)
+
+Desktop (>= 768px):
+- Grid categorías: 3 columnas
+- Hover effects activos
+- Transiciones suaves
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MANTENER DE VERSIÓN ANTERIOR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Paleta rosa San Valentín
+✅ Tags DV360/CM360
+✅ Clicktags funcionales
+✅ Peso < 200KB
+✅ Sistema de envío por email
+✅ Contador de wishlist
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TESTING EN REPLIT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Después de implementar, probar:
+1. Navegación completa: Inicio → Género → Categoría → Productos
+2. Botón "Volver" funciona correctamente
+3. Agregar productos a wishlist
+4. Contador actualiza en tiempo real
+5. Envío por email funciona
+6. Responsive en mobile y desktop
+7. Animaciones fluidas
+8. No hay errores en consola
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ENTREGABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. index.html actualizado
+2. products-data.js con productos placeholder
+3. Código limpio y comentado
+4. README.md con instrucciones
+5. Link de Replit funcionando para preview
+
+PRIORIDAD: Experiencia fluida tipo quiz, cada paso rápido (<2s), navegación intuitiva, diseño romántico San Valentín.
+
+IMPORTANTE PARA REPLIT:
+- Usa el preview integrado para ver cambios en tiempo real
+- Guarda frecuentemente (Cmd+S)
+- Usa console.log() para debugging
+- El Agent puede crear archivos nuevos automáticamente
