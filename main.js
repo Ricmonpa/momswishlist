@@ -343,13 +343,20 @@ async function handleSendMessage(message) {
         aiMessage = localResult.message;
     }
     
-    // GARANTÍA: Si aún no hay productos, usar búsqueda directa del mensaje
+    // GARANTÍA: Si aún no hay productos, usar búsqueda directa mejorada
     if (products.length === 0) {
-        const directSearch = matcher.findProducts(trimmed);
-        if (directSearch.length > 0) {
-            products = directSearch;
-        } else if (bannerState.dynamicMatcher) {
-            // Último recurso: productos dinámicos
+        // Búsqueda por palabras individuales del mensaje
+        const words = trimmed.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+        for (const word of words) {
+            const directSearch = matcher.findProducts(word);
+            if (directSearch.length > 0) {
+                products = directSearch;
+                break;
+            }
+        }
+        
+        // Si aún no hay, usar sistema dinámico
+        if (products.length === 0 && bannerState.dynamicMatcher) {
             const categoryMatch = bannerState.dynamicMatcher.findCategory(trimmed);
             if (categoryMatch) {
                 products = bannerState.dynamicMatcher.generateVirtualProducts(categoryMatch, trimmed);
@@ -360,12 +367,25 @@ async function handleSendMessage(message) {
     // Eliminar duplicados y limitar a 3
     products = [...new Map(products.map(item => [item.id, item])).values()].slice(0, 3);
     
-    // GARANTÍA FINAL: Si aún está vacío, mostrar productos genéricos de la primera categoría disponible
+    // GARANTÍA FINAL: Si aún está vacío, mostrar productos relevantes (no completamente aleatorios)
     if (products.length === 0) {
-        const firstCategory = Object.keys(productsDatabase)[0];
-        if (firstCategory && productsDatabase[firstCategory].length > 0) {
-            products = productsDatabase[firstCategory].slice(0, 3);
-            aiMessage = 'Te mostramos algunas opciones perfectas para ti:';
+        // Intentar categorías relacionadas con tecnología/computación
+        const techCategories = ['tablet', 'celular', 'audifonos', 'pantallas'];
+        for (const cat of techCategories) {
+            if (productsDatabase[cat] && productsDatabase[cat].length > 0) {
+                products = productsDatabase[cat].slice(0, 3);
+                aiMessage = 'Te mostramos opciones de tecnología perfectas para ti:';
+                break;
+            }
+        }
+        
+        // Si aún no hay, usar primera categoría disponible
+        if (products.length === 0) {
+            const firstCategory = Object.keys(productsDatabase)[0];
+            if (firstCategory && productsDatabase[firstCategory].length > 0) {
+                products = productsDatabase[firstCategory].slice(0, 3);
+                aiMessage = 'Te mostramos algunas opciones perfectas para ti:';
+            }
         }
     }
     
