@@ -98,7 +98,11 @@ function renderProducts(container) {
                 const isAdded = appState.wishlist.some(item => item.id === p.id);
                 return `
                     <div class="product-card">
-                        <img src="${p.img}" class="product-img" alt="${p.nombre}">
+                        <img src="${p.img}" 
+                             class="product-img" 
+                             alt="${p.nombre}"
+                             loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=400&h=400&fit=crop&q=80'">
                         <div class="product-info">
                             <div class="product-name">${p.nombre}</div>
                             <div class="product-price">${p.precio}</div>
