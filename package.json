@@ -4,7 +4,7 @@
   "description": "Banner interactivo HTML5 300x600px para DV360/CM360 - Wishlist de San Valentín con IA y envío por email",
   "main": "main.js",
   "scripts": {
-    "dev": "python -m http.server 8000 || npx serve .",
+    "dev": "npx serve -l 5000",
     "deploy": "wrangler pages deploy . --project-name=sanborns-wishlist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +21,8 @@
   "homepage": "https://github.com/Ricmonpa/carta-reyes-magos#readme",
   "devDependencies": {
     "wrangler": "^4.53.0"
+  },
+  "dependencies": {
+    "serve": "^14.2.5"
   }
 }
