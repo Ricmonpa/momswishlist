@@ -71,7 +71,10 @@ function renderCategories(container) {
     const title = appState.gender === 'mujer' ? 'Regalo para Mujer 👩' : 'Regalo para Hombre 👨';
     
     container.innerHTML = `
-        <button class="back-btn" onclick="goBack()">←</button>
+        <button class="back-btn" onclick="goBack()">
+            <span style="font-size: 18px; font-weight: bold;">←</span>
+            <span>Volver</span>
+        </button>
         <h2 class="screen-title">${title}</h2>
         <p style="text-align: center; margin-bottom: 15px; font-size: 14px;">¿Qué le gustaría?</p>
         <div class="category-grid">
@@ -90,7 +93,10 @@ function renderProducts(container) {
     const catName = CATEGORIES[appState.gender].find(c => c.id === appState.category)?.name;
 
     container.innerHTML = `
-        <button class="back-btn" onclick="goBack()">← Volver</button>
+        <button class="back-btn" onclick="goBack()">
+            <span style="font-size: 18px; font-weight: bold;">←</span>
+            <span>Volver</span>
+        </button>
         <h2 class="screen-title" style="font-size: 16px;">${catName}</h2>
         <p style="text-align: center; margin-bottom: 10px; font-size: 12px;">✨ Encontramos ofertas para ti</p>
         <div class="products-scroll">

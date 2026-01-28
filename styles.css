@@ -214,13 +214,32 @@ body {
 }
 
 .back-btn {
-    background: none;
-    border: none;
-    color: var(--pink-deep);
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--pink-fuchsia);
+    color: var(--pink-fuchsia);
     cursor: pointer;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-bottom: 15px;
     text-align: left;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 20, 147, 0.15);
+}
+
+.back-btn:hover {
+    background: var(--pink-fuchsia);
+    color: white;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3);
+}
+
+.back-btn:active {
+    transform: translateX(-1px) scale(0.98);
 }
 
 .btn-main {
