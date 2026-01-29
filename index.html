@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CACHE BUSTING - Prevenir caché agresivo del navegador -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
     <title>Sanborns - Gift Finder San Valentín</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20250129-1500">
 </head>
 <body>
     <div class="banner-container" id="app">
@@ -51,7 +57,21 @@
         </div>
     </div>
 
-    <script src="products-data.js"></script>
-    <script src="main.js"></script>
+    <script src="products-data.js?v=20250129-1500"></script>
+    <script src="main.js?v=20250129-1500"></script>
+    
+    <!-- Cache Busting Script - Limpiar storage al cargar -->
+    <script>
+        (function() {
+            // Limpiar storage del navegador para forzar actualización
+            if (window.localStorage) {
+                localStorage.clear();
+            }
+            if (window.sessionStorage) {
+                sessionStorage.clear();
+            }
+            console.log('✅ Cache limpiado - Versión: 20250129-1500');
+        })();
+    </script>
 </body>
 </html>

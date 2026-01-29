@@ -13,20 +13,32 @@
   Access-Control-Allow-Methods: GET, POST, OPTIONS
   Access-Control-Allow-Headers: Content-Type
 
-# Cache para assets estáticos
+# NO CACHE para HTML - SIEMPRE actualizar
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# NO CACHE para index.html específicamente
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# Cache corto para JS y CSS (1 hora) - permite actualizaciones rápidas
 /*.js
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /*.css
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
 
+# Cache largo para imágenes (no cambian frecuentemente)
 /*.png
   Cache-Control: public, max-age=31536000, immutable
 
 /*.svg
   Cache-Control: public, max-age=31536000, immutable
 
-# No cache para HTML
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
 
