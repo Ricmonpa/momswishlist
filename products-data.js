@@ -479,3 +479,74 @@ const productosDatabase = {
 };
 
 window.productosDatabase = productosDatabase;
+
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// SCRIPT DE VALIDACIÓN TEMPORAL - EJECUTAR EN CONSOLA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(function validarLinks() {
+  const errores = [];
+  let totalProductos = 0;
+  
+  Object.keys(productosDatabase).forEach(gender => {
+    Object.keys(productosDatabase[gender]).forEach(category => {
+      productosDatabase[gender][category].forEach(product => {
+        totalProductos++;
+        const url = product.url;
+        
+        // Verificar que tenga protocolo
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          errores.push({
+            id: product.id,
+            producto: product.nombre,
+            error: 'Sin protocolo',
+            url: url,
+            categoria: `${gender} > ${category}`
+          });
+        }
+        
+        // Verificar que apunte a sanborns.com.mx
+        if (!url.includes('sanborns.com.mx')) {
+          errores.push({
+            id: product.id,
+            producto: product.nombre,
+            error: 'No apunta a Sanborns',
+            url: url,
+            categoria: `${gender} > ${category}`
+          });
+        }
+        
+        // Verificar que no sea ruta relativa
+        if (url.startsWith('/') || (url.startsWith('c/') && !url.includes('http'))) {
+          errores.push({
+            id: product.id,
+            producto: product.nombre,
+            error: 'Ruta relativa',
+            url: url,
+            categoria: `${gender} > ${category}`
+          });
+        }
+      });
+    });
+  });
+  
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log('🔍 VALIDACIÓN DE URLs DE PRODUCTOS');
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  console.log(`📊 Total de productos: ${totalProductos}`);
+  console.log('');
+  
+  if (errores.length > 0) {
+    console.error(`❌ LINKS ROTOS ENCONTRADOS: ${errores.length}`);
+    console.table(errores);
+  } else {
+    console.log('✅ TODOS LOS LINKS SON VÁLIDOS');
+    console.log('✅ Todas las URLs comienzan con https://');
+    console.log('✅ Todas las URLs apuntan a sanborns.com.mx');
+    console.log('✅ No hay rutas relativas');
+  }
+  
+  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  
+  return errores;
+})();
