@@ -184,14 +184,20 @@ document.getElementById('wishlistForm').onsubmit = (e) => {
     document.getElementById('emailModal').classList.remove('active');
 };
 
-// Función para abrir página del producto
+// Función para abrir página del producto con tracking UTM
 window.openProductPage = (url) => {
-    if (url && url !== 'https://www.sanborns.com.mx') {
-        window.open(url, '_blank');
-    } else {
-        // Si no hay URL específica, abrir página principal de Sanborns
-        window.open('https://www.sanborns.com.mx', '_blank');
+    if (!url) {
+        window.open('https://www.sanborns.com.mx', '_blank', 'noopener,noreferrer');
+        return;
     }
+    
+    // Agregar parámetros UTM para tracking
+    const urlObj = new URL(url);
+    urlObj.searchParams.set('utm_source', 'gift_finder');
+    urlObj.searchParams.set('utm_medium', 'banner');
+    urlObj.searchParams.set('utm_campaign', 'san_valentin_2025');
+    
+    window.open(urlObj.toString(), '_blank', 'noopener,noreferrer');
 };
 
 // Start
