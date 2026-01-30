@@ -123,11 +123,6 @@ function renderProducts(container) {
         <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
     `;
 }
-            }).join('')}
-        </div>
-        <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
-    `;
-}
 
 window.selectGender = (gender) => {
     appState.gender = gender;
