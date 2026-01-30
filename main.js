@@ -103,7 +103,7 @@ function renderProducts(container) {
             ${products.map(p => {
                 const isAdded = appState.wishlist.some(item => item.id === p.id);
                 return `
-                    <div class="product-card">
+                    <div class="product-card" onclick="openProductPage('${p.url}')" style="cursor: pointer;">
                         <img src="${p.img}" 
                              class="product-img" 
                              alt="${p.nombre}"
@@ -112,12 +112,17 @@ function renderProducts(container) {
                         <div class="product-info">
                             <div class="product-name">${p.nombre}</div>
                             <div class="product-price">${p.precio}</div>
-                            <button class="add-btn" onclick='toggleWishlist(${JSON.stringify(p)})'>
+                            <button class="add-btn" onclick='event.stopPropagation(); toggleWishlist(${JSON.stringify(p)})'>
                                 ${isAdded ? '❤️ Quitar' : '🤍 Agregar'}
                             </button>
                         </div>
                     </div>
                 `;
+            }).join('')}
+        </div>
+        <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
+    `;
+}
             }).join('')}
         </div>
         <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
@@ -182,6 +187,16 @@ document.getElementById('wishlistForm').onsubmit = (e) => {
     e.preventDefault();
     alert('¡Wishlist enviada con éxito! ❤️');
     document.getElementById('emailModal').classList.remove('active');
+};
+
+// Función para abrir página del producto
+window.openProductPage = (url) => {
+    if (url && url !== 'https://www.sanborns.com.mx') {
+        window.open(url, '_blank');
+    } else {
+        // Si no hay URL específica, abrir página principal de Sanborns
+        window.open('https://www.sanborns.com.mx', '_blank');
+    }
 };
 
 // Start
