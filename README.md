@@ -109,7 +109,21 @@ Edita las variables en `styles.css`:
 }
 ```
 
-### Tracking DV360/CM360
+### Métricas y reporting (performance de la pieza)
+
+La pieza envía eventos para reportar **género** (hombre/mujer), **categoría** elegida, **productos clicados**, **wishlist** y **envío**. Para ver esos reportes hace falta conectar **GTM** (dataLayer) o **Cloudflare Zaraz** con GA4 o DV360/CM360. Detalle completo: **[METRICS-REPORTING.md](METRICS-REPORTING.md)**.
+
+### Tracking DV360/CM360 (UTM)
+
+Todas las URLs de productos llevan parámetros UTM para atribución:
+
+- `utm_source=dv360`
+- `utm_medium=display`
+- `utm_campaign=sanborns_san_valentin_2025`
+- `utm_content=producto_[ID]`
+- `utm_term=gift_finder`
+
+Eventos a trackear: género seleccionado, categoría, click en producto (ID), producto agregado a wishlist, wishlist enviada.
 
 El banner incluye contadores Enabler:
 - `Banner Visible`
@@ -120,6 +134,30 @@ El banner incluye contadores Enabler:
 - `Email Sent`
 - `Email Modal Opened`
 - `Product Added to Wishlist`
+
+### Mapeo de IDs oficiales Sanborns (productos a impulsar)
+
+IDs provistos por el cliente en [Google Sheet](https://docs.google.com/spreadsheets/d/1HiW5YDiqZnQRqR5Jm_En46Eiuzhe5pTA4k4_1HkAhdU/edit). Estructura de URL: `https://www.sanborns.com.mx/producto/[ID]`.
+
+| Categoría Gift Finder | IDs Sanborns (producto) |
+|----------------------|------------------------|
+| Mujer > Maquillaje (Cosméticos 49) | 614484, 614483, 574428, 553342, 615405 |
+| Mujer > Cuidado (Derma 41) | 515019, 59701, 437851, 274804, 11370 |
+| Mujer > Perfumería (5) | 608266, 813851, 303224, 813852, 310467 |
+| Hombre > Relojes (6) | 379802, 604930, 540572, 542018, 557865 |
+| Hombre > Cuidado (Estilismo 57) | 117488, 469399, 492378, 617456, 408718 |
+
+Categorías sin IDs específicos usan URLs de categoría: `/c/bolsas/`, `/c/joyeria/`, `/c/libros/`, `/c/tecnologia/`, `/c/hogar/`, `/c/accesorios-hombre/`, `/c/ropa-hombre/`, `/c/videojuegos/`, `/c/deportes/`.
+
+### Validación de URLs
+
+En consola del navegador (al cargar la página se ejecuta automáticamente):
+
+```javascript
+validarURLsProductos(); // Devuelve { errores, warnings }
+```
+
+Comprueba: HTTPS, dominio sanborns.com.mx, formato `/producto/ID` para productos, ninguna ruta relativa.
 
 ## 📱 Compatibilidad
 

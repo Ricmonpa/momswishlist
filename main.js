@@ -1,3 +1,17 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TRACKING - Performance de la pieza (GTM + Cloudflare Zaraz)
+// Reporte: género, categoría, producto clic, wishlist, envío
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function trackEvent(eventName, eventData) {
+    var payload = Object.assign({ event: eventName }, eventData || {});
+    if (typeof window.dataLayer !== 'undefined') {
+        window.dataLayer.push(payload);
+    }
+    if (typeof window.zaraz !== 'undefined' && typeof window.zaraz.track === 'function') {
+        window.zaraz.track(eventName, eventData || {});
+    }
+}
+
 // Gift Finder Logic
 let appState = {
     screen: 'inicio', // 'inicio' | 'categorias' | 'productos'
@@ -102,37 +116,65 @@ function renderProducts(container) {
         <div class="products-scroll">
             ${products.map(p => {
                 const isAdded = appState.wishlist.some(item => item.id === p.id);
+                const productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : p.url;
                 return `
-                    <div class="product-card" onclick="openProductPage('${p.url}')" style="cursor: pointer;">
+                    <a href="${productUrl.replace(/"/g, '&quot;')}" target="_blank" rel="noopener noreferrer" class="product-card" style="text-decoration: none; color: inherit; cursor: pointer; display: block;" data-product-id="${p.id}" data-product-name="${(p.nombre || '').replace(/"/g, '&quot;')}">
                         <img src="${p.img}" 
                              class="product-img" 
-                             alt="${p.nombre}"
+                             alt="${(p.nombre || '').replace(/"/g, '&quot;')}"
                              loading="lazy"
                              onerror="this.src='https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=400&h=400&fit=crop&q=80'">
                         <div class="product-info">
                             <div class="product-name">${p.nombre}</div>
                             <div class="product-price">${p.precio}</div>
-                            <button class="add-btn" onclick='event.stopPropagation(); toggleWishlist(${JSON.stringify(p)})'>
+                            <button type="button" class="add-btn" data-product-id="${p.id}" data-wishlist-btn>
                                 ${isAdded ? '❤️ Quitar' : '🤍 Agregar'}
                             </button>
                         </div>
-                    </div>
+                    </a>
                 `;
             }).join('')}
         </div>
         <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
     `;
+    // Delegated: botón wishlist (no seguir link)
+    container.querySelectorAll('[data-wishlist-btn]').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const id = parseInt(this.getAttribute('data-product-id'), 10);
+            const product = products.find(pr => pr.id === id);
+            if (product) toggleWishlist(product);
+        });
+    });
+    // Delegated: track clic en producto (antes de que navegue el <a>)
+    container.querySelectorAll('.product-card').forEach(link => {
+        link.addEventListener('click', function () {
+            var id = this.getAttribute('data-product-id');
+            var name = this.getAttribute('data-product-name');
+            if (id != null) {
+                trackEvent('gift_finder_producto_click', {
+                    product_id: id,
+                    product_name: name || '',
+                    gender: appState.gender,
+                    category: appState.category
+                });
+            }
+        });
+    });
 }
 
 window.selectGender = (gender) => {
     appState.gender = gender;
     appState.screen = 'categorias';
+    trackEvent('gift_finder_genero_seleccionado', { gender: gender });
     render();
 };
 
 window.selectCategory = (category) => {
     appState.category = category;
     appState.screen = 'productos';
+    trackEvent('gift_finder_categoria_seleccionada', { gender: appState.gender, category: category });
     render();
 };
 
@@ -149,11 +191,18 @@ window.toggleWishlist = (product) => {
     const index = appState.wishlist.findIndex(item => item.id === product.id);
     if (index === -1) {
         appState.wishlist.push(product);
+        trackEvent('gift_finder_producto_agregado_wishlist', {
+            product_id: String(product.id),
+            product_name: product.nombre || '',
+            gender: appState.gender,
+            category: appState.category,
+            wishlist_count: appState.wishlist.length
+        });
     } else {
         appState.wishlist.splice(index, 1);
     }
     updateWishlistCounter();
-    render(); // Re-render to update button state
+    render();
 };
 
 function updateWishlistCounter() {
@@ -167,6 +216,7 @@ window.openEmailModal = () => {
         alert('Agrega al menos un producto a tu wishlist primero ❤️');
         return;
     }
+    trackEvent('gift_finder_modal_wishlist_abierto', { wishlist_count: appState.wishlist.length });
     document.getElementById('emailModal').classList.add('active');
 };
 
@@ -180,6 +230,11 @@ document.getElementById('btnCancelar').onclick = () => {
 
 document.getElementById('wishlistForm').onsubmit = (e) => {
     e.preventDefault();
+    trackEvent('gift_finder_wishlist_enviada', {
+        wishlist_count: appState.wishlist.length,
+        gender: appState.gender,
+        category: appState.category
+    });
     alert('¡Wishlist enviada con éxito! ❤️');
     document.getElementById('emailModal').classList.remove('active');
 };

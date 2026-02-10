@@ -10,9 +10,11 @@
     <meta http-equiv="Expires" content="0">
     
     <title>Sanborns - Gift Finder San Valentín</title>
-    <link rel="stylesheet" href="styles.css?v=20250129-1615">
+    <link rel="stylesheet" href="styles.css?v=20250129-1730">
 </head>
 <body>
+    <!-- dataLayer para GTM: eventos gift_finder_* (género, categoría, producto, wishlist) -->
+    <script>window.dataLayer = window.dataLayer || [];</script>
     <div class="banner-container" id="app">
         <!-- Header -->
         <header class="banner-header">
@@ -57,8 +59,8 @@
         </div>
     </div>
 
-    <script src="products-data.js?v=20250129-1615"></script>
-    <script src="main.js?v=20250129-1615"></script>
+    <script src="products-data.js?v=20250129-1730"></script>
+    <script src="main.js?v=20250129-1730"></script>
     
     <!-- Cache Busting Script - Limpiar storage al cargar -->
     <script>
@@ -70,7 +72,7 @@
             if (window.sessionStorage) {
                 sessionStorage.clear();
             }
-            console.log('✅ Cache limpiado - Versión: 20250129-1615');
+            console.log('✅ Cache limpiado - Versión: 20250129-1730');
         })();
     </script>
 </body>
