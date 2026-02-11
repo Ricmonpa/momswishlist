@@ -162,6 +162,7 @@ function renderProducts(container) {
                 (p.gender === gender || p.gender === 'ambos');
         });
     }
+    // Fallback SOLO cuando el catálogo no devolvió productos (nunca mezclar catalog + productosDatabase).
     if (!Array.isArray(products) || products.length === 0) {
         products = getProductsFallback(gender, category);
     }

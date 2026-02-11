@@ -17,8 +17,8 @@ const MODA_CSV = path.join(ROOT, 'excel', 'Productos a impulsar Sanborns - Moda.
 /** Salida en raíz para que el build de Cloudflare sobrescriba el archivo sin rutas relativas. */
 const OUTPUT_JS = path.join(ROOT, 'products-catalog.js');
 
-/** URL base del banner en Cloudflare (polite load DV360). */
-const IMAGE_BASE_URL = 'https://wishlist.potential.site';
+/** Ruta relativa a imágenes (evita CSP; mismo origen = 'self'). */
+const IMAGE_BASE_URL = './images';
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DCO-lite: normalización de category + gender para UI
@@ -76,13 +76,13 @@ function getValidImageExtension(id) {
 }
 
 /**
- * Construye el imagePath como URL absoluta en Cloudflare para polite load.
+ * Construye el imagePath como ruta relativa (evita bloqueo CSP).
  * @param {string} id - ID del producto
- * @returns {string} - Ej: "https://wishlist.potential.site/images/producto-613747.jpeg"
+ * @returns {string} - Ej: "./images/producto-613747.jpeg"
  */
 function buildImagePath(id) {
   const ext = getValidImageExtension(id);
-  return `${IMAGE_BASE_URL}/images/producto-${id}${ext}`;
+  return `${IMAGE_BASE_URL}/producto-${id}${ext}`;
 }
 
 // Extrae ID numérico de URL Sanborns: .../producto/613747/... o .../producto/613747
