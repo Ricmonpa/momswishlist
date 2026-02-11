@@ -43,14 +43,14 @@ let appState = {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const CATEGORIES = {
     mujer: [
-        { id: 'maquillaje', name: 'Maquillaje', icon: '💄', matchCategories: ['Maquillaje'] },
-        { id: 'skincare', name: 'Skincare', icon: '💅', matchCategories: ['Skincare'] },
-        { id: 'perfumeria', name: 'Perfumería', icon: '💐', matchCategories: ['Perfumería'] },
-        { id: 'estilismo', name: 'Estilismo', icon: '✂️', matchCategories: ['Estilismo'] },
         { id: 'celulares', name: 'Celulares', icon: '📱', matchCategories: ['Celulares'] },
         { id: 'gadgets', name: 'Gadgets', icon: '⌚', matchCategories: ['Gadgets', 'Relojes'] },
         { id: 'fotografia', name: 'Fotografía', icon: '📷', matchCategories: ['Fotografía'] },
-        { id: 'regalos', name: 'Regalos', icon: '🎁', matchCategories: ['Regalos'] }
+        { id: 'regalos', name: 'Regalos', icon: '🎁', matchCategories: ['Regalos'] },
+        { id: 'maquillaje', name: 'Maquillaje', icon: '💄', matchCategories: ['Maquillaje'] },
+        { id: 'skincare', name: 'Skincare', icon: '💅', matchCategories: ['Skincare'] },
+        { id: 'perfumeria', name: 'Perfumería', icon: '💐', matchCategories: ['Perfumería'] },
+        { id: 'estilismo', name: 'Estilismo', icon: '✂️', matchCategories: ['Estilismo'] }
     ],
     hombre: [
         { id: 'celulares', name: 'Celulares', icon: '📱', matchCategories: ['Celulares'] },
@@ -86,7 +86,7 @@ var LEGACY_FALLBACK_MAP = {
         gadgets: 'tecnologia',
         audio: 'tecnologia',
         fotografia: 'tecnologia',
-        perfumeria: 'tecnologia',
+        perfumeria: 'perfumeria',
         regalos: 'accesorios'
     }
 };

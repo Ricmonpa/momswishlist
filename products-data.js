@@ -101,6 +101,13 @@ const productosDatabase = {
       { id: 24, nombre: "Kit Barbería", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/617456" },
       { id: 25, nombre: "Set Cuidado Facial Hombre", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "31% OFF", url: "https://www.sanborns.com.mx/producto/408718" }
     ],
+    perfumeria: [
+      { id: 83, nombre: "Rabanne Fame Couture Edition EDP 80ml", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
+      { id: 84, nombre: "Versace Dylan Blush Pink EDP 100ml", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
+      { id: 85, nombre: "Moschino Toy 2 Bubblegum EDT 100ml", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
+      { id: 86, nombre: "Montblanc Signature Elixir EDP 90ml", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
+      { id: 87, nombre: "Carolina Herrera Good Girl Blush EDP 80ml", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
+    ],
     relojes: [
       { id: 16, nombre: "Reloj Elegante", precio: "$3,299", precioOriginal: "$4,499", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/379802" },
       { id: 17, nombre: "Reloj Deportivo", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/604930" },
