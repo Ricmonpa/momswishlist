@@ -309,15 +309,69 @@ document.getElementById('btnCancelar').onclick = () => {
     document.getElementById('emailModal').classList.remove('active');
 };
 
-document.getElementById('wishlistForm').onsubmit = (e) => {
+document.getElementById('wishlistForm').onsubmit = async function (e) {
     e.preventDefault();
-    trackEvent('gift_finder_wishlist_enviada', {
-        wishlist_count: appState.wishlist.length,
-        gender: appState.gender,
-        category: appState.category
+    var toEmail = (document.getElementById('emailPareja') && document.getElementById('emailPareja').value) || '';
+    toEmail = toEmail.trim();
+    if (!toEmail) {
+        alert('Escribe el correo de destino.');
+        return;
+    }
+    var btn = document.getElementById('btnEnviar');
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = '⏳ Enviando...';
+    }
+    var items = appState.wishlist.map(function (p) {
+        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || 'https://www.sanborns.com.mx/')) || 'https://www.sanborns.com.mx/';
+        var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
+        var price = (p.precio || 'Ver en Sanborns') || '';
+        return { name: name, url: url, price: price };
     });
-    alert('¡Wishlist enviada con éxito! ❤️');
-    document.getElementById('emailModal').classList.remove('active');
+    var sent = false;
+    try {
+        var res = await fetch('/api/send-wishlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ to: toEmail, items: items })
+        });
+        var data = await res.json().catch(function () { return {}; });
+        if (res.ok && data.ok) {
+            sent = true;
+            trackEvent('gift_finder_wishlist_enviada', {
+                wishlist_count: appState.wishlist.length,
+                gender: appState.gender,
+                category: appState.category,
+                method: 'api'
+            });
+            alert('¡Enviado! Revisa la bandeja de entrada (y carpeta de spam) en ' + toEmail + ' ❤️');
+            document.getElementById('emailModal').classList.remove('active');
+        }
+    } catch (err) {}
+    if (!sent) {
+        trackEvent('gift_finder_wishlist_enviada', {
+            wishlist_count: appState.wishlist.length,
+            gender: appState.gender,
+            category: appState.category,
+            method: 'mailto'
+        });
+        var subject = encodeURIComponent('💝 Mi wishlist de San Valentín – Sanborns');
+        var bodyLines = ['Hola ❤️', '', 'Esta es mi wishlist de San Valentín:', ''];
+        items.forEach(function (it, i) {
+            bodyLines.push((i + 1) + '. ' + it.name + (it.price ? ' – ' + it.price : ''));
+            bodyLines.push('   ' + it.url);
+            bodyLines.push('');
+        });
+        bodyLines.push('— Sanborns Gift Finder');
+        var mailto = 'mailto:' + encodeURIComponent(toEmail) + '?subject=' + subject + '&body=' + encodeURIComponent(bodyLines.join('\n'));
+        window.location.href = mailto;
+        alert('Se abrirá tu cliente de correo con la wishlist. Envía el mensaje para que llegue a ' + toEmail + '.');
+        document.getElementById('emailModal').classList.remove('active');
+    }
+    if (btn) {
+        btn.disabled = false;
+        btn.textContent = '✉️ Enviar Wishlist';
+    }
 };
 
 // Función para abrir página del producto con tracking UTM
