@@ -1,0 +1,25 @@
+# Genera product-images.js con imágenes reales de Sanborns (og:image).
+# Se ejecuta: manualmente (Actions -> Run workflow) o cada semana.
+name: Fetch product images
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'  # Lunes 8:00 UTC
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Fetch images from Sanborns
+        run: npm run images
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add product-images.js
+          git diff --staged --quiet || (git commit -m "chore: actualizar imagenes reales productos Sanborns" && git push)
