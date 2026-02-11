@@ -7,7 +7,8 @@
     "dev": "npx serve -l 5000",
     "deploy": "wrangler pages deploy . --project-name=sanborns-wishlist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "images": "node scripts/fetch-product-images.js"
+    "images": "node scripts/fetch-product-images.js",
+    "parse-products": "node scripts/parseProducts.js"
   },
   "repository": {
     "type": "git",
