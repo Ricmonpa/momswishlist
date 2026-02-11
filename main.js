@@ -48,6 +48,47 @@ const CATEGORIES = {
     ]
 };
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Fallback bulletproof: cuando PRODUCTS_CATALOG está vacío, mapear DCO → legacy (productosDatabase)
+// Garantiza que ningún botón devuelva undefined.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+var LEGACY_FALLBACK_MAP = {
+    mujer: {
+        maquillaje: 'maquillaje',
+        skincare: 'cuidado',
+        perfumeria: 'perfumeria',
+        estilismo: 'cuidado',
+        celulares: 'tecnologia',
+        gadgets: 'tecnologia',
+        fotografia: 'tecnologia',
+        regalos: 'hogar'
+    },
+    hombre: {
+        celulares: 'tecnologia',
+        tablets: 'tecnologia',
+        relojes: 'relojes',
+        gadgets: 'tecnologia',
+        audio: 'tecnologia',
+        fotografia: 'tecnologia',
+        perfumeria: 'tecnologia',
+        regalos: 'accesorios'
+    }
+};
+
+function getLegacyCategoryKey(gender, dcoCategoryId) {
+    var map = LEGACY_FALLBACK_MAP && LEGACY_FALLBACK_MAP[gender];
+    return (map && map[dcoCategoryId]) || dcoCategoryId;
+}
+
+function getProductsFallback(gender, dcoCategoryId) {
+    if (!window.productosDatabase || !window.productosDatabase[gender]) return [];
+    var legacyKey = getLegacyCategoryKey(gender, dcoCategoryId);
+    var list = window.productosDatabase[gender][legacyKey];
+    if (Array.isArray(list) && list.length > 0) return list;
+    var firstKey = Object.keys(window.productosDatabase[gender])[0];
+    return window.productosDatabase[gender][firstKey] || [];
+}
+
 function render() {
     const container = document.getElementById('screen-container');
     container.innerHTML = '';
@@ -113,15 +154,16 @@ function renderProducts(container) {
     const catConfig = CATEGORIES[gender] && CATEGORIES[gender].find(function (c) { return c.id === category; });
     const matchCategories = (catConfig && catConfig.matchCategories) ? catConfig.matchCategories : [];
 
-    let products = [];
-    const catalog = window.PRODUCTS_CATALOG;
+    var products = [];
+    var catalog = window.PRODUCTS_CATALOG;
     if (Array.isArray(catalog) && catalog.length > 0 && matchCategories.length > 0) {
         products = catalog.filter(function (p) {
             return matchCategories.indexOf(p.category) !== -1 &&
                 (p.gender === gender || p.gender === 'ambos');
         });
-    } else if (window.productosDatabase && window.productosDatabase[gender] && window.productosDatabase[gender][category]) {
-        products = window.productosDatabase[gender][category];
+    }
+    if (!Array.isArray(products) || products.length === 0) {
+        products = getProductsFallback(gender, category);
     }
 
     if (!Array.isArray(products) || products.length === 0) {
@@ -198,22 +240,19 @@ window.selectGender = (gender) => {
 };
 
 window.selectCategory = (category) => {
-    const gender = appState.gender;
-    const catConfig = CATEGORIES[gender] && CATEGORIES[gender].find(function (c) { return c.id === category; });
-    const useCatalog = Array.isArray(window.PRODUCTS_CATALOG) && window.PRODUCTS_CATALOG.length > 0 && catConfig && catConfig.matchCategories;
-    const productsRef = useCatalog
+    var gender = appState.gender;
+    var catConfig = CATEGORIES[gender] && CATEGORIES[gender].find(function (c) { return c.id === category; });
+    var useCatalog = Array.isArray(window.PRODUCTS_CATALOG) && window.PRODUCTS_CATALOG.length > 0 && catConfig && catConfig.matchCategories;
+    var productsRef = useCatalog
         ? window.PRODUCTS_CATALOG.filter(function (p) {
             return catConfig.matchCategories.indexOf(p.category) !== -1 && (p.gender === gender || p.gender === 'ambos');
           })
-        : (window.productosDatabase && window.productosDatabase[gender] && window.productosDatabase[gender][category]);
+        : getProductsFallback(gender, category);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━');
     console.log('📍 Categoría seleccionada:', category);
     console.log('👤 Género:', gender);
-    console.log('📦 Productos encontrados:', useCatalog ? productsRef.length : productsRef);
+    console.log('📦 Productos encontrados:', Array.isArray(productsRef) ? productsRef.length : productsRef);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━');
-    if (!useCatalog && (!window.productosDatabase || !window.productosDatabase[gender] || !window.productosDatabase[gender][category])) {
-        console.warn('⚠️ No hay productos para', gender, '>', category);
-    }
     appState.category = category;
     appState.screen = 'productos';
     trackEvent('gift_finder_categoria_seleccionada', { gender: gender, category: category });

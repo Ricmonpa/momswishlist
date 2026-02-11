@@ -3,16 +3,18 @@
  * Lee CSVs Big ticket y Moda, construye catálogo unificado con imagePath para polite load.
  *
  * Uso: node scripts/parseProducts.js
- * Salida: products-catalog.js (array listo para inyectar en el DOM)
+ * Salida: products-catalog.js en la RAÍZ del repo (path absoluto desde __dirname para CI/CD Cloudflare).
  */
 
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = path.join(__dirname, '..');
+/** Raíz del proyecto = carpeta de despliegue (mismo nivel que index.html). */
+const ROOT = path.resolve(path.join(__dirname, '..'));
 const IMAGES_DIR = path.join(ROOT, 'images');
 const BIG_TICKET_CSV = path.join(ROOT, 'excel', 'Productos a impulsar Sanborns - Big ticket.csv');
 const MODA_CSV = path.join(ROOT, 'excel', 'Productos a impulsar Sanborns - Moda.csv');
+/** Salida en raíz para que el build de Cloudflare sobrescriba el archivo sin rutas relativas. */
 const OUTPUT_JS = path.join(ROOT, 'products-catalog.js');
 
 /** URL base del banner en Cloudflare (polite load DV360). */
