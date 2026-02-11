@@ -118,7 +118,10 @@ function renderProducts(container) {
                 const isAdded = appState.wishlist.some(item => item.id === p.id);
                 const productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : p.url;
                 const sanbornsId = (p.url && p.url.match(/\/producto\/(\d+)/)) ? p.url.match(/\/producto\/(\d+)/)[1] : '';
-                const imgSrc = (typeof window.PRODUCT_IMAGES !== 'undefined' && sanbornsId && window.PRODUCT_IMAGES[sanbornsId]) ? window.PRODUCT_IMAGES[sanbornsId] : (p.img || '');
+                const hasProductPage = Boolean(sanbornsId);
+                const imgSrc = (typeof window.PRODUCT_IMAGES !== 'undefined' && sanbornsId && window.PRODUCT_IMAGES[sanbornsId])
+                    ? window.PRODUCT_IMAGES[sanbornsId]
+                    : (hasProductPage ? '/api/product-image?id=' + sanbornsId + '&redirect=1' : (p.img || ''));
                 return `
                     <a href="${productUrl.replace(/"/g, '&quot;')}" target="_blank" rel="noopener noreferrer" class="product-card" style="text-decoration: none; color: inherit; cursor: pointer; display: block;" data-product-id="${p.id}" data-product-name="${(p.nombre || '').replace(/"/g, '&quot;')}">
                         <img src="${imgSrc.replace(/"/g, '&quot;')}" 
