@@ -117,13 +117,15 @@ function renderProducts(container) {
             ${products.map(p => {
                 const isAdded = appState.wishlist.some(item => item.id === p.id);
                 const productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : p.url;
+                const sanbornsId = (p.url && p.url.match(/\/producto\/(\d+)/)) ? p.url.match(/\/producto\/(\d+)/)[1] : '';
+                const imgSrc = (typeof window.PRODUCT_IMAGES !== 'undefined' && sanbornsId && window.PRODUCT_IMAGES[sanbornsId]) ? window.PRODUCT_IMAGES[sanbornsId] : (p.img || '');
                 return `
                     <a href="${productUrl.replace(/"/g, '&quot;')}" target="_blank" rel="noopener noreferrer" class="product-card" style="text-decoration: none; color: inherit; cursor: pointer; display: block;" data-product-id="${p.id}" data-product-name="${(p.nombre || '').replace(/"/g, '&quot;')}">
-                        <img src="${p.img}" 
+                        <img src="${imgSrc.replace(/"/g, '&quot;')}" 
                              class="product-img" 
                              alt="${(p.nombre || '').replace(/"/g, '&quot;')}"
                              loading="lazy"
-                             onerror="this.src='https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=400&h=400&fit=crop&q=80'">
+                             onerror="this.src='https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80'">
                         <div class="product-info">
                             <div class="product-name">${p.nombre}</div>
                             <div class="product-price">${p.precio}</div>

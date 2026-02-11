@@ -149,6 +149,16 @@ IDs provistos por el cliente en [Google Sheet](https://docs.google.com/spreadshe
 
 Categorías sin IDs específicos usan URLs de categoría: `/c/bolsas/`, `/c/joyeria/`, `/c/libros/`, `/c/tecnologia/`, `/c/hogar/`, `/c/accesorios-hombre/`, `/c/ropa-hombre/`, `/c/videojuegos/`, `/c/deportes/`.
 
+### Imágenes reales de productos
+
+Por defecto se usan imágenes placeholder (Unsplash). Para obtener las **imágenes reales** de cada producto desde Sanborns:
+
+```bash
+npm run images
+```
+
+Esto ejecuta `scripts/fetch-product-images.js`: visita cada URL de producto en `products-data.js`, extrae la imagen (og:image) y genera `product-images.js`. El frontend usa esas URLs cuando existen; si no, muestra el placeholder. Requiere Node 18+.
+
 ### Validación de URLs
 
 En consola del navegador (al cargar la página se ejecuta automáticamente):
