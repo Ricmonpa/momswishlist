@@ -52,6 +52,7 @@ body {
 
 #screen-container {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     z-index: 10;
@@ -178,12 +179,14 @@ body {
     text-align: center;
 }
 
-/* Pantalla 3: Productos */
+/* Pantalla 3: Productos - min-height: 0 para que flex permita scroll real (evita que la última tarjeta se corte) */
 .products-scroll {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-right: 5px;
-    padding-bottom: 24px;
+    padding-bottom: 32px;
 }
 
 .product-card {
