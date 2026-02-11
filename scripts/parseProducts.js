@@ -107,6 +107,20 @@ function extractProductIdsFromLine(line) {
 const URL_AND_ID_REGEX = /(https?:\/\/[^\s,]*sanborns\.com\.mx\/producto\/(\d+)[^\s,]*)/gi;
 
 /**
+ * Extrae nombre legible desde la URL de producto (slug después del ID).
+ * Ej: .../producto/714971/tablet-samsung-galaxy-s10-lite-128gb-coral-red → "Tablet Samsung Galaxy S10 Lite 128gb Coral Red"
+ */
+function extractNameFromUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+  const match = url.match(/\/producto\/\d+\/([^/?&#]+)/i);
+  const slug = match ? match[1] : '';
+  return slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim() || '';
+}
+
+/**
  * Parsea el CSV Big ticket (formato: líneas con categoría o URLs).
  * @returns {{ id: string, url: string, category: string, source: string, imagePath: string }[]}
  */
@@ -125,9 +139,11 @@ function parseBigTicketCSV(content) {
     if (pairs.length > 0) {
       const categoryNormalized = normalizeBigTicketCategory(currentCategory);
       for (const { id, url } of pairs) {
+        const fullUrl = url.startsWith('http') ? url : `https://${url}`;
         products.push({
           id,
-          url: url.startsWith('http') ? url : `https://${url}`,
+          url: fullUrl,
+          name: extractNameFromUrl(fullUrl) || `Producto ${id}`,
           category: categoryNormalized,
           gender: 'ambos',
           source: 'big_ticket',

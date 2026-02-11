@@ -31,7 +31,7 @@ const CATEGORIES = {
         { id: 'skincare', name: 'Skincare', icon: '💅', matchCategories: ['Skincare'] },
         { id: 'perfumeria', name: 'Perfumería', icon: '💐', matchCategories: ['Perfumería'] },
         { id: 'estilismo', name: 'Estilismo', icon: '✂️', matchCategories: ['Estilismo'] },
-        { id: 'celulares', name: 'Celulares', icon: '📱', matchCategories: ['Celulares', 'Tablets'] },
+        { id: 'celulares', name: 'Celulares', icon: '📱', matchCategories: ['Celulares'] },
         { id: 'gadgets', name: 'Gadgets', icon: '⌚', matchCategories: ['Gadgets', 'Relojes'] },
         { id: 'fotografia', name: 'Fotografía', icon: '📷', matchCategories: ['Fotografía'] },
         { id: 'regalos', name: 'Regalos', icon: '🎁', matchCategories: ['Regalos'] }
@@ -188,17 +188,17 @@ function renderProducts(container) {
                 var pid = isFromCatalog ? String(p.id) : p.id;
                 var isAdded = appState.wishlist.some(function (item) { return String(item.id) === String(pid); });
                 var productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || '#');
-                var displayName = (isFromCatalog ? (p.name || p.id) : (p.nombre || '')) || '';
+                var displayName = (isFromCatalog ? (p.name || 'Producto ' + p.id) : (p.nombre || '')) || '';
                 var imgSrc = isFromCatalog
                     ? (p.imagePath && p.imagePath.indexOf('images/') !== -1 ? p.imagePath : (p.img && p.img.startsWith('http') ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80'))
                     : ((p.img && p.img.startsWith('http')) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80');
-                var price = isFromCatalog ? (p.precio || '') : (p.precio || '');
+                var price = isFromCatalog ? (p.precio || 'Ver en Sanborns') : (p.precio || '');
                 return (
                     '<a href="' + (productUrl + '').replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="product-card" style="text-decoration: none; color: inherit; cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '">' +
                     '<img src="' + (imgSrc + '').replace(/"/g, '&quot;') + '" class="product-img" alt="' + (displayName + '').replace(/"/g, '&quot;') + '" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80\'">' +
                     '<div class="product-info">' +
                     '<div class="product-name">' + displayName + '</div>' +
-                    (price ? '<div class="product-price">' + price + '</div>' : '') +
+                    '<div class="product-price">' + price + '</div>' +
                     '<button type="button" class="add-btn" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-wishlist-btn>' + (isAdded ? '❤️ Quitar' : '🤍 Agregar') + '</button>' +
                     '</div></a>'
                 );
