@@ -43,6 +43,28 @@ const MODA_CATEGORY_GENDER_MAP = {
   'relojes': { category: 'Relojes', gender: 'ambos' }
 };
 
+/** Nombres reales Sanborns para Moda (Maquillaje, Skincare, Perfumería). No afecta Big Ticket. */
+const MODA_NAMES = {
+  // MAQUILLAJE (Cosméticos)
+  '614484': 'Set Yuya Gel de ceja + polvo + tinta',
+  '614483': 'Set Yuya Gel + polvo traslúcido + tinta',
+  '574428': 'Cosmético Sanborns (ID 574428)',
+  '553342': 'Labial Líquido Mate Yuya Bruma',
+  '615405': 'Esmalte Chico Matizador Bissú',
+  // SKINCARE (Derma)
+  '515019': 'Eucerin Epigenetic Serum 30ml',
+  '59701': 'Anti-Pigment Dual Serum Eucerin',
+  '437851': 'Avene Agua Termal Piel Sensible 300ml',
+  '274804': 'Cetaphil Crema Hidratante 453g',
+  '11370': 'Ducray Squanorm Shampoo Anticaspa',
+  // PERFUMERÍA
+  '608266': 'Rabanne Fame Couture Edition EDP 80ml',
+  '813851': 'Versace Dylan Blush Pink EDP 100ml',
+  '303224': 'Moschino Toy 2 Bubblegum EDT 100ml',
+  '813852': 'Montblanc Signature Elixir EDP 90ml',
+  '310467': 'Carolina Herrera Good Girl Blush EDP 80ml'
+};
+
 function normalizeBigTicketCategory(raw) {
   const key = (raw || '').trim();
   return BIG_TICKET_CATEGORY_MAP[key] || raw || 'Big ticket';
@@ -185,14 +207,14 @@ function parseModaCSV(content) {
     if (!id) continue;
 
     const url = urlIdx >= 0 && cols[urlIdx] ? cols[urlIdx] : `https://www.sanborns.com.mx/producto/${id}`;
-    const name = nameIdx >= 0 ? cols[nameIdx] : '';
     const rawCategory = categoryIdx >= 0 ? cols[categoryIdx] : 'Moda';
     const { category, gender } = normalizeModaCategoryAndGender(rawCategory);
+    const nameFromCsv = nameIdx >= 0 ? cols[nameIdx] : '';
 
     products.push({
       id,
       url,
-      name: name || undefined,
+      name: MODA_NAMES[id] || nameFromCsv || `Producto ${id}`,
       category,
       gender,
       source: 'moda',

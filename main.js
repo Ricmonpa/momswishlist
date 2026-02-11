@@ -12,6 +12,22 @@ function trackEvent(eventName, eventData) {
     }
 }
 
+// CM360/DV360: clic en producto vía onclick (no <a href>) para QA
+window.handleProductClick = function (el) {
+    var url = el.getAttribute('data-product-url');
+    var id = el.getAttribute('data-product-id');
+    var name = el.getAttribute('data-product-name') || '';
+    if (id != null) {
+        trackEvent('gift_finder_producto_click', {
+            product_id: id,
+            product_name: name,
+            gender: appState.gender,
+            category: appState.category
+        });
+    }
+    if (url) window.open(url, '_blank');
+};
+
 // Gift Finder Logic
 let appState = {
     screen: 'inicio', // 'inicio' | 'categorias' | 'productos'
@@ -168,9 +184,7 @@ function renderProducts(container) {
     }
 
     if (!Array.isArray(products) || products.length === 0) {
-        if (matchCategories.length > 0 && catalog && catalog.length > 0) {
-            console.warn('⚠️ DCO: Sin productos para', gender, '>', category, '| matchCategories:', matchCategories);
-        }
+        /* DCO: sin productos para esta combinación género/categoría */
     }
     const catName = catConfig ? catConfig.name : category;
 
@@ -189,18 +203,19 @@ function renderProducts(container) {
                 var isAdded = appState.wishlist.some(function (item) { return String(item.id) === String(pid); });
                 var productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || '#');
                 var displayName = (isFromCatalog ? (p.name || 'Producto ' + p.id) : (p.nombre || '')) || '';
+                /* Catálogo: product.name viene del JSON generado (Moda = MODA_NAMES; Big Ticket = slug URL). */
                 var imgSrc = isFromCatalog
                     ? (p.imagePath && p.imagePath.indexOf('images/') !== -1 ? p.imagePath : (p.img && p.img.startsWith('http') ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80'))
                     : ((p.img && p.img.startsWith('http')) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80');
                 var price = isFromCatalog ? (p.precio || 'Ver en Sanborns') : (p.precio || '');
                 return (
-                    '<a href="' + (productUrl + '').replace(/"/g, '&quot;') + '" target="_blank" rel="noopener noreferrer" class="product-card" style="text-decoration: none; color: inherit; cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '">' +
+                    '<div class="product-card" role="button" style="cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '" data-product-url="' + (productUrl + '').replace(/"/g, '&quot;') + '" onclick="handleProductClick(this)">' +
                     '<img src="' + (imgSrc + '').replace(/"/g, '&quot;') + '" class="product-img" alt="' + (displayName + '').replace(/"/g, '&quot;') + '" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80\'">' +
                     '<div class="product-info">' +
                     '<div class="product-name">' + displayName + '</div>' +
                     '<div class="product-price">' + price + '</div>' +
                     '<button type="button" class="add-btn" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-wishlist-btn>' + (isAdded ? '❤️ Quitar' : '🤍 Agregar') + '</button>' +
-                    '</div></a>'
+                    '</div></div>'
                 );
             }).join('')}
         </div>
@@ -216,21 +231,7 @@ function renderProducts(container) {
             if (product) toggleWishlist(product);
         });
     });
-    // Delegated: track clic en producto (antes de que navegue el <a>)
-    container.querySelectorAll('.product-card').forEach(link => {
-        link.addEventListener('click', function () {
-            var id = this.getAttribute('data-product-id');
-            var name = this.getAttribute('data-product-name');
-            if (id != null) {
-                trackEvent('gift_finder_producto_click', {
-                    product_id: id,
-                    product_name: name || '',
-                    gender: appState.gender,
-                    category: appState.category
-                });
-            }
-        });
-    });
+    /* Clic en producto: handleProductClick (onclick) hace track + window.open - QA CM360/DV360 */
 }
 
 window.selectGender = (gender) => {
@@ -249,11 +250,7 @@ window.selectCategory = (category) => {
             return catConfig.matchCategories.indexOf(p.category) !== -1 && (p.gender === gender || p.gender === 'ambos');
           })
         : getProductsFallback(gender, category);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('📍 Categoría seleccionada:', category);
-    console.log('👤 Género:', gender);
-    console.log('📦 Productos encontrados:', Array.isArray(productsRef) ? productsRef.length : productsRef);
-    console.log('━━━━━━━━━━━━━━━━━━━━━━━━');
+    /* Zero logs - QA CM360/DV360 */
     appState.category = category;
     appState.screen = 'productos';
     trackEvent('gift_finder_categoria_seleccionada', { gender: gender, category: category });
@@ -303,10 +300,12 @@ window.openEmailModal = () => {
 };
 
 document.getElementById('modalClose').onclick = () => {
+    window.open(window.clickTag || 'https://www.sanborns.com.mx/', '_blank');
     document.getElementById('emailModal').classList.remove('active');
 };
 
 document.getElementById('btnCancelar').onclick = () => {
+    window.open(window.clickTag || 'https://www.sanborns.com.mx/', '_blank');
     document.getElementById('emailModal').classList.remove('active');
 };
 

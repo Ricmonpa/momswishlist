@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ad.size" content="width=300,height=600">
+    <script type="text/javascript"> var clickTag = "https://www.sanborns.com.mx/"; </script>
     
     <!-- CACHE BUSTING - Prevenir caché agresivo del navegador -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -18,7 +20,7 @@
     <div class="banner-container" id="app">
         <!-- Header -->
         <header class="banner-header">
-            <img src="Logo_sanborns_bco.png" alt="Sanborns" class="logo">
+            <img src="Logo_sanborns_bco.png" alt="Sanborns" class="logo" role="button" onclick="window.open(window.clickTag || 'https://www.sanborns.com.mx/', '_blank');">
             <div class="wishlist-counter" id="wishlistCounter">
                 <span class="heart-icon">❤️</span>
                 <span class="counter-text"><span id="wishlistCount">0</span> en tu wishlist</span>
@@ -74,7 +76,7 @@
             if (window.sessionStorage) {
                 sessionStorage.clear();
             }
-            console.log('✅ Cache limpiado - Versión: 20250129-1730');
+            /* Zero logs - QA CM360/DV360 */
         })();
     </script>
 </body>
