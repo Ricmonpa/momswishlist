@@ -183,6 +183,7 @@ body {
     flex: 1;
     overflow-y: auto;
     padding-right: 5px;
+    padding-bottom: 24px;
 }
 
 .product-card {
