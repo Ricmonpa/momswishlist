@@ -6,6 +6,7 @@
  * v20250129-1730
  */
 const productosDatabase = {
+  // Keys en mismo orden que CATEGORIES.mujer en main.js: maquillaje, cuidado, bolsas, joyeria, perfumeria, libros, tecnologia, hogar
   mujer: {
     maquillaje: [
       { id: 1, nombre: "Set Maquillaje Premium", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
@@ -21,13 +22,6 @@ const productosDatabase = {
       { id: 9, nombre: "Set Dermatológico", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
       { id: 10, nombre: "Kit Limpieza Facial", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
     ],
-    perfumeria: [
-      { id: 11, nombre: "Fragancia Premium Mujer", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
-      { id: 12, nombre: "Perfume Floral", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
-      { id: 13, nombre: "Eau de Parfum", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
-      { id: 14, nombre: "Set Perfume + Loción", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
-      { id: 15, nombre: "Fragancia Romántica", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
-    ],
     bolsas: [
       { id: 26, nombre: "Bolsas de Mano", precio: "Desde $999", precioOriginal: "", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/bolsas/" },
       { id: 27, nombre: "Bolsas Fashion", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/bolsas/" },
@@ -37,6 +31,13 @@ const productosDatabase = {
       { id: 29, nombre: "Joyería y Aretes", precio: "Desde $599", precioOriginal: "", img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/joyeria/" },
       { id: 30, nombre: "Collares y Pulseras", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/joyeria/" },
       { id: 31, nombre: "Accesorios Elegantes", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/c/joyeria/" }
+    ],
+    perfumeria: [
+      { id: 11, nombre: "Fragancia Premium Mujer", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
+      { id: 12, nombre: "Perfume Floral", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
+      { id: 13, nombre: "Eau de Parfum", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
+      { id: 14, nombre: "Set Perfume + Loción", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
+      { id: 15, nombre: "Fragancia Romántica", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
     ],
     libros: [
       { id: 32, nombre: "Best Sellers Románticos", precio: "$399", precioOriginal: "$599", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
@@ -54,31 +55,18 @@ const productosDatabase = {
       { id: 42, nombre: "Portarretrato Digital Voltak 7\" Gris", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/292521/portarretrato-digital-voltak-7-pulgadas-gris" }
     ],
     hogar: [
-      { id: 43, nombre: "LEGO Botanicals Margaritas", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/828730/lego-botanicals-margaritas-decoracion-floral" },
-      { id: 44, nombre: "LEGO Botanicals Lirio de la Paz", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/828716/lego-botanicals-lirio-de-la-paz-decoracion-floral" },
-      { id: 45, nombre: "LEGO Botanicals Ramo de Tulipanes", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/828721/lego-botanicals-ramo-de-tulipanes-decoracion" },
-      { id: 46, nombre: "LEGO Botanicals Cactus en Flor", precio: "Desde $699", precioOriginal: "", img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/828731/lego-botanicals-cactus-en-flor-decoracion" },
-      { id: 47, nombre: "Peluche Teddy Rosa Roja", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1530325553241-4f6e7690cf9e?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/569166/peluche-teddy-rosa-roja" },
-      { id: 48, nombre: "Peluche Teddy Sobre Rojo", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1530325553241-4f6e7690cf9e?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/569167/peluche-teddy-sobre-rojo" },
-      { id: 49, nombre: "Peluche Perrito Ojo de Corazón", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1530325553241-4f6e7690cf9e?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/569162/peluche-perrito-ojo-de-corazon" },
-      { id: 50, nombre: "Peluche Puppy", precio: "San Valentín", precioOriginal: "", img: "https://images.unsplash.com/photo-1530325553241-4f6e7690cf9e?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/569163/peluche-puppy" }
+      { id: 43, nombre: "LEGO Botanicals Margaritas", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/828730/lego-botanicals-margaritas-decoracion-floral" },
+      { id: 44, nombre: "LEGO Botanicals Lirio de la Paz", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1602874801006-e24a9ea5f45a?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/828716/lego-botanicals-lirio-de-la-paz-decoracion-floral" },
+      { id: 45, nombre: "LEGO Botanicals Ramo de Tulipanes", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/828721/lego-botanicals-ramo-de-tulipanes-decoracion" },
+      { id: 46, nombre: "LEGO Botanicals Cactus en Flor", precio: "Desde $699", precioOriginal: "", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/828731/lego-botanicals-cactus-en-flor-decoracion" },
+      { id: 47, nombre: "Peluche Teddy Rosa Roja", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1602874801006-e24a9ea5f45a?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/569166/peluche-teddy-rosa-roja" },
+      { id: 48, nombre: "Peluche Teddy Sobre Rojo", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/569167/peluche-teddy-sobre-rojo" },
+      { id: 49, nombre: "Peluche Perrito Ojo de Corazón", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/569162/peluche-perrito-ojo-de-corazon" },
+      { id: 50, nombre: "Peluche Puppy", precio: "San Valentín", precioOriginal: "", img: "https://images.unsplash.com/photo-1602874801006-e24a9ea5f45a?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/569163/peluche-puppy" }
     ]
   },
+  // Keys en mismo orden que CATEGORIES.hombre en main.js: accesorios, moda, tecnologia, cuidado, relojes, gaming, libros, deportes
   hombre: {
-    relojes: [
-      { id: 16, nombre: "Reloj Elegante", precio: "$3,299", precioOriginal: "$4,499", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/379802" },
-      { id: 17, nombre: "Reloj Deportivo", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/604930" },
-      { id: 18, nombre: "Reloj Casual", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/540572" },
-      { id: 19, nombre: "Smartwatch", precio: "$4,999", precioOriginal: "$6,499", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/542018" },
-      { id: 20, nombre: "Reloj Cronógrafo", precio: "$3,799", precioOriginal: "$4,999", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/557865" }
-    ],
-    cuidado: [
-      { id: 21, nombre: "Kit Afeitado Premium", precio: "$799", precioOriginal: "$1,099", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/117488" },
-      { id: 22, nombre: "Set Grooming", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/469399" },
-      { id: 23, nombre: "Recortadora Profesional", precio: "$1,299", precioOriginal: "$1,799", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/492378" },
-      { id: 24, nombre: "Kit Barbería", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/617456" },
-      { id: 25, nombre: "Set Cuidado Facial Hombre", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "31% OFF", url: "https://www.sanborns.com.mx/producto/408718" }
-    ],
     accesorios: [
       { id: 59, nombre: "Accesorios Hombre", precio: "Desde $699", precioOriginal: "", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/accesorios-hombre/" },
       { id: 60, nombre: "Carteras y Cinturones", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1624222247344-550fb60583bb?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/accesorios-hombre/" },
@@ -105,6 +93,20 @@ const productosDatabase = {
       { id: 77, nombre: "OPPO A79 5G 256GB Lila Telcel", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/361481/oppo-a79-5g-256gb-lila-telcel-r9" },
       { id: 78, nombre: "Honor X7c 256GB Verde Telcel", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/564958/honor-x7c-256gb-verde-telcel-r9-earbuds" },
       { id: 79, nombre: "Samsung Galaxy A16 5G 128GB Verde", precio: "Big ticket", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/655190/celular-samsung-galaxy-a16-5g-128gb-verde-telcel-r3" }
+    ],
+    cuidado: [
+      { id: 21, nombre: "Kit Afeitado Premium", precio: "$799", precioOriginal: "$1,099", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/117488" },
+      { id: 22, nombre: "Set Grooming", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/469399" },
+      { id: 23, nombre: "Recortadora Profesional", precio: "$1,299", precioOriginal: "$1,799", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/492378" },
+      { id: 24, nombre: "Kit Barbería", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/617456" },
+      { id: 25, nombre: "Set Cuidado Facial Hombre", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "31% OFF", url: "https://www.sanborns.com.mx/producto/408718" }
+    ],
+    relojes: [
+      { id: 16, nombre: "Reloj Elegante", precio: "$3,299", precioOriginal: "$4,499", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/379802" },
+      { id: 17, nombre: "Reloj Deportivo", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/604930" },
+      { id: 18, nombre: "Reloj Casual", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/540572" },
+      { id: 19, nombre: "Smartwatch", precio: "$4,999", precioOriginal: "$6,499", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/542018" },
+      { id: 20, nombre: "Reloj Cronógrafo", precio: "$3,799", precioOriginal: "$4,999", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/557865" }
     ],
     gaming: [
       { id: 80, nombre: "Videojuegos", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/videojuegos/" },

@@ -20,13 +20,14 @@ let appState = {
     wishlist: []
 };
 
+// Orden debe coincidir con las keys en products-data.js (mujer/hombre)
 const CATEGORIES = {
     mujer: [
         { id: 'maquillaje', name: 'Maquillaje', icon: '💄' },
-        { id: 'perfumeria', name: 'Perfumería', icon: '💐' },
+        { id: 'cuidado', name: 'Cuidado de la Piel', icon: '💅' },
         { id: 'bolsas', name: 'Bolsas de Mano', icon: '👜' },
         { id: 'joyeria', name: 'Joyería', icon: '💍' },
-        { id: 'cuidado', name: 'Cuidado de Piel', icon: '💅' },
+        { id: 'perfumeria', name: 'Perfumería', icon: '💐' },
         { id: 'libros', name: 'Libros', icon: '📚' },
         { id: 'tecnologia', name: 'Tecnología', icon: '🎧' },
         { id: 'hogar', name: 'Hogar & Cocina', icon: '☕' }
@@ -103,8 +104,17 @@ function renderCategories(container) {
 }
 
 function renderProducts(container) {
-    const products = window.productosDatabase[appState.gender][appState.category] || [];
-    const catName = CATEGORIES[appState.gender].find(c => c.id === appState.category)?.name;
+    const gender = appState.gender;
+    const category = appState.category;
+    const products = (window.productosDatabase && window.productosDatabase[gender] && window.productosDatabase[gender][category])
+        ? window.productosDatabase[gender][category]
+        : [];
+    if (!Array.isArray(products) || products.length === 0) {
+        if (window.productosDatabase && window.productosDatabase[gender]) {
+            console.warn('⚠️ Sin productos para', gender, '>', category, '| Keys:', Object.keys(window.productosDatabase[gender]));
+        }
+    }
+    const catName = CATEGORIES[gender].find(c => c.id === category)?.name;
 
     container.innerHTML = `
         <button class="back-btn" onclick="goBack()">
@@ -117,11 +127,7 @@ function renderProducts(container) {
             ${products.map(p => {
                 const isAdded = appState.wishlist.some(item => item.id === p.id);
                 const productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : p.url;
-                const sanbornsId = (p.url && p.url.match(/\/producto\/(\d+)/)) ? p.url.match(/\/producto\/(\d+)/)[1] : '';
-                const hasProductPage = Boolean(sanbornsId);
-                const imgSrc = (typeof window.PRODUCT_IMAGES !== 'undefined' && sanbornsId && window.PRODUCT_IMAGES[sanbornsId])
-                    ? window.PRODUCT_IMAGES[sanbornsId]
-                    : (hasProductPage ? '/api/product-image?id=' + sanbornsId + '&redirect=1' : (p.img || ''));
+                const imgSrc = (p.img && p.img.startsWith('http')) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80';
                 return `
                     <a href="${productUrl.replace(/"/g, '&quot;')}" target="_blank" rel="noopener noreferrer" class="product-card" style="text-decoration: none; color: inherit; cursor: pointer; display: block;" data-product-id="${p.id}" data-product-name="${(p.nombre || '').replace(/"/g, '&quot;')}">
                         <img src="${imgSrc.replace(/"/g, '&quot;')}" 
@@ -177,9 +183,22 @@ window.selectGender = (gender) => {
 };
 
 window.selectCategory = (category) => {
+    const gender = appState.gender;
+    const productsRef = window.productosDatabase && window.productosDatabase[gender] && window.productosDatabase[gender][category];
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log('📍 Categoría seleccionada:', category);
+    console.log('👤 Género:', gender);
+    console.log('📦 Productos encontrados:', productsRef);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━');
+    if (!window.productosDatabase || !window.productosDatabase[gender] || !window.productosDatabase[gender][category]) {
+        console.error('❌ ERROR: No hay productos para', gender, '>', category);
+        if (window.productosDatabase && window.productosDatabase[gender]) {
+            console.log('Keys disponibles:', Object.keys(window.productosDatabase[gender]));
+        }
+    }
     appState.category = category;
     appState.screen = 'productos';
-    trackEvent('gift_finder_categoria_seleccionada', { gender: appState.gender, category: category });
+    trackEvent('gift_finder_categoria_seleccionada', { gender: gender, category: category });
     render();
 };
 
