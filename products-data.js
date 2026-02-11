@@ -9,18 +9,18 @@ const productosDatabase = {
   // Keys en mismo orden que CATEGORIES.mujer en main.js: maquillaje, cuidado, bolsas, joyeria, perfumeria, libros, tecnologia, hogar
   mujer: {
     maquillaje: [
-      { id: 1, nombre: "Set Maquillaje Premium", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
-      { id: 2, nombre: "Paleta de Sombras", precio: "$799", precioOriginal: "$1,199", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
-      { id: 3, nombre: "Kit de Maquillaje", precio: "$1,199", precioOriginal: "$1,699", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
-      { id: 4, nombre: "Set Brochas Profesionales", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
-      { id: 5, nombre: "Paleta Nude Premium", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
+      { id: 1, nombre: "Set Yuya Gel de ceja + polvo + tinta", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
+      { id: 2, nombre: "Set Yuya Gel + polvo traslúcido + tinta", precio: "$799", precioOriginal: "$1,199", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
+      { id: 3, nombre: "Cosmético Sanborns (ID 574428)", precio: "$1,199", precioOriginal: "$1,699", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
+      { id: 4, nombre: "Labial Líquido Mate Yuya Bruma", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
+      { id: 5, nombre: "Esmalte Chico Matizador Bissú", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
     ],
     cuidado: [
-      { id: 6, nombre: "Kit Cuidado Facial Premium", precio: "$1,299", precioOriginal: "$1,799", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
-      { id: 7, nombre: "Crema Anti-Edad", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
-      { id: 8, nombre: "Sérum Facial", precio: "$799", precioOriginal: "$1,199", img: "https://images.unsplash.com/photo-1556229010-aa92083e2a83?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
-      { id: 9, nombre: "Set Dermatológico", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
-      { id: 10, nombre: "Kit Limpieza Facial", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
+      { id: 6, nombre: "Eucerin Epigenetic Serum 30ml", precio: "$1,299", precioOriginal: "$1,799", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
+      { id: 7, nombre: "Anti-Pigment Dual Serum Eucerin", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
+      { id: 8, nombre: "Avene Agua Termal Piel Sensible 300ml", precio: "$799", precioOriginal: "$1,199", img: "https://images.unsplash.com/photo-1556229010-aa92083e2a83?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
+      { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
+      { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
     ],
     bolsas: [
       { id: 26, nombre: "Bolsas de Mano", precio: "Desde $999", precioOriginal: "", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/bolsas/" },
@@ -33,11 +33,11 @@ const productosDatabase = {
       { id: 31, nombre: "Accesorios Elegantes", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/c/joyeria/" }
     ],
     perfumeria: [
-      { id: 11, nombre: "Fragancia Premium Mujer", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
-      { id: 12, nombre: "Perfume Floral", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
-      { id: 13, nombre: "Eau de Parfum", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
-      { id: 14, nombre: "Set Perfume + Loción", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
-      { id: 15, nombre: "Fragancia Romántica", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
+      { id: 11, nombre: "Rabanne Fame Couture Edition EDP 80ml", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
+      { id: 12, nombre: "Versace Dylan Blush Pink EDP 100ml", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
+      { id: 13, nombre: "Moschino Toy 2 Bubblegum EDT 100ml", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
+      { id: 14, nombre: "Montblanc Signature Elixir EDP 90ml", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
+      { id: 15, nombre: "Carolina Herrera Good Girl Blush EDP 80ml", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
     ],
     libros: [
       { id: 32, nombre: "Best Sellers Románticos", precio: "$399", precioOriginal: "$599", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
@@ -183,22 +183,7 @@ function validarURLsProductos() {
     });
   });
 
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log('📊 VALIDACIÓN DE URLs - GIFT FINDER');
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-
-  if (errores.length === 0) {
-    console.log('✅ TODAS LAS URLs SON VÁLIDAS');
-    console.log('✅ Total productos: ' + totalProductos);
-  } else {
-    console.error('❌ ' + errores.length + ' ERRORES CRÍTICOS ENCONTRADOS:');
-    console.table(errores);
-  }
-  if (warnings.length > 0) {
-    console.warn('⚠️ ' + warnings.length + ' WARNINGS:');
-    console.table(warnings);
-  }
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+  /* Zero logs - QA CM360/DV360 (validación sigue ejecutándose, sin salida a consola) */
   return { errores: errores, warnings: warnings };
 }
 window.validarURLsProductos = validarURLsProductos;
