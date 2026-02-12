@@ -169,7 +169,7 @@ function validarURLsProductos() {
     Object.keys(products[gender]).forEach(function (category) {
       products[gender][category].forEach(function (product) {
         const url = product.url;
-
+        
         if (!url.startsWith('https://')) {
           errores.push({ id: product.id, nombre: product.nombre, error: 'URL debe comenzar con https://', url: url });
         }
@@ -185,7 +185,7 @@ function validarURLsProductos() {
       });
     });
   });
-
+  
   var totalProductos = 0;
   Object.keys(products).forEach(function (g) {
     Object.keys(products[g]).forEach(function (c) {
