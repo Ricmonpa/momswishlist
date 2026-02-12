@@ -353,10 +353,14 @@ function attachModalAndWishlistSend() {
         };
     }
     var btnEnviar = document.getElementById('btnEnviar');
-    if (btnEnviar) btnEnviar.addEventListener('click', function (e) {
-        e.preventDefault();
-        sendWishlistByMail();
-    });
+    if (btnEnviar) {
+        btnEnviar.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            sendWishlistByMail();
+        });
+    }
+    window.sendWishlistByMail = sendWishlistByMail;
 }
 
 // MediaSmart: abrir producto con click tracker

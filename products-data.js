@@ -6,18 +6,18 @@
 const productosDatabase = {
   mujer: {
     maquillaje: [
-      { id: 1, nombre: "Set Yuya Gel de ceja + polvo + tinta", precio: "$899", precioOriginal: "$1,299", img: "./images/producto-193432.jpg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
-      { id: 2, nombre: "Set Yuya Gel + polvo traslúcido + tinta", precio: "$799", precioOriginal: "$1,199", img: "./images/producto-20780.jpg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
-      { id: 3, nombre: "Cosmético Sanborns (ID 574428)", precio: "$1,199", precioOriginal: "$1,699", img: "./images/producto-305145.jpg", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
-      { id: 4, nombre: "Labial Líquido Mate Yuya Bruma", precio: "$699", precioOriginal: "$999", img: "./images/producto-193432.jpg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
-      { id: 5, nombre: "Esmalte Chico Matizador Bissú", precio: "$999", precioOriginal: "$1,499", img: "./images/producto-20780.jpg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
+      { id: 1, nombre: "Set Yuya Gel de ceja + polvo + tinta", precio: "$899", precioOriginal: "$1,299", img: "./images/producto-565250.jpeg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
+      { id: 2, nombre: "Set Yuya Gel + polvo traslúcido + tinta", precio: "$799", precioOriginal: "$1,199", img: "./images/producto-565250.jpeg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
+      { id: 3, nombre: "Cosmético Sanborns (ID 574428)", precio: "$1,199", precioOriginal: "$1,699", img: "./images/producto-565250.jpeg", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
+      { id: 4, nombre: "Labial Líquido Mate Yuya Bruma", precio: "$699", precioOriginal: "$999", img: "./images/producto-565250.jpeg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
+      { id: 5, nombre: "Esmalte Chico Matizador Bissú", precio: "$999", precioOriginal: "$1,499", img: "./images/producto-565250.jpeg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
     ],
     cuidado: [
-      { id: 6, nombre: "Eucerin Epigenetic Serum 30ml", precio: "$1,299", precioOriginal: "$1,799", img: "./images/producto-193432.jpg", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
-      { id: 7, nombre: "Anti-Pigment Dual Serum Eucerin", precio: "$999", precioOriginal: "$1,499", img: "./images/producto-305145.jpg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
-      { id: 8, nombre: "Avene Agua Termal Piel Sensible 300ml", precio: "$799", precioOriginal: "$1,199", img: "./images/producto-193432.jpg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
-      { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "./images/producto-20780.jpg", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
-      { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "./images/producto-305145.jpg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
+      { id: 6, nombre: "Eucerin Epigenetic Serum 30ml", precio: "$1,299", precioOriginal: "$1,799", img: "./images/producto-565250.jpeg", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
+      { id: 7, nombre: "Anti-Pigment Dual Serum Eucerin", precio: "$999", precioOriginal: "$1,499", img: "./images/producto-565250.jpeg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
+      { id: 8, nombre: "Avene Agua Termal Piel Sensible 300ml", precio: "$799", precioOriginal: "$1,199", img: "./images/producto-565250.jpeg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
+      { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "./images/producto-565250.jpeg", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
+      { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "./images/producto-565250.jpeg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
     ],
     estilismo: [
       { id: 209620, nombre: "Wafflera Perfect Heat Revlon", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-209620.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/209620/wafflera-perfect-heat-revlon" },
