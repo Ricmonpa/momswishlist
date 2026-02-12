@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es-MX">
 <head>
     <meta charset="UTF-8">
@@ -321,9 +321,590 @@ html, body {
             </div>
         </div>
     </div>
-    <script src="js/products-data.js"></script>
-    <script src="js/product-images.js"></script>
-    <script src="js/products-catalog.js"></script>
-    <script src="js/main.js"></script>
+    <!-- PRODUCCIÓN (wishlist.potenttial.site): ejecutar "npm run build:inline" para incrustar todo el JS y evitar MIME type errors cuando el servidor devuelve HTML para /js/* -->
+    <script>
+/**
+ * Productos Gift Finder San Valentín - Sanborns
+ * IDs oficiales del cliente (Google Sheet):
+ * https://docs.google.com/spreadsheets/d/1HiW5YDiqZnQRqR5Jm_En46Eiuzhe5pTA4k4_1HkAhdU/edit
+ * Estructura URL producto: https://www.sanborns.com.mx/producto/[ID]
+ * v20250129-1730
+ */
+const productosDatabase = {
+  // Keys en mismo orden que CATEGORIES.mujer en main.js: maquillaje, cuidado, bolsas, joyeria, perfumeria, libros, tecnologia, hogar
+  mujer: {
+    maquillaje: [
+      { id: 1, nombre: "Set Yuya Gel de ceja + polvo + tinta", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
+      { id: 2, nombre: "Set Yuya Gel + polvo traslúcido + tinta", precio: "$799", precioOriginal: "$1,199", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
+      { id: 3, nombre: "Cosmético Sanborns (ID 574428)", precio: "$1,199", precioOriginal: "$1,699", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
+      { id: 4, nombre: "Labial Líquido Mate Yuya Bruma", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
+      { id: 5, nombre: "Esmalte Chico Matizador Bissú", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
+    ],
+    cuidado: [
+      { id: 6, nombre: "Eucerin Epigenetic Serum 30ml", precio: "$1,299", precioOriginal: "$1,799", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
+      { id: 7, nombre: "Anti-Pigment Dual Serum Eucerin", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
+      { id: 8, nombre: "Avene Agua Termal Piel Sensible 300ml", precio: "$799", precioOriginal: "$1,199", img: "https://images.unsplash.com/photo-1556229010-aa92083e2a83?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
+      { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
+      { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
+    ],
+    estilismo: [
+      { id: 209620, nombre: "Wafflera Perfect Heat Revlon", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-209620.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/209620/wafflera-perfect-heat-revlon" },
+      { id: 118091, nombre: "Cepillo Secador y Voluminizador One Step Revlon", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-118091.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/118091/cepillo-secador-y-voluminizador-one-step-revlon" },
+      { id: 16117, nombre: "Secadora Timco ST-1875 Avo Confort con Lunares", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-16117.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/16117/secadora-timco-st-1875-avo-confort-con-lunares" }
+    ],
+    bolsas: [
+      { id: 26, nombre: "Bolsas de Mano", precio: "Desde $999", precioOriginal: "", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/bolsas/" },
+      { id: 27, nombre: "Bolsas Fashion", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/bolsas/" },
+      { id: 28, nombre: "Clutch y Carteras", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/c/bolsas/" }
+    ],
+    joyeria: [
+      { id: 29, nombre: "Joyería y Aretes", precio: "Desde $599", precioOriginal: "", img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/joyeria/" },
+      { id: 30, nombre: "Collares y Pulseras", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/joyeria/" },
+      { id: 31, nombre: "Accesorios Elegantes", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/c/joyeria/" }
+    ],
+    perfumeria: [
+      { id: 11, nombre: "Rabanne Fame Couture Edition EDP 80ml", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
+      { id: 12, nombre: "Versace Dylan Blush Pink EDP 100ml", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
+      { id: 13, nombre: "Moschino Toy 2 Bubblegum EDT 100ml", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
+      { id: 14, nombre: "Montblanc Signature Elixir EDP 90ml", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
+      { id: 15, nombre: "Carolina Herrera Good Girl Blush EDP 80ml", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
+    ],
+    libros: [
+      { id: 32, nombre: "Best Sellers Románticos", precio: "$399", precioOriginal: "$599", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
+      { id: 33, nombre: "Box Set Clásicos", precio: "$599", precioOriginal: "$899", img: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
+      { id: 34, nombre: "Libros y Regalos", precio: "$299", precioOriginal: "$499", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&q=80", descuento: "40% OFF", url: "https://www.sanborns.com.mx/c/libros/" }
+    ],
+    tecnologia: [
+      { id: 35, nombre: "Audífonos Soundcore Aero Fit Pro", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/565250/audifonos-soundcore-aero-fit-pro" },
+      { id: 36, nombre: "Audífonos Soundcore Space One Azul", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/482420/audifonos-soundcore-space-one-azul" },
+      { id: 37, nombre: "Audífonos Sony WH-CH520 Bluetooth", precio: "Desde $499", precioOriginal: "", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/324151/audifonos-sony-wh-ch520-bluetooth-beige" },
+      { id: 38, nombre: "Audífonos STF Aurum On-Ear Negro", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/229402/audifonos-stf-aurum-on-ear-negro" },
+      { id: 39, nombre: "Kit Cámara Fuji Instax Mini 12", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/775767/kit-camara-fuji-instax-mini-12" },
+      { id: 40, nombre: "Cámara Fujifilm Instax Mini 12 Rosa", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/333596/camara-fujifilm-instax-mini-12-rosa" },
+      { id: 41, nombre: "Cámara Fuji Instax Mini Evo Rosa", precio: "Desde $499", precioOriginal: "", img: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/825511/camara-fuji-instax-mini-evo-rosa" },
+      { id: 42, nombre: "Portarretrato Digital Voltak 7\" Gris", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/292521/portarretrato-digital-voltak-7-pulgadas-gris" }
+    ],
+    hogar: [
+      { id: 43, nombre: "LEGO Botanicals Margaritas", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/828730/lego-botanicals-margaritas-decoracion-floral" },
+      { id: 44, nombre: "LEGO Botanicals Lirio de la Paz", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1602874801006-e24a9ea5f45a?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/828716/lego-botanicals-lirio-de-la-paz-decoracion-floral" },
+      { id: 45, nombre: "LEGO Botanicals Ramo de Tulipanes", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/828721/lego-botanicals-ramo-de-tulipanes-decoracion" },
+      { id: 46, nombre: "LEGO Botanicals Cactus en Flor", precio: "Desde $699", precioOriginal: "", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/828731/lego-botanicals-cactus-en-flor-decoracion" },
+      { id: 47, nombre: "Peluche Teddy Rosa Roja", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1602874801006-e24a9ea5f45a?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/569166/peluche-teddy-rosa-roja" },
+      { id: 48, nombre: "Peluche Teddy Sobre Rojo", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?w=400&h=400&fit=crop&q=80", descuento: "Big ticket", url: "https://www.sanborns.com.mx/producto/569167/peluche-teddy-sobre-rojo" },
+      { id: 49, nombre: "Peluche Perrito Ojo de Corazón", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/569162/peluche-perrito-ojo-de-corazon" },
+      { id: 50, nombre: "Peluche Puppy", precio: "San Valentín", precioOriginal: "", img: "https://images.unsplash.com/photo-1602874801006-e24a9ea5f45a?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/569163/peluche-puppy" }
+    ]
+  },
+  // Keys en mismo orden que CATEGORIES.hombre en main.js: accesorios, moda, tecnologia, cuidado, relojes, gaming, libros, deportes
+  hombre: {
+    accesorios: [
+      { id: 59, nombre: "Accesorios Hombre", precio: "Desde $699", precioOriginal: "", img: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/accesorios-hombre/" },
+      { id: 60, nombre: "Carteras y Cinturones", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1624222247344-550fb60583bb?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/accesorios-hombre/" },
+      { id: 61, nombre: "Mancuernillas y Más", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/c/accesorios-hombre/" }
+    ],
+    moda: [
+      { id: 62, nombre: "Ropa Hombre", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/ropa-hombre/" },
+      { id: 63, nombre: "Camisas y Polos", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/c/ropa-hombre/" },
+      { id: 64, nombre: "Moda Casual", precio: "Desde $899", precioOriginal: "", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/c/ropa-hombre/" }
+    ],
+    tecnologia: [
+      { id: 65, nombre: "Smartband Huawei Band 10", precio: "Big ticket", precioOriginal: "", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/613747/smartband-huawei-band-10" },
+      { id: 66, nombre: "Samsung Galaxy Watch 8 40mm", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/709913/samsung-galaxy-watch-8-40mm" },
+      { id: 67, nombre: "Huawei Watch Fit 4 Pro", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/675581/huawei-watch-fit-4-pro" },
+      { id: 68, nombre: "Audífonos Soundcore Aero Fit Pro", precio: "Big ticket", precioOriginal: "", img: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/565250/audifonos-soundcore-aero-fit-pro" },
+      { id: 69, nombre: "Audífonos Soundcore Space One Azul", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/482420/audifonos-soundcore-space-one-azul" },
+      { id: 70, nombre: "Audífonos Sony WH-CH520 Bluetooth", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/324151/audifonos-sony-wh-ch520-bluetooth-beige" },
+      { id: 71, nombre: "Audífonos STF Aurum On-Ear Negro", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/229402/audifonos-stf-aurum-on-ear-negro" },
+      { id: 72, nombre: "Tablet Samsung Galaxy S10 Lite 128GB", precio: "Big ticket", precioOriginal: "", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/714971/tablet-samsung-galaxy-s10-lite-128gb-coral-red" },
+      { id: 73, nombre: "MatePad 11.5 Gris 8/128GB", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/804962/matepad-11-5-gris-8-128g-120hz-2-5k" },
+      { id: 74, nombre: "Tablet Samsung Galaxy Tab S10 Ultra", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/522756/tablet-samsung-galaxy-tab-s10-ultra-12gb-256gb-moonstone-gray-spen" },
+      { id: 75, nombre: "iPhone 13 128GB Azul Marino Telcel", precio: "Big ticket", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/204859/iphone-13-128gb-azul-marino-telcel-r9" },
+      { id: 76, nombre: "iPhone 14 128GB Blanco Telcel", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/producto/288937/iphone-14-128gb-blanco-telcel-r9" },
+      { id: 77, nombre: "OPPO A79 5G 256GB Lila Telcel", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/producto/361481/oppo-a79-5g-256gb-lila-telcel-r9" },
+      { id: 78, nombre: "Honor X7c 256GB Verde Telcel", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/564958/honor-x7c-256gb-verde-telcel-r9-earbuds" },
+      { id: 79, nombre: "Samsung Galaxy A16 5G 128GB Verde", precio: "Big ticket", precioOriginal: "", img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/producto/655190/celular-samsung-galaxy-a16-5g-128gb-verde-telcel-r3" }
+    ],
+    cuidado: [
+      { id: 21, nombre: "Kit Afeitado Premium", precio: "$799", precioOriginal: "$1,099", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/117488" },
+      { id: 22, nombre: "Set Grooming", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/469399" },
+      { id: 23, nombre: "Recortadora Profesional", precio: "$1,299", precioOriginal: "$1,799", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/492378" },
+      { id: 24, nombre: "Kit Barbería", precio: "$999", precioOriginal: "$1,499", img: "https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/617456" },
+      { id: 25, nombre: "Set Cuidado Facial Hombre", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "31% OFF", url: "https://www.sanborns.com.mx/producto/408718" }
+    ],
+    perfumeria: [
+      { id: 193432, nombre: "Perfume Paco Rabanne Phantom EDT 50ml", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-193432.jpg", descuento: "Perfumes Hombre", url: "https://www.sanborns.com.mx/producto/193432/perfume-para-hombre-paco-rabanne-phantom-edt-50ml" },
+      { id: 20780, nombre: "Fragancia 1 Million Paco Rabanne 100 ml", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-20780.jpg", descuento: "Perfumes Hombre", url: "https://www.sanborns.com.mx/producto/20780/fragancia-para-caballero-1-million-paco-rabanne-100-ml" },
+      { id: 305145, nombre: "Paco Rabanne Invictus Victory Elixir EDP 100ml", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-305145.jpg", descuento: "Perfumes Hombre", url: "https://www.sanborns.com.mx/producto/305145/fragancia-para-caballero-paco-rabanne-invictus-victory-elixir-eau-de-parfum-100ml" }
+    ],
+    relojes: [
+      { id: 16, nombre: "Reloj Elegante", precio: "$3,299", precioOriginal: "$4,499", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/379802" },
+      { id: 17, nombre: "Reloj Deportivo", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1622434641406-a158123450f9?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/604930" },
+      { id: 18, nombre: "Reloj Casual", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/540572" },
+      { id: 19, nombre: "Smartwatch", precio: "$4,999", precioOriginal: "$6,499", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/542018" },
+      { id: 20, nombre: "Reloj Cronógrafo", precio: "$3,799", precioOriginal: "$4,999", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "24% OFF", url: "https://www.sanborns.com.mx/producto/557865" }
+    ],
+    gaming: [
+      { id: 80, nombre: "Videojuegos", precio: "Ofertas", precioOriginal: "", img: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/videojuegos/" },
+      { id: 81, nombre: "Consolas y Controles", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1599669454699-248893623440?w=400&h=400&fit=crop&q=80", descuento: "Regalos", url: "https://www.sanborns.com.mx/c/videojuegos/" },
+      { id: 82, nombre: "Gaming Gear", precio: "Desde $1,199", precioOriginal: "", img: "https://images.unsplash.com/photo-1527814050087-3793815479db?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/c/videojuegos/" }
+    ],
+    libros: [
+      { id: 83, nombre: "Bestsellers", precio: "$399", precioOriginal: "$599", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&q=80", descuento: "33% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
+      { id: 84, nombre: "Libros de Negocios", precio: "$499", precioOriginal: "$799", img: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=400&fit=crop&q=80", descuento: "38% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
+      { id: 85, nombre: "Ciencia Ficción y Más", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/c/libros/" }
+    ],
+    deportes: [
+      { id: 86, nombre: "Deportes", precio: "Desde $1,199", precioOriginal: "", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/deportes/" },
+      { id: 87, nombre: "Fitness y Running", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1557935728-e6d1eaa296ea?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/deportes/" },
+      { id: 88, nombre: "Accesorios Deportivos", precio: "Regalos", precioOriginal: "", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/c/deportes/" }
+    ]
+  }
+};
+
+window.productosDatabase = productosDatabase;
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// UTM / DV360-CM360 TRACKING - buildProductUrl
+// Usar en main.js para todos los links de productos
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buildProductUrl(product) {
+  if (!product || !product.url) return 'https://www.sanborns.com.mx';
+  const baseUrl = product.url;
+  const params = new URLSearchParams({
+    utm_source: 'dv360',
+    utm_medium: 'display',
+    utm_campaign: 'sanborns_san_valentin_2025',
+    utm_content: 'producto_' + (product.id || ''),
+    utm_term: 'gift_finder'
+  });
+  const separator = baseUrl.indexOf('?') !== -1 ? '&' : '?';
+  return baseUrl + separator + params.toString();
+}
+window.buildProductUrl = buildProductUrl;
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// VALIDACIÓN DE URLs - Ejecuta en DOMContentLoaded
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function validarURLsProductos() {
+  const errores = [];
+  const warnings = [];
+  const products = window.productosDatabase || productosDatabase;
+
+  Object.keys(products).forEach(function (gender) {
+    Object.keys(products[gender]).forEach(function (category) {
+      products[gender][category].forEach(function (product) {
+        const url = product.url;
+        
+        if (!url.startsWith('https://')) {
+          errores.push({ id: product.id, nombre: product.nombre, error: 'URL debe comenzar con https://', url: url });
+        }
+        if (!url.includes('sanborns.com.mx')) {
+          errores.push({ id: product.id, nombre: product.nombre, error: 'URL no apunta a sanborns.com.mx', url: url });
+        }
+        if (url.includes('/producto/') && !/\/producto\/\d+/.test(url)) {
+          warnings.push({ id: product.id, nombre: product.nombre, warning: 'URL de producto sin ID numérico', url: url });
+        }
+        if (url.startsWith('/') || (!url.startsWith('http') && url.indexOf('sanborns') === -1)) {
+          errores.push({ id: product.id, nombre: product.nombre, error: 'URL es ruta relativa, debe ser absoluta', url: url });
+        }
+      });
+    });
+  });
+  
+  var totalProductos = 0;
+  Object.keys(products).forEach(function (g) {
+    Object.keys(products[g]).forEach(function (c) {
+      totalProductos += products[g][c].length;
+    });
+  });
+
+  /* Zero logs - QA CM360/DV360 (validación sigue ejecutándose, sin salida a consola) */
+  return { errores: errores, warnings: warnings };
+}
+window.validarURLsProductos = validarURLsProductos;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', function () {
+    validarURLsProductos();
+  });
+}
+
+/**
+ * Imágenes reales de productos Sanborns.
+ * Generar con: node scripts/fetch-product-images.js
+ * Si no se ha ejecutado, se usan las imágenes placeholder de products-data.js
+ */
+window.PRODUCT_IMAGES = {};
+
+/**
+ * Catálogo de productos generado por scripts/parseProducts.js
+ * Fuente: Big ticket + Moda CSVs. Imágenes: ./images/producto-{ID}.webp (polite load DV360)
+ * Regenerar con: node scripts/parseProducts.js
+ */
+window.PRODUCTS_CATALOG = [];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TRACKING - DataLayer + Enabler (DSP/DV360) - Zero logs
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function trackEvent(eventName, eventData) {
+    var payload = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, eventData || {});
+    if (typeof window.dataLayer !== 'undefined') {
+        window.dataLayer.push(payload);
+    }
+    if (typeof Enabler !== 'undefined' && Enabler.counter) {
+        Enabler.counter(eventName);
+    }
+    if (typeof window.zaraz !== 'undefined' && typeof window.zaraz.track === 'function') {
+        window.zaraz.track(eventName, eventData || {});
+    }
+}
+
+// MediaSmart DSP: clic en producto con click tracker
+window.handleProductClick = function (el) {
+    var url = el.getAttribute('data-product-url');
+    var id = el.getAttribute('data-product-id');
+    var name = el.getAttribute('data-product-name') || '';
+    if (id != null) {
+        trackEvent('product_clicked', {
+            product_id: id,
+            product_name: name,
+            gender: appState.gender,
+            category: appState.category
+        });
+    }
+    if (url) {
+        // %click_url_unesc% + URL producto = MediaSmart trackea clic y redirige al producto
+        var tracker = window.clickTracker || '';
+        window.open(tracker + url, '_blank');
+    }
+};
+
+// Gift Finder Logic
+let appState = {
+    screen: 'inicio', // 'inicio' | 'categorias' | 'productos'
+    gender: null,
+    category: null,
+    wishlist: []
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DCO-lite: Pantalla 2 – 8 categorías por género (product.category + product.gender)
+// matchCategories: al elegir esta categoría en Pantalla 3 se filtran productos con category en este array
+// Mujer "Celulares" → Celulares + Tablets; "Gadgets" → Gadgets + Relojes
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const CATEGORIES = {
+    mujer: [
+        { id: 'celulares', name: 'Celulares', icon: '📱', matchCategories: ['Celulares'] },
+        { id: 'gadgets', name: 'Gadgets', icon: '⌚', matchCategories: ['Gadgets', 'Relojes'] },
+        { id: 'fotografia', name: 'Fotografía', icon: '📷', matchCategories: ['Fotografía'] },
+        { id: 'regalos', name: 'Regalos', icon: '🎁', matchCategories: ['Regalos'] },
+        { id: 'maquillaje', name: 'Maquillaje', icon: '💄', matchCategories: ['Maquillaje'] },
+        { id: 'skincare', name: 'Skincare', icon: '💅', matchCategories: ['Skincare'] },
+        { id: 'perfumeria', name: 'Perfumería', icon: '💐', matchCategories: ['Perfumería'] },
+        { id: 'estilismo', name: 'Estilismo', icon: '✂️', matchCategories: ['Estilismo'] }
+    ],
+    hombre: [
+        { id: 'celulares', name: 'Celulares', icon: '📱', matchCategories: ['Celulares'] },
+        { id: 'tablets', name: 'Tablets', icon: '📱', matchCategories: ['Tablets'] },
+        { id: 'relojes', name: 'Relojes', icon: '⌚', matchCategories: ['Relojes'] },
+        { id: 'gadgets', name: 'Gadgets', icon: '⌚', matchCategories: ['Gadgets'] },
+        { id: 'audio', name: 'Audio', icon: '🎧', matchCategories: ['Audio'] },
+        { id: 'fotografia', name: 'Fotografía', icon: '📷', matchCategories: ['Fotografía'] },
+        { id: 'perfumeria', name: 'Perfumería', icon: '💐', matchCategories: ['Perfumería'] },
+        { id: 'regalos', name: 'Regalos', icon: '🎁', matchCategories: ['Regalos'] }
+    ]
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Fallback bulletproof: cuando PRODUCTS_CATALOG está vacío, mapear DCO → legacy (productosDatabase)
+// Garantiza que ningún botón devuelva undefined.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+var LEGACY_FALLBACK_MAP = {
+    mujer: {
+        maquillaje: 'maquillaje',
+        skincare: 'cuidado',
+        perfumeria: 'perfumeria',
+        estilismo: 'estilismo',
+        celulares: 'tecnologia',
+        gadgets: 'tecnologia',
+        fotografia: 'tecnologia',
+        regalos: 'hogar'
+    },
+    hombre: {
+        celulares: 'tecnologia',
+        tablets: 'tecnologia',
+        relojes: 'relojes',
+        gadgets: 'tecnologia',
+        audio: 'tecnologia',
+        fotografia: 'tecnologia',
+        perfumeria: 'perfumeria',
+        regalos: 'accesorios'
+    }
+};
+
+function getLegacyCategoryKey(gender, dcoCategoryId) {
+    var map = LEGACY_FALLBACK_MAP && LEGACY_FALLBACK_MAP[gender];
+    return (map && map[dcoCategoryId]) || dcoCategoryId;
+}
+
+function getProductsFallback(gender, dcoCategoryId) {
+    if (!window.productosDatabase || !window.productosDatabase[gender]) return [];
+    var legacyKey = getLegacyCategoryKey(gender, dcoCategoryId);
+    var list = window.productosDatabase[gender][legacyKey];
+    if (Array.isArray(list) && list.length > 0) return list;
+    var firstKey = Object.keys(window.productosDatabase[gender])[0];
+    return window.productosDatabase[gender][firstKey] || [];
+}
+
+function render() {
+    const container = document.getElementById('screen-container');
+    container.innerHTML = '';
+    container.className = 'fade-in';
+
+    if (appState.screen === 'inicio') {
+        renderWelcome(container);
+    } else if (appState.screen === 'categorias') {
+        renderCategories(container);
+    } else if (appState.screen === 'productos') {
+        renderProducts(container);
+    }
+
+    updateWishlistCounter();
+}
+
+function renderWelcome(container) {
+    container.innerHTML = `
+        <div class="welcome-screen">
+            <div class="ai-character">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgMjAwIj4NCiAgPGRlZnM+DQogICAgPCEtLSBHcmFkaWVudGVzIHJvbcOhbnRpY29zIC0tPg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iaGVhcnRHcmFkaWVudCIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRkY2OUI0Ii8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGMTQ5MyIvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojREMxNDNDIi8+DQogICAgPC9saW5lYXJHcmFkaWVudD4NCiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9ImhlYXJ0R2xvdyIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIj4NCiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRjE0OTM7c3RvcC1vcGFjaXR5OjEiLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGMTQ5MztzdG9wLW9wYWNpdHk6MCIvPg0KICAgIDwvcmFkaWFsR3JhZGllbnQ+DQogICAgPCEtLSBGaWx0cm8gZGUgYnJpbGxvIC0tPg0KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAlIiBoZWlnaHQ9IjIwMCUiPg0KICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMyIgcmVzdWx0PSJjb2xvcmVkQmx1ciIvPg0KICAgICAgPGZlTWVyZ2U+DQogICAgICAgIDxmZU1lcmdlTm9kZSBpbj0iY29sb3JlZEJsdXIiLz4NCiAgICAgICAgPGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+DQogICAgICA8L2ZlTWVyZ2U+DQogICAgPC9maWx0ZXI+DQogIDwvZGVmcz4NCg0KICA8IS0tIEZvbmRvIGNvbiBjb3Jhem9uZXMgZGVjb3JhdGl2b3MgLS0+DQogIDxnIG9wYWNpdHk9IjAuMiI+DQogICAgPHBhdGggZD0iTTUwLDYwIEM1MCw1MCA2MCw0MCA3MCw0MCBDODAsNDAgOTAsNTAgOTAsNjAgQzkwLDcwIDcwLDkwIDcwLDkwIEM3MCw5MCA1MCw3MCA1MCw2MCBaIiBmaWxsPSJ1cmwoI2hlYXJ0R3JhZGllbnQpIi8+DQogICAgPHBhdGggZD0iTTIxMCw2MCBDMjEwLDUwIDIyMCw0MCAyMzAsNDAgQzI0MCw0MCAyNTAsNTAgMjUwLDYwIEMyNTAsNzAgMjMwLDkwIDIzMCw5MCBDMjMwLDkwIDIxMCw3MCAyMTAsNjAgWiIgZmlsbD0idXJsKCNoZWFydEdyYWRpZW50KSIvPg0KICA8L2c+DQoNCiAgPCEtLSBDb3JhesOzbiBwcmluY2lwYWwgZ3JhbmRlIC0tPg0KICA8ZyBmaWx0ZXI9InVybCgjZ2xvdykiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1MCwgMTAwKSI+DQogICAgPCEtLSBBdXJhIGRlbCBjb3JhesOzbiAtLT4NCiAgICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iNDUiIGZpbGw9InVybCgjaGVhcnRHbG93KSIgb3BhY2l0eT0iMC40Ij4NCiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHZhbHVlcz0iNDU7NTA7NDUiIGR1cj0iMnMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+DQogICAgPC9jaXJjbGU+DQogICAgPCEtLSBDb3JhesOzbiBwcmluY2lwYWwgLS0+DQogICAgPHBhdGggZD0iTTAsLTIwIEMtMjAsLTM1IC00MCwtMjUgLTQwLC0xMCBDLTQwLDAgLTIwLDEwIDAsMzAgQzIwLDEwIDQwLDAgNDAsLTEwIEM0MCwtMjUgMjAsLTM1IDAsLTIwIFoiIA0KICAgICAgICAgIGZpbGw9InVybCgjaGVhcnRHcmFkaWVudCkiIA0KICAgICAgICAgIHN0cm9rZT0iI0ZGRkZGRiIgDQogICAgICAgICAgc3Ryb2tlLXdpZHRoPSIyIj4NCiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9ImZpbGwtb3BhY2l0eSIgdmFsdWVzPSIxOzAuODsxIiBkdXI9IjJzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPg0KICAgIDwvcGF0aD4NCiAgICANCiAgICA8IS0tIEJyaWxsbyBlbiBlbCBjb3JhesOzbiAtLT4NCiAgICA8ZWxsaXBzZSBjeD0iLTgiIGN5PSItMTUiIHJ4PSI4IiByeT0iMTAiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9IjAuNiI+DQogICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiB2YWx1ZXM9IjAuNjswLjg7MC42IiBkdXI9IjEuNXMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+DQogICAgPC9lbGxpcHNlPg0KICA8L2c+DQoNCiAgPCEtLSBDb3Jhem9uZXMgcGVxdWXDsW9zIGZsb3RhbnRlcyAtLT4NCiAgPGcgb3BhY2l0eT0iMC43Ij4NCiAgICA8cGF0aCBkPSJNMTAwLDE0MCBDMTAwLDEzNSAxMDUsMTMwIDExMCwxMzAgQzExNSwxMzAgMTIwLDEzNSAxMjAsMTQwIEMxMjAsMTQ1IDExMCwxNTUgMTEwLDE1NSBDMTEwLDE1NSAxMDAsMTQ1IDEwMCwxNDAgWiIgZmlsbD0iI0ZGNjlCNCI+DQogICAgICA8YW5pbWF0ZVRyYW5zZm9ybSBhdHRyaWJ1dGVOYW1lPSJ0cmFuc2Zvcm0iIHR5cGU9InRyYW5zbGF0ZSIgdmFsdWVzPSIwLDA7IDAsLTEwOyAwLDAiIGR1cj0iM3MiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+DQogICAgPC9wYXRoPg0KICAgIDxwYXRoIGQ9Ik0xODAsMTQwIEMxODAsMTM1IDE4NSwxMzAgMTkwLDEzMCBDMTk1LDEzMCAyMDAsMTM1IDIwMCwxNDAgQzIwMCwxNDUgMTkwLDE1NSAxOTAsMTU1IEMxOTAsMTU1IDE4MCwxNDUgMTgwLDE0MCBaIiBmaWxsPSIjRkYxNDkzIj4NCiAgICAgIDxhbmltYXRlVHJhbnNmb3JtIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIgdHlwZT0idHJhbnNsYXRlIiB2YWx1ZXM9IjAsMDsgMCwtODsgMCwwIiBkdXI9IjIuNXMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+DQogICAgPC9wYXRoPg0KICA8L2c+DQoNCiAgPCEtLSBSYXlvcyBkZSBhbW9yIC0tPg0KICA8ZyBvcGFjaXR5PSIwLjQiPg0KICAgIDxsaW5lIHgxPSIxNTAiIHkxPSI2MCIgeDI9IjE1MCIgeTI9IjUwIiBzdHJva2U9InVybCgjaGVhcnRHcmFkaWVudCkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4NCiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InkyIiB2YWx1ZXM9IjUwOzQ1OzUwIiBkdXI9IjEuNXMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+DQogICAgPC9saW5lPg0KICAgIDxsaW5lIHgxPSIxNTAiIHkxPSIxNDAiIHgyPSIxNTAiIHkyPSIxNTAiIHN0cm9rZT0idXJsKCNoZWFydEdyYWRpZW50KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiPg0KICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0ieTIiIHZhbHVlcz0iMTUwOzE1NTsxNTAiIGR1cj0iMS41cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4NCiAgICA8L2xpbmU+DQogICAgPGxpbmUgeDE9IjEwMCIgeTE9IjEwMCIgeDI9IjkwIiB5Mj0iMTAwIiBzdHJva2U9InVybCgjaGVhcnRHcmFkaWVudCkiIHN0cm9rZS13aWR0aD0iMyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4NCiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9IngyIiB2YWx1ZXM9IjkwOzg1OzkwIiBkdXI9IjEuNXMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIi8+DQogICAgPC9saW5lPg0KICAgIDxsaW5lIHgxPSIyMDAiIHkxPSIxMDAiIHgyPSIyMTAiIHkyPSIxMDAiIHN0cm9rZT0idXJsKCNoZWFydEdyYWRpZW50KSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiPg0KICAgICAgPGFuaW1hdGUgYXR0cmlidXRlTmFtZT0ieDIiIHZhbHVlcz0iMjEwOzIxNTsyMTAiIGR1cj0iMS41cyIgcmVwZWF0Q291bnQ9ImluZGVmaW5pdGUiLz4NCiAgICA8L2xpbmU+DQogIDwvZz4NCjwvc3ZnPg0K" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMDAgMjAwIj4NCiAgPGRlZnM+DQogICAgPCEtLSBHcmFkaWVudGVzIC0tPg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3Rhckdsb3ciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGRkZGRiIvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRkQ3MDAiLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGQTUwMCIvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJzdGFyQXVyYSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNTAlIj4NCiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRkQ3MDA7c3RvcC1vcGFjaXR5OjEiLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGRDcwMDtzdG9wLW9wYWNpdHk6MCIvPg0KICAgIDwvcmFkaWFsR3JhZGllbnQ+DQogICAgPGxpbmVhckdyYWRpZW50IGlkPSJyb2JlUmVkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4NCiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNEQzE0M0MiLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzhCMDAwMCIvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPGxpbmVhckdyYWRpZW50IGlkPSJyb2JlQmx1ZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDE2OUUxIi8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMxOTE5NzAiLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icm9iZUdyZWVuIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4NCiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMyMjhCMjIiLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzAwNjQwMCIvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPGxpbmVhckdyYWRpZW50IGlkPSJjYW1lbEJvZHkiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I0QyQTY3OSIvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojQTA4MjZEIi8+DQogICAgPC9saW5lYXJHcmFkaWVudD4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdvbGQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I0ZGRDcwMCIvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGRkMxMjUiLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6I0RBQTUyMCIvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPCEtLSBGaWx0cm8gZGUgYnJpbGxvIC0tPg0KICAgIDxmaWx0ZXIgaWQ9Imdsb3ciIHg9Ii01MCUiIHk9Ii01MCUiIHdpZHRoPSIyMDAlIiBoZWlnaHQ9IjIwMCUiPg0KICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMyIgcmVzdWx0PSJjb2xvcmVkQmx1ciIvPg0KICAgICAgPGZlTWVyZ2U+DQogICAgICAgIDxmZU1lcmdlTm9kZSBpbj0iY29sb3JlZEJsdXIiLz4NCiAgICAgICAgPGZlTWVyZ2VOb2RlIGluPSJTb3VyY2VHcmFwaGljIi8+DQogICAgICA8L2ZlTWVyZ2U+DQogICAgPC9maWx0ZXI+DQogIDwvZGVmcz4NCg0KICA8IS0tIEVzdHJlbGxhIGRlIEJlbMOpbiBjb24gcmF5b3MgLS0+DQogIDxnIGZpbHRlcj0idXJsKCNnbG93KSI+DQogICAgPCEtLSBBdXJhIGRlIGxhIGVzdHJlbGxhIC0tPg0KICAgIDxjaXJjbGUgY3g9IjE1MCIgY3k9IjI1IiByPSIyMCIgZmlsbD0idXJsKCNzdGFyQXVyYSkiIG9wYWNpdHk9IjAuNiI+DQogICAgICA8YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJyIiB2YWx1ZXM9IjIwOzI1OzIwIiBkdXI9IjJzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPg0KICAgIDwvY2lyY2xlPg0KICAgIDwhLS0gUmF5b3MgZGUgbGEgZXN0cmVsbGEgLS0+DQogICAgPGcgZmlsbD0idXJsKCNzdGFyR2xvdykiPg0KICAgICAgPHBvbHlnb24gcG9pbnRzPSIxNTAsNSAxNTMsMjAgMTUwLDE1IDE0NywyMCIgb3BhY2l0eT0iMC44Ii8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjE1MCw0NSAxNTMsMzAgMTUwLDM1IDE0NywzMCIgb3BhY2l0eT0iMC44Ii8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjEzMCwyNSAxNDUsMjggMTQwLDI1IDE0NSwyMiIgb3BhY2l0eT0iMC44Ii8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjE3MCwyNSAxNTUsMjggMTYwLDI1IDE1NSwyMiIgb3BhY2l0eT0iMC44Ii8+DQogICAgICA8IS0tIFJheW9zIGRpYWdvbmFsZXMgLS0+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjEzNSwxMCAxNDUsMjIgMTQyLDIwIDE0OCwxOCIgb3BhY2l0eT0iMC42Ii8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjE2NSwxMCAxNTUsMjIgMTU4LDIwIDE1MiwxOCIgb3BhY2l0eT0iMC42Ii8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjEzNSw0MCAxNDUsMjggMTQyLDMwIDE0OCwzMiIgb3BhY2l0eT0iMC42Ii8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjE2NSw0MCAxNTUsMjggMTU4LDMwIDE1MiwzMiIgb3BhY2l0eT0iMC42Ii8+DQogICAgPC9nPg0KICAgIDwhLS0gRXN0cmVsbGEgY2VudHJhbCAtLT4NCiAgICA8cG9seWdvbiBwb2ludHM9IjE1MCw4IDE1NCwyMCAxNjcsMjAgMTU2LDI4IDE2MCw0MCAxNTAsMzIgMTQwLDQwIDE0NCwyOCAxMzMsMjAgMTQ2LDIwIiBmaWxsPSJ1cmwoI2dvbGQpIj4NCiAgICAgIDxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9Im9wYWNpdHkiIHZhbHVlcz0iMTswLjg7MSIgZHVyPSIxLjVzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIvPg0KICAgIDwvcG9seWdvbj4NCiAgPC9nPg0KDQogIDwhLS0gQ2FtZWxsbyAxIChpenF1aWVyZGEpIC0tPg0KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMCwgOTApIj4NCiAgICA8IS0tIEN1ZXJwbyAtLT4NCiAgICA8ZWxsaXBzZSBjeD0iMzUiIGN5PSI2MCIgcng9IjMwIiByeT0iMjAiIGZpbGw9InVybCgjY2FtZWxCb2R5KSIvPg0KICAgIDwhLS0gSm9yb2JhIC0tPg0KICAgIDxlbGxpcHNlIGN4PSIzNSIgY3k9IjQ1IiByeD0iMTIiIHJ5PSIxNSIgZmlsbD0idXJsKCNjYW1lbEJvZHkpIi8+DQogICAgPCEtLSBDdWVsbG8gLS0+DQogICAgPHBhdGggZD0iTSA1NSA1MCBRIDcwIDMwIDY1IDE1IiBzdHJva2U9IiNBMDgyNkQiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+DQogICAgPCEtLSBDYWJlemEgLS0+DQogICAgPGVsbGlwc2UgY3g9IjY4IiBjeT0iMTIiIHJ4PSIxMiIgcnk9IjgiIGZpbGw9IiNEMkE2NzkiLz4NCiAgICA8IS0tIE9qbyAtLT4NCiAgICA8Y2lyY2xlIGN4PSI3MyIgY3k9IjEwIiByPSIyIiBmaWxsPSIjMkMxODEwIi8+DQogICAgPCEtLSBQYXRhcyAtLT4NCiAgICA8bGluZSB4MT0iMjAiIHkxPSI3NSIgeDI9IjE1IiB5Mj0iMTAwIiBzdHJva2U9IiNBMDgyNkQiIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+DQogICAgPGxpbmUgeDE9IjUwIiB5MT0iNzUiIHgyPSI1NSIgeTI9IjEwMCIgc3Ryb2tlPSIjQTA4MjZEIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPg0KICA8L2c+DQoNCiAgPCEtLSBSZXkgTWVsY2hvciAoaXpxdWllcmRhIC0gcm9qbykgLS0+DQogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLCA1NSkiPg0KICAgIDwhLS0gQ3VlcnBvL1TDum5pY2EgLS0+DQogICAgPHBhdGggZD0iTSAyNSA0NSBMIDEwIDk1IEwgNDAgOTUgWiIgZmlsbD0idXJsKCNyb2JlUmVkKSIvPg0KICAgIDwhLS0gQ2FwYSAtLT4NCiAgICA8cGF0aCBkPSJNIDIwIDUwIFEgNSA3MCAxNSA5NSIgc3Ryb2tlPSIjRkZENzAwIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4NCiAgICA8IS0tIENhYmV6YSAtLT4NCiAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjM4IiByPSIxMiIgZmlsbD0iIzhCNUEyQiIvPg0KICAgIDwhLS0gQmFyYmEgYmxhbmNhIC0tPg0KICAgIDxlbGxpcHNlIGN4PSIyNSIgY3k9IjQ4IiByeD0iOCIgcnk9IjYiIGZpbGw9IiNGNUY1RjUiLz4NCiAgICA8IS0tIENvcm9uYSAtLT4NCiAgICA8cGF0aCBkPSJNIDE1IDI4IEwgMTcgMjAgTCAyMiAyNiBMIDI1IDE4IEwgMjggMjYgTCAzMyAyMCBMIDM1IDI4IFoiIGZpbGw9InVybCgjZ29sZCkiLz4NCiAgICA8IS0tIE9qb3MgLS0+DQogICAgPGNpcmNsZSBjeD0iMjIiIGN5PSIzNiIgcj0iMS41IiBmaWxsPSIjMkMxODEwIi8+DQogICAgPGNpcmNsZSBjeD0iMjgiIGN5PSIzNiIgcj0iMS41IiBmaWxsPSIjMkMxODEwIi8+DQogICAgPCEtLSBSZWdhbG8gLS0+DQogICAgPHJlY3QgeD0iMzUiIHk9IjYwIiB3aWR0aD0iMTIiIGhlaWdodD0iMTAiIGZpbGw9IiNGRkQ3MDAiIHJ4PSIxIi8+DQogICAgPGxpbmUgeDE9IjQxIiB5MT0iNjAiIHgyPSI0MSIgeTI9IjcwIiBzdHJva2U9IiNEQzE0M0MiIHN0cm9rZS13aWR0aD0iMiIvPg0KICAgIDxsaW5lIHgxPSIzNSIgeTE9IjY1IiB4Mj0iNDciIHkyPSI2NSIgc3Ryb2tlPSIjREMxNDNDIiBzdHJva2Utd2lkdGg9IjIiLz4NCiAgPC9nPg0KDQogIDwhLS0gQ2FtZWxsbyAyIChjZW50cm8pIC0tPg0KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMTAsIDg1KSI+DQogICAgPCEtLSBDdWVycG8gLS0+DQogICAgPGVsbGlwc2UgY3g9IjM1IiBjeT0iNjUiIHJ4PSIzMiIgcnk9IjIyIiBmaWxsPSJ1cmwoI2NhbWVsQm9keSkiLz4NCiAgICA8IS0tIEpvcm9iYSAtLT4NCiAgICA8ZWxsaXBzZSBjeD0iMzUiIGN5PSI0OCIgcng9IjE0IiByeT0iMTciIGZpbGw9InVybCgjY2FtZWxCb2R5KSIvPg0KICAgIDwhLS0gQ3VlbGxvIC0tPg0KICAgIDxwYXRoIGQ9Ik0gNTUgNTUgUSA3NSAzMCA3MCAxMCIgc3Ryb2tlPSIjQTA4MjZEIiBzdHJva2Utd2lkdGg9IjkiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPg0KICAgIDwhLS0gQ2FiZXphIC0tPg0KICAgIDxlbGxpcHNlIGN4PSI3MyIgY3k9IjgiIHJ4PSIxMyIgcnk9IjkiIGZpbGw9IiNEMkE2NzkiLz4NCiAgICA8IS0tIE9qbyAtLT4NCiAgICA8Y2lyY2xlIGN4PSI3OCIgY3k9IjYiIHI9IjIiIGZpbGw9IiMyQzE4MTAiLz4NCiAgICA8IS0tIFBhdGFzIC0tPg0KICAgIDxsaW5lIHgxPSIxOCIgeTE9IjgyIiB4Mj0iMTIiIHkyPSIxMDgiIHN0cm9rZT0iI0EwODI2RCIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4NCiAgICA8bGluZSB4MT0iNTIiIHkxPSI4MiIgeDI9IjU4IiB5Mj0iMTA4IiBzdHJva2U9IiNBMDgyNkQiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+DQogIDwvZz4NCg0KICA8IS0tIFJleSBHYXNwYXIgKGNlbnRybyAtIGF6dWwpIC0tPg0KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAsIDQ1KSI+DQogICAgPCEtLSBDdWVycG8vVMO6bmljYSAtLT4NCiAgICA8cGF0aCBkPSJNIDMwIDUwIEwgMTIgMTA1IEwgNDggMTA1IFoiIGZpbGw9InVybCgjcm9iZUJsdWUpIi8+DQogICAgPCEtLSBEZXRhbGxlcyBkb3JhZG9zIC0tPg0KICAgIDxwYXRoIGQ9Ik0gMjIgNjAgTCAzMCAxMDUiIHN0cm9rZT0iI0ZGRDcwMCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4NCiAgICA8cGF0aCBkPSJNIDM4IDYwIEwgMzAgMTA1IiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMS41Ii8+DQogICAgPCEtLSBDYWJlemEgLS0+DQogICAgPGNpcmNsZSBjeD0iMzAiIGN5PSI0MiIgcj0iMTMiIGZpbGw9IiNERUI4ODciLz4NCiAgICA8IS0tIENhYmVsbG8vVHVyYmFudGUgLS0+DQogICAgPHBhdGggZD0iTSAxOCAzOCBRIDIwIDI4IDMwIDI2IFEgNDAgMjggNDIgMzgiIGZpbGw9IiM0QjAwODIiLz4NCiAgICA8IS0tIENvcm9uYSBzb2JyZSB0dXJiYW50ZSAtLT4NCiAgICA8cGF0aCBkPSJNIDIwIDMwIEwgMjMgMjIgTCAyOCAyOCBMIDMwIDIwIEwgMzIgMjggTCAzNyAyMiBMIDQwIDMwIFoiIGZpbGw9InVybCgjZ29sZCkiLz4NCiAgICA8IS0tIE9qb3MgLS0+DQogICAgPGNpcmNsZSBjeD0iMjYiIGN5PSI0MCIgcj0iMS41IiBmaWxsPSIjMkMxODEwIi8+DQogICAgPGNpcmNsZSBjeD0iMzQiIGN5PSI0MCIgcj0iMS41IiBmaWxsPSIjMkMxODEwIi8+DQogICAgPCEtLSBCYXJiYSBjb3J0YSAtLT4NCiAgICA8ZWxsaXBzZSBjeD0iMzAiIGN5PSI1MCIgcng9IjYiIHJ5PSI0IiBmaWxsPSIjNEEzNzI4Ii8+DQogICAgPCEtLSBSZWdhbG8gKGluY2llbnNvKSAtLT4NCiAgICA8cmVjdCB4PSI0NSIgeT0iNjUiIHdpZHRoPSIxMCIgaGVpZ2h0PSIxNSIgZmlsbD0iI0MwQzBDMCIgcng9IjIiLz4NCiAgICA8ZWxsaXBzZSBjeD0iNTAiIGN5PSI2MiIgcng9IjMiIHJ5PSIyIiBmaWxsPSIjRkZENzAwIi8+DQogIDwvZz4NCg0KICA8IS0tIENhbWVsbG8gMyAoZGVyZWNoYSkgLS0+DQogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE5NSwgOTIpIj4NCiAgICA8IS0tIEN1ZXJwbyAtLT4NCiAgICA8ZWxsaXBzZSBjeD0iMzUiIGN5PSI1OCIgcng9IjI4IiByeT0iMTgiIGZpbGw9InVybCgjY2FtZWxCb2R5KSIvPg0KICAgIDwhLS0gSm9yb2JhIC0tPg0KICAgIDxlbGxpcHNlIGN4PSIzNSIgY3k9IjQ0IiByeD0iMTEiIHJ5PSIxNCIgZmlsbD0idXJsKCNjYW1lbEJvZHkpIi8+DQogICAgPCEtLSBDdWVsbG8gLS0+DQogICAgPHBhdGggZD0iTSA1NSA0OCBRIDY4IDI4IDYzIDEyIiBzdHJva2U9IiNBMDgyNkQiIHN0cm9rZS13aWR0aD0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+DQogICAgPCEtLSBDYWJlemEgLS0+DQogICAgPGVsbGlwc2UgY3g9IjY2IiBjeT0iMTAiIHJ4PSIxMSIgcnk9IjciIGZpbGw9IiNEMkE2NzkiLz4NCiAgICA8IS0tIE9qbyAtLT4NCiAgICA8Y2lyY2xlIGN4PSI3MSIgY3k9IjgiIHI9IjIiIGZpbGw9IiMyQzE4MTAiLz4NCiAgICA8IS0tIFBhdGFzIC0tPg0KICAgIDxsaW5lIHgxPSIxOCIgeTE9IjcyIiB4Mj0iMTQiIHkyPSI5NSIgc3Ryb2tlPSIjQTA4MjZEIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPg0KICAgIDxsaW5lIHgxPSI0OCIgeTE9IjcyIiB4Mj0iNTIiIHkyPSI5NSIgc3Ryb2tlPSIjQTA4MjZEIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPg0KICA8L2c+DQoNCiAgPCEtLSBSZXkgQmFsdGFzYXIgKGRlcmVjaGEgLSB2ZXJkZSkgLS0+DQogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDIwNSwgNTcpIj4NCiAgICA8IS0tIEN1ZXJwby9Uw7puaWNhIC0tPg0KICAgIDxwYXRoIGQ9Ik0gMjUgNDUgTCA4IDkyIEwgNDIgOTIgWiIgZmlsbD0idXJsKCNyb2JlR3JlZW4pIi8+DQogICAgPCEtLSBEZXRhbGxlcyAtLT4NCiAgICA8cGF0aCBkPSJNIDI1IDUwIEwgMjUgOTIiIHN0cm9rZT0iI0ZGRDcwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+DQogICAgPCEtLSBDYWJlemEgLS0+DQogICAgPGNpcmNsZSBjeD0iMjUiIGN5PSIzOCIgcj0iMTIiIGZpbGw9IiMzRDIzMTQiLz4NCiAgICA8IS0tIENvcm9uYSBlbGFib3JhZGEgLS0+DQogICAgPHBhdGggZD0iTSAxNCAzMCBMIDE2IDE4IEwgMjAgMjYgTCAyNSAxNSBMIDMwIDI2IEwgMzQgMTggTCAzNiAzMCBaIiBmaWxsPSJ1cmwoI2dvbGQpIi8+DQogICAgPCEtLSBKb3lhIGVuIGNvcm9uYSAtLT4NCiAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjIyIiByPSIzIiBmaWxsPSIjRTAxMTVGIi8+DQogICAgPCEtLSBPam9zIC0tPg0KICAgIDxjaXJjbGUgY3g9IjIyIiBjeT0iMzYiIHI9IjEuNSIgZmlsbD0iI0Y1RjVGNSIvPg0KICAgIDxjaXJjbGUgY3g9IjI4IiBjeT0iMzYiIHI9IjEuNSIgZmlsbD0iI0Y1RjVGNSIvPg0KICAgIDwhLS0gU29ucmlzYSAtLT4NCiAgICA8cGF0aCBkPSJNIDIxIDQyIFEgMjUgNDUgMjkgNDIiIHN0cm9rZT0iI0Y1RjVGNSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIi8+DQogICAgPCEtLSBSZWdhbG8gKG1pcnJhKSAtLT4NCiAgICA8ZWxsaXBzZSBjeD0iNDIiIGN5PSI2MiIgcng9IjYiIHJ5PSI4IiBmaWxsPSIjOEI0NTEzIi8+DQogICAgPGVsbGlwc2UgY3g9IjQyIiBjeT0iNTYiIHJ4PSI0IiByeT0iMyIgZmlsbD0iI0ZGRDcwMCIvPg0KICA8L2c+DQoNCiAgPCEtLSBTdWVsby9BcmVuYSBkZWwgZGVzaWVydG8gLS0+DQogIDxlbGxpcHNlIGN4PSIxNTAiIGN5PSIxOTUiIHJ4PSIxNDAiIHJ5PSI4IiBmaWxsPSIjQzJBMzY2IiBvcGFjaXR5PSIwLjMiLz4NCjwvc3ZnPg0KDQo='">
+            </div>
+            
+            <div class="chat-bubble">
+                <div class="chat-bubble-tail"></div>
+                <h1 class="chat-title">¿Qué te gustaría regalar este San Valentín?</h1>
+                <p class="chat-subtitle">Encuentra el regalo perfecto</p>
+            </div>
+
+            <div class="gender-selection">
+                <button class="gender-btn" onclick="selectGender('mujer')">👩 Para una Mujer</button>
+                <button class="gender-btn" onclick="selectGender('hombre')">👨 Para un Hombre</button>
+            </div>
+        </div>
+    `;
+}
+
+function renderCategories(container) {
+    const cats = CATEGORIES[appState.gender];
+    const title = appState.gender === 'mujer' ? 'Regalo para Mujer 👩' : 'Regalo para Hombre 👨';
+    
+    container.innerHTML = `
+        <button class="back-btn" onclick="goBack()">
+            <span style="font-size: 18px; font-weight: bold;">←</span>
+            <span>Volver</span>
+        </button>
+        <h2 class="screen-title">${title}</h2>
+        <p style="text-align: center; margin-bottom: 15px; font-size: 14px;">¿Qué le gustaría?</p>
+        <div class="category-grid">
+            ${cats.map(cat => `
+                <button class="category-btn" onclick="selectCategory('${cat.id}')">
+                    <div style="font-size: 24px; margin-bottom: 5px;">${cat.icon}</div>
+                    ${cat.name}
+                </button>
+            `).join('')}
+        </div>
+    `;
+}
+
+function renderProducts(container) {
+    const gender = appState.gender;
+    const category = appState.category;
+    const catConfig = CATEGORIES[gender] && CATEGORIES[gender].find(function (c) { return c.id === category; });
+    const matchCategories = (catConfig && catConfig.matchCategories) ? catConfig.matchCategories : [];
+
+    var products = [];
+    var catalog = window.PRODUCTS_CATALOG;
+    if (Array.isArray(catalog) && catalog.length > 0 && matchCategories.length > 0) {
+        products = catalog.filter(function (p) {
+            return matchCategories.indexOf(p.category) !== -1 &&
+                (p.gender === gender || p.gender === 'ambos');
+        });
+    }
+    // Fallback SOLO cuando el catálogo no devolvió productos (nunca mezclar catalog + productosDatabase).
+    if (!Array.isArray(products) || products.length === 0) {
+        products = getProductsFallback(gender, category);
+    }
+
+    if (!Array.isArray(products) || products.length === 0) {
+        /* DCO: sin productos para esta combinación género/categoría */
+    }
+    const catName = catConfig ? catConfig.name : category;
+
+    const isFromCatalog = Array.isArray(catalog) && catalog.length > 0 && products.length > 0 && products[0].hasOwnProperty('gender');
+
+    container.innerHTML = `
+        <button class="back-btn" onclick="goBack()">
+            <span style="font-size: 18px; font-weight: bold;">←</span>
+            <span>Volver</span>
+        </button>
+        <h2 class="screen-title" style="font-size: 16px;">${catName}</h2>
+        <p style="text-align: center; margin-bottom: 10px; font-size: 12px;">✨ Encontramos ofertas para ti</p>
+        <div class="products-scroll">
+            ${products.map(function (p) {
+                var pid = isFromCatalog ? String(p.id) : p.id;
+                var isAdded = appState.wishlist.some(function (item) { return String(item.id) === String(pid); });
+                var productUrl = typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || '#');
+                var displayName = (isFromCatalog ? (p.name || 'Producto ' + p.id) : (p.nombre || '')) || '';
+                /* Catálogo: product.name viene del JSON generado (Moda = MODA_NAMES; Big Ticket = slug URL). */
+                var imgSrc = isFromCatalog
+                    ? (p.imagePath && p.imagePath.indexOf('images/') !== -1 ? p.imagePath : (p.img && p.img.startsWith('http') ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80'))
+                    : ((p.img && String(p.img).trim()) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80');
+                var price = isFromCatalog ? (p.precio || 'Ver en Sanborns') : (p.precio || '');
+                return (
+                    '<div class="product-card" role="button" style="cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '" data-product-url="' + (productUrl + '').replace(/"/g, '&quot;') + '" onclick="handleProductClick(this)">' +
+                    '<img src="' + (imgSrc + '').replace(/"/g, '&quot;') + '" class="product-img" alt="' + (displayName + '').replace(/"/g, '&quot;') + '" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80\'">' +
+                    '<div class="product-info">' +
+                    '<div class="product-name">' + displayName + '</div>' +
+                    '<div class="product-price">' + price + '</div>' +
+                    '<button type="button" class="add-btn" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-wishlist-btn>' + (isAdded ? '❤️ Quitar' : '🤍 Agregar') + '</button>' +
+                    '</div></div>'
+                );
+            }).join('')}
+        </div>
+        <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
+    `;
+    // Delegated: botón wishlist (no seguir link)
+    container.querySelectorAll('[data-wishlist-btn]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var id = this.getAttribute('data-product-id');
+            var product = products.find(function (pr) { return String(pr.id) === String(id); });
+            if (product) toggleWishlist(product);
+        });
+    });
+    /* Clic en producto: handleProductClick (onclick) hace track + window.open - QA CM360/DV360 */
+}
+
+window.selectGender = (gender) => {
+    appState.gender = gender;
+    appState.screen = 'categorias';
+    trackEvent('gender_selected', { gender: gender });
+    render();
+};
+
+window.selectCategory = (category) => {
+    var gender = appState.gender;
+    var catConfig = CATEGORIES[gender] && CATEGORIES[gender].find(function (c) { return c.id === category; });
+    var useCatalog = Array.isArray(window.PRODUCTS_CATALOG) && window.PRODUCTS_CATALOG.length > 0 && catConfig && catConfig.matchCategories;
+    var productsRef = useCatalog
+        ? window.PRODUCTS_CATALOG.filter(function (p) {
+            return catConfig.matchCategories.indexOf(p.category) !== -1 && (p.gender === gender || p.gender === 'ambos');
+          })
+        : getProductsFallback(gender, category);
+    /* Zero logs - QA CM360/DV360 */
+    appState.category = category;
+    appState.screen = 'productos';
+    trackEvent('category_selected', { gender: gender, category: category });
+    render();
+};
+
+window.goBack = () => {
+    if (appState.screen === 'productos') {
+        appState.screen = 'categorias';
+    } else if (appState.screen === 'categorias') {
+        appState.screen = 'inicio';
+    }
+    render();
+};
+
+window.toggleWishlist = (product) => {
+    const index = appState.wishlist.findIndex(item => item.id === product.id);
+    if (index === -1) {
+        appState.wishlist.push(product);
+        trackEvent('product_added_to_wishlist', {
+            product_id: String(product.id),
+            product_name: product.nombre || '',
+            gender: appState.gender,
+            category: appState.category,
+            wishlist_count: appState.wishlist.length
+        });
+    } else {
+        appState.wishlist.splice(index, 1);
+    }
+    updateWishlistCounter();
+    render();
+};
+
+function updateWishlistCounter() {
+    const counter = document.getElementById('wishlistCount');
+    if (counter) counter.textContent = appState.wishlist.length;
+}
+
+// Modal Logic
+window.openEmailModal = () => {
+    if (appState.wishlist.length === 0) {
+        alert('Agrega al menos un producto a tu wishlist primero ❤️');
+        return;
+    }
+    trackEvent('wishlist_modal_opened', { wishlist_count: appState.wishlist.length });
+    document.getElementById('emailModal').classList.add('active');
+};
+
+document.getElementById('modalClose').onclick = function () {
+    if (typeof exitClickHandler === 'function') exitClickHandler('Modal Close');
+    document.getElementById('emailModal').classList.remove('active');
+};
+
+document.getElementById('btnCancelar').onclick = function () {
+    if (typeof exitClickHandler === 'function') exitClickHandler('Cancel');
+    document.getElementById('emailModal').classList.remove('active');
+};
+
+document.getElementById('wishlistForm').onsubmit = function (e) {
+    e.preventDefault();
+    if (!appState.wishlist || appState.wishlist.length === 0) {
+        alert('Por favor agrega productos a tu wishlist primero');
+        return;
+    }
+    var toEmail = (document.getElementById('emailPareja') && document.getElementById('emailPareja').value) || '';
+    toEmail = toEmail.trim();
+    if (!toEmail) {
+        alert('Escribe el correo de destino.');
+        return;
+    }
+    var items = appState.wishlist.map(function (p) {
+        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.landingPage)) || window.landingPage;
+        var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
+        var price = (p.precio || 'Ver en Sanborns') || '';
+        return { name: name, url: url, price: price };
+    });
+    var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
+    var subject = encodeURIComponent('💝 Mi Wishlist de San Valentín - Sanborns');
+    var body = encodeURIComponent(
+        'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
+    );
+    window.open('mailto:' + toEmail + '?subject=' + subject + '&body=' + body, '_blank');
+    trackEvent('wishlist_sent', { products_count: appState.wishlist.length, method: 'mailto' });
+    document.getElementById('emailModal').classList.remove('active');
+};
+
+// MediaSmart: abrir producto con click tracker
+window.openProductPage = (url) => {
+    if (!url) {
+        window.open(window.clickTag || window.landingPage, '_blank');
+        return;
+    }
+    var tracker = window.clickTracker || '';
+    window.open(tracker + url, '_blank');
+};
+
+// Start
+document.addEventListener('DOMContentLoaded', function () {
+    trackEvent('banner_loaded', {});
+    render();
+});
+
+
+    </script>
 </body>
 </html>
