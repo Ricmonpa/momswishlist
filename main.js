@@ -73,7 +73,7 @@ var LEGACY_FALLBACK_MAP = {
         maquillaje: 'maquillaje',
         skincare: 'cuidado',
         perfumeria: 'perfumeria',
-        estilismo: 'cuidado',
+        estilismo: 'estilismo',
         celulares: 'tecnologia',
         gadgets: 'tecnologia',
         fotografia: 'tecnologia',
@@ -300,12 +300,12 @@ window.openEmailModal = () => {
 };
 
 document.getElementById('modalClose').onclick = () => {
-    window.open(window.clickTag || 'https://www.sanborns.com.mx/', '_blank');
+    window.open(window.clickTag, '_blank');
     document.getElementById('emailModal').classList.remove('active');
 };
 
 document.getElementById('btnCancelar').onclick = () => {
-    window.open(window.clickTag || 'https://www.sanborns.com.mx/', '_blank');
+    window.open(window.clickTag, '_blank');
     document.getElementById('emailModal').classList.remove('active');
 };
 
@@ -323,7 +323,7 @@ document.getElementById('wishlistForm').onsubmit = async function (e) {
         btn.textContent = '⏳ Enviando...';
     }
     var items = appState.wishlist.map(function (p) {
-        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || 'https://www.sanborns.com.mx/')) || 'https://www.sanborns.com.mx/';
+        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.clickTag)) || window.clickTag;
         var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
         var price = (p.precio || 'Ver en Sanborns') || '';
         return { name: name, url: url, price: price };
@@ -377,7 +377,7 @@ document.getElementById('wishlistForm').onsubmit = async function (e) {
 // Función para abrir página del producto con tracking UTM
 window.openProductPage = (url) => {
     if (!url) {
-        window.open('https://www.sanborns.com.mx', '_blank', 'noopener,noreferrer');
+        window.open(window.clickTag, '_blank');
         return;
     }
     

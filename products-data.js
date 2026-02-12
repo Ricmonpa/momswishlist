@@ -22,6 +22,11 @@ const productosDatabase = {
       { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
       { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&h=400&fit=crop&q=80", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
     ],
+    estilismo: [
+      { id: 209620, nombre: "Wafflera Perfect Heat Revlon", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-209620.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/209620/wafflera-perfect-heat-revlon" },
+      { id: 118091, nombre: "Cepillo Secador y Voluminizador One Step Revlon", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-118091.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/118091/cepillo-secador-y-voluminizador-one-step-revlon" },
+      { id: 16117, nombre: "Secadora Timco ST-1875 Avo Confort con Lunares", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-16117.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/16117/secadora-timco-st-1875-avo-confort-con-lunares" }
+    ],
     bolsas: [
       { id: 26, nombre: "Bolsas de Mano", precio: "Desde $999", precioOriginal: "", img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop&q=80", descuento: "Ofertas", url: "https://www.sanborns.com.mx/c/bolsas/" },
       { id: 27, nombre: "Bolsas Fashion", precio: "Variedad", precioOriginal: "", img: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop&q=80", descuento: "San Valentín", url: "https://www.sanborns.com.mx/c/bolsas/" },
@@ -102,11 +107,9 @@ const productosDatabase = {
       { id: 25, nombre: "Set Cuidado Facial Hombre", precio: "$899", precioOriginal: "$1,299", img: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=400&h=400&fit=crop&q=80", descuento: "31% OFF", url: "https://www.sanborns.com.mx/producto/408718" }
     ],
     perfumeria: [
-      { id: 83, nombre: "Rabanne Fame Couture Edition EDP 80ml", precio: "$2,499", precioOriginal: "$3,299", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
-      { id: 84, nombre: "Versace Dylan Blush Pink EDP 100ml", precio: "$2,199", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
-      { id: 85, nombre: "Moschino Toy 2 Bubblegum EDT 100ml", precio: "$1,999", precioOriginal: "$2,699", img: "https://images.unsplash.com/photo-1588405748880-12d1d2a59cfc?w=400&h=400&fit=crop&q=80", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
-      { id: 86, nombre: "Montblanc Signature Elixir EDP 90ml", precio: "$2,799", precioOriginal: "$3,499", img: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop&q=80", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
-      { id: 87, nombre: "Carolina Herrera Good Girl Blush EDP 80ml", precio: "$2,299", precioOriginal: "$2,999", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
+      { id: 193432, nombre: "Perfume Paco Rabanne Phantom EDT 50ml", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-193432.jpg", descuento: "Perfumes Hombre", url: "https://www.sanborns.com.mx/producto/193432/perfume-para-hombre-paco-rabanne-phantom-edt-50ml" },
+      { id: 20780, nombre: "Fragancia 1 Million Paco Rabanne 100 ml", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-20780.jpg", descuento: "Perfumes Hombre", url: "https://www.sanborns.com.mx/producto/20780/fragancia-para-caballero-1-million-paco-rabanne-100-ml" },
+      { id: 305145, nombre: "Paco Rabanne Invictus Victory Elixir EDP 100ml", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-305145.jpg", descuento: "Perfumes Hombre", url: "https://www.sanborns.com.mx/producto/305145/fragancia-para-caballero-paco-rabanne-invictus-victory-elixir-eau-de-parfum-100ml" }
     ],
     relojes: [
       { id: 16, nombre: "Reloj Elegante", precio: "$3,299", precioOriginal: "$4,499", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=400&h=400&fit=crop&q=80", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/379802" },
