@@ -1,3 +1,6 @@
+// DIAGNÓSTICO: descubrir por qué el botón Enviar no hace nada (ver barra verde abajo)
+(function(){ var L=window.__wishlistDebug; if(L){ L.push('main_ran'); if(typeof __upd==='function')__upd(); } })();
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TRACKING - DataLayer + Enabler (DSP/DV360) - Zero logs
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -78,25 +81,38 @@ function sendWishlistByMail() {
     }
 }
 window.sendWishlistByMail = sendWishlistByMail;
+(function(){ var L=window.__wishlistDebug; if(L){ L.push('send_ok'); if(typeof __upd==='function')__upd(); } })();
 
-// Delegación en documento (capture) para que el botón Enviar funcione en cel/iframe aunque fallen onclick o otros handlers
+// Delegación click + touchend para que el botón Enviar funcione en cel (overlay ya no roba toques)
+function handleEnviarWishlist(e) {
+    var t = e.target;
+    var modal = document.getElementById('emailModal');
+    var insideModal = modal && (t === modal || modal.contains(t));
+    if (insideModal && window.__wishlistDebug) {
+        window.__wishlistDebug.push('tap:' + (t.id || t.tagName || '?'));
+        if (typeof __upd === 'function') __upd();
+    }
+    var isBtn = t.id === 'btnEnviar';
+    if (!isBtn && t.nodeType === 1) {
+        var p = t.parentNode;
+        while (p && p !== document.body) {
+            if (p.id === 'btnEnviar') { isBtn = true; break; }
+            p = p.parentNode;
+        }
+    }
+    if (isBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.__wishlistDebug) { window.__wishlistDebug.push('ENVIAR_BTN'); if (typeof __upd === 'function') __upd(); }
+        if (typeof window.sendWishlistByMail === 'function') {
+            if (window.__wishlistDebug) { window.__wishlistDebug.push('calling_send'); if (typeof __upd === 'function') __upd(); }
+            window.sendWishlistByMail();
+        } else if (window.__wishlistDebug) { window.__wishlistDebug.push('send_UNDEF'); if (typeof __upd === 'function') __upd(); }
+    }
+}
 if (typeof document !== 'undefined') {
-    document.addEventListener('click', function (e) {
-        var t = e.target;
-        var isBtn = t.id === 'btnEnviar';
-        if (!isBtn && t.nodeType === 1) {
-            var p = t.parentNode;
-            while (p && p !== document.body) {
-                if (p.id === 'btnEnviar') { isBtn = true; break; }
-                p = p.parentNode;
-            }
-        }
-        if (isBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof window.sendWishlistByMail === 'function') window.sendWishlistByMail();
-        }
-    }, true);
+    document.addEventListener('click', handleEnviarWishlist, true);
+    document.addEventListener('touchend', handleEnviarWishlist, true);
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
