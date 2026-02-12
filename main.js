@@ -206,7 +206,7 @@ function renderProducts(container) {
                 /* Catálogo: product.name viene del JSON generado (Moda = MODA_NAMES; Big Ticket = slug URL). */
                 var imgSrc = isFromCatalog
                     ? (p.imagePath && p.imagePath.indexOf('images/') !== -1 ? p.imagePath : (p.img && p.img.startsWith('http') ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80'))
-                    : ((p.img && p.img.startsWith('http')) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80');
+                    : ((p.img && String(p.img).trim()) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80');
                 var price = isFromCatalog ? (p.precio || 'Ver en Sanborns') : (p.precio || '');
                 return (
                     '<div class="product-card" role="button" style="cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '" data-product-url="' + (productUrl + '').replace(/"/g, '&quot;') + '" onclick="handleProductClick(this)">' +
