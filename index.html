@@ -4,57 +4,317 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="ad.size" content="width=640,height=1280">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Sanborns - Gift Finder San Valentín</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Sanborns - Gift Finder San Valentin</title>
     <script type="text/javascript">
     // MediaSmart DSP - Click macros
-    // %target_url_unesc% = tracking + redirect a URL destino configurada en plataforma
-    // %click_url_unesc%  = tracking + redirect (para clics a URLs dinámicas de producto)
     var clickTag = "%target_url_unesc%";
     var clickTracker = "%click_url_unesc%";
     var landingPage = "https://www.sanborns.com.mx";
-
-    // Fallback: si las macros no se resuelven (preview local), usar landing directo
+    // Fallback: si macros no resueltas (preview local), usar landing directo
     if (clickTag.indexOf('%') === 0) clickTag = landingPage;
     if (clickTracker.indexOf('%') === 0) clickTracker = '';
-
-    function exitClickHandler(exitName) {
+    function exitClickHandler() {
         window.open(window.clickTag || window.landingPage, '_blank');
     }
     </script>
+    <style>
+:root {
+    --pink-light: #FFB6C1;
+    --pink-medium: #FFC0CB;
+    --pink-fuchsia: #FF1493;
+    --pink-deep: #DC143C;
+    --white: #FFFFFF;
+    --text-dark: #333333;
+    --gradient-bg: linear-gradient(180deg, #FFB6C1 0%, #FFC0CB 50%, #FFB6C1 100%);
+    --gradient-button: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(180deg, #FFB6C1 0%, #FFC0CB 50%, #FFB6C1 100%);
+}
+#banner-container, .banner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(180deg, #FFB6C1 0%, #FFC0CB 50%, #FFB6C1 100%);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.banner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+.logo { width: 80px; }
+.wishlist-counter {
+    background: white;
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 10px;
+    color: #FF1493;
+    font-weight: bold;
+}
+#screen-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+.screen-title {
+    color: #DC143C;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding-top: 20px;
+}
+.ai-character {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    z-index: 10;
+}
+.animated-heart-img {
+    width: 180px;
+    height: auto;
+    filter: drop-shadow(0 0 5px #FF1493) drop-shadow(0 0 10px rgba(255, 20, 147, 0.6));
+    animation: floatHeart 3s ease-in-out infinite;
+}
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+}
+.chat-bubble {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+.chat-bubble-tail {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+.chat-title {
+    color: #003D7A;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+.chat-subtitle { color: #666; font-size: 14px; font-weight: 300; }
+.gender-selection { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+.gender-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: white;
+    color: #DC143C;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.gender-btn:hover { transform: scale(1.02); }
+.category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; overflow-y: auto; }
+.category-btn {
+    padding: 15px 5px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.8);
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+.products-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+    padding-bottom: 32px;
+}
+.product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 20, 147, 0.2);
+    background: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);
+}
+.product-card:active { transform: translateY(0px); box-shadow: 0 3px 12px rgba(255, 20, 147, 0.15); }
+.product-img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
+.product-info { flex: 1; }
+.product-name { font-size: 12px; font-weight: bold; margin-bottom: 4px; }
+.product-price { color: #DC143C; font-size: 13px; font-weight: bold; }
+.add-btn {
+    background: #FF1493;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 10px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+.back-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #FF1493;
+    color: #FF1493;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(255, 20, 147, 0.15);
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+.back-btn:hover { background: #FF1493; color: white; transform: translateX(-3px); }
+.btn-main {
+    background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+}
+.fade-in { animation: fadeIn 0.3s ease-in; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.floating-products {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    opacity: 0.3;
+}
+.email-modal, .modal-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 9999;
+}
+.email-modal { display: none; align-items: center; justify-content: center; }
+.email-modal.active { display: flex; }
+.modal-overlay { background: rgba(0,0,0,0.5); }
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 300px;
+    position: relative;
+}
+.modal-close { position: absolute; top: 10px; right: 10px; border: none; background: none; font-size: 20px; cursor: pointer; }
+.form-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
+.btn-send { width: 100%; padding: 10px; background: #FF1493; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn-cancel { width: 100%; padding: 10px; background: #eee; border: none; border-radius: 5px; margin-top: 5px; cursor: pointer; }
+    </style>
 </head>
 <body>
     <script>window.dataLayer = window.dataLayer || [];</script>
     <div class="banner-container" id="banner-container">
         <div id="background-exit" onclick="window.open(window.clickTag || window.landingPage, '_blank')" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;cursor:pointer;background:transparent;"></div>
         <header class="banner-header">
-            <img src="assets/Logo_sanborns_bco.png" alt="Sanborns" class="logo" role="button" onclick="exitClickHandler('Logo Click'); event.stopPropagation();">
+            <img src="assets/Logo_sanborns_bco.png" alt="Sanborns" class="logo" role="button" onclick="exitClickHandler(); event.stopPropagation();">
             <div class="wishlist-counter" id="wishlistCounter">
-                <span class="heart-icon">❤️</span>
+                <span class="heart-icon">&#10084;&#65039;</span>
                 <span class="counter-text"><span id="wishlistCount">0</span> en tu wishlist</span>
             </div>
         </header>
         <div id="screen-container" class="fade-in content-wrapper"></div>
         <div class="floating-products">
-            <span class="product-icon">💝</span>
-            <span class="product-icon">💖</span>
-            <span class="product-icon">💕</span>
+            <span class="product-icon">&#128157;</span>
+            <span class="product-icon">&#128150;</span>
+            <span class="product-icon">&#128149;</span>
         </div>
-        <div class="email-modal" id="emailModal">
+        <div class="email-modal" id="emailModal" style="display:none">
             <div class="modal-overlay" id="modalOverlay"></div>
             <div class="modal-content">
-                <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
-                <div class="modal-header"><h2>💌 Envía tu Wishlist</h2></div>
+                <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
+                <div class="modal-header"><h2>&#128140; Envia tu Wishlist</h2></div>
                 <form class="modal-form" id="wishlistForm">
                     <div class="form-group">
                         <label for="emailPareja">Email de destino *</label>
                         <input type="email" id="emailPareja" name="emailPareja" required placeholder="email@ejemplo.com" class="form-input" />
                     </div>
                     <div class="modal-actions">
-                        <button type="submit" class="btn-send" id="btnEnviar">✉️ Enviar Wishlist</button>
+                        <button type="submit" class="btn-send" id="btnEnviar">&#9993;&#65039; Enviar Wishlist</button>
                         <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
                     </div>
                 </form>
