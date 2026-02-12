@@ -305,43 +305,59 @@ window.openEmailModal = () => {
     document.getElementById('emailModal').classList.add('active');
 };
 
-document.getElementById('modalClose').onclick = function () {
-    if (typeof exitClickHandler === 'function') exitClickHandler('Modal Close');
-    document.getElementById('emailModal').classList.remove('active');
-};
-
-document.getElementById('btnCancelar').onclick = function () {
-    if (typeof exitClickHandler === 'function') exitClickHandler('Cancel');
-    document.getElementById('emailModal').classList.remove('active');
-};
-
-document.getElementById('wishlistForm').onsubmit = function (e) {
-    e.preventDefault();
-    if (!appState.wishlist || appState.wishlist.length === 0) {
-        alert('Por favor agrega productos a tu wishlist primero');
-        return;
+function attachModalAndWishlistSend() {
+    var emailModal = document.getElementById('emailModal');
+    var modalClose = document.getElementById('modalClose');
+    var btnCancelar = document.getElementById('btnCancelar');
+    var wishlistForm = document.getElementById('wishlistForm');
+    if (modalClose && emailModal) modalClose.onclick = function () {
+        if (typeof exitClickHandler === 'function') exitClickHandler('Modal Close');
+        emailModal.classList.remove('active');
+    };
+    if (btnCancelar && emailModal) btnCancelar.onclick = function () {
+        if (typeof exitClickHandler === 'function') exitClickHandler('Cancel');
+        emailModal.classList.remove('active');
+    };
+    function sendWishlistByMail() {
+        if (!appState.wishlist || appState.wishlist.length === 0) {
+            alert('Por favor selecciona al menos un regalo.');
+            return;
+        }
+        var toEmail = (document.getElementById('emailPareja') && document.getElementById('emailPareja').value) || '';
+        toEmail = toEmail.trim();
+        if (!toEmail) {
+            alert('Escribe el correo de destino.');
+            return;
+        }
+        var items = appState.wishlist.map(function (p) {
+            var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.landingPage)) || window.landingPage;
+            var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
+            var price = (p.precio || 'Ver en Sanborns') || '';
+            return { name: name, url: url, price: price };
+        });
+        var count = items.length;
+        console.log('Enviando correo con ' + count + ' productos');
+        var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
+        var subject = encodeURIComponent('Mi Wishlist Sanborns');
+        var body = encodeURIComponent(
+            'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
+        );
+        window.location.href = 'mailto:' + toEmail + '?subject=' + subject + '&body=' + body;
+        trackEvent('wishlist_sent', { products_count: count, method: 'mailto' });
+        if (emailModal) emailModal.classList.remove('active');
     }
-    var toEmail = (document.getElementById('emailPareja') && document.getElementById('emailPareja').value) || '';
-    toEmail = toEmail.trim();
-    if (!toEmail) {
-        alert('Escribe el correo de destino.');
-        return;
+    if (wishlistForm) {
+        wishlistForm.onsubmit = function (e) {
+            e.preventDefault();
+            sendWishlistByMail();
+        };
     }
-    var items = appState.wishlist.map(function (p) {
-        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.landingPage)) || window.landingPage;
-        var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
-        var price = (p.precio || 'Ver en Sanborns') || '';
-        return { name: name, url: url, price: price };
+    var btnEnviar = document.getElementById('btnEnviar');
+    if (btnEnviar) btnEnviar.addEventListener('click', function (e) {
+        e.preventDefault();
+        sendWishlistByMail();
     });
-    var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
-    var subject = encodeURIComponent('💝 Mi Wishlist de San Valentín - Sanborns');
-    var body = encodeURIComponent(
-        'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
-    );
-    window.open('mailto:' + toEmail + '?subject=' + subject + '&body=' + body, '_blank');
-    trackEvent('wishlist_sent', { products_count: appState.wishlist.length, method: 'mailto' });
-    document.getElementById('emailModal').classList.remove('active');
-};
+}
 
 // MediaSmart: abrir producto con click tracker
 window.openProductPage = (url) => {
@@ -356,5 +372,6 @@ window.openProductPage = (url) => {
 // Start
 document.addEventListener('DOMContentLoaded', function () {
     trackEvent('banner_loaded', {});
+    attachModalAndWishlistSend();
     render();
 });
