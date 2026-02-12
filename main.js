@@ -1,5 +1,5 @@
-// DIAGNÓSTICO: descubrir por qué el botón Enviar no hace nada (ver barra verde abajo)
-(function(){ var L=window.__wishlistDebug; if(L){ L.push('main_ran'); if(typeof __upd==='function')__upd(); } })();
+// DEBUG: Abre DevTools > Console. Verás [WISHLIST] cuando cargue, cuando asignes send, y al tocar Enviar (target, ENVIAR_BTN, calling_send).
+(function(){ console.log('[WISHLIST] main.js ejecutado'); })();
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TRACKING - DataLayer + Enabler (DSP/DV360) - Zero logs
@@ -81,16 +81,15 @@ function sendWishlistByMail() {
     }
 }
 window.sendWishlistByMail = sendWishlistByMail;
-(function(){ var L=window.__wishlistDebug; if(L){ L.push('send_ok'); if(typeof __upd==='function')__upd(); } })();
+console.log('[WISHLIST] sendWishlistByMail asignado a window');
 
-// Delegación click + touchend para que el botón Enviar funcione en cel (overlay ya no roba toques)
+// Delegación click + touchend para que el botón Enviar funcione en cel
 function handleEnviarWishlist(e) {
     var t = e.target;
     var modal = document.getElementById('emailModal');
     var insideModal = modal && (t === modal || modal.contains(t));
-    if (insideModal && window.__wishlistDebug) {
-        window.__wishlistDebug.push('tap:' + (t.id || t.tagName || '?'));
-        if (typeof __upd === 'function') __upd();
+    if (insideModal) {
+        console.log('[WISHLIST] tap en modal, target:', t.id || t.tagName, t.className || '');
     }
     var isBtn = t.id === 'btnEnviar';
     if (!isBtn && t.nodeType === 1) {
@@ -103,11 +102,12 @@ function handleEnviarWishlist(e) {
     if (isBtn) {
         e.preventDefault();
         e.stopPropagation();
-        if (window.__wishlistDebug) { window.__wishlistDebug.push('ENVIAR_BTN'); if (typeof __upd === 'function') __upd(); }
+        console.log('[WISHLIST] ENVIAR_BTN detectado, llamando sendWishlistByMail');
         if (typeof window.sendWishlistByMail === 'function') {
-            if (window.__wishlistDebug) { window.__wishlistDebug.push('calling_send'); if (typeof __upd === 'function') __upd(); }
             window.sendWishlistByMail();
-        } else if (window.__wishlistDebug) { window.__wishlistDebug.push('send_UNDEF'); if (typeof __upd === 'function') __upd(); }
+        } else {
+            console.error('[WISHLIST] sendWishlistByMail no está definido');
+        }
     }
 }
 if (typeof document !== 'undefined') {

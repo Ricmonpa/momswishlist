@@ -296,12 +296,7 @@ html, body {
     </style>
 </head>
 <body>
-    <script>
-    window.__wishlistDebug = [];
-    window.onerror = function(m,u,l,c,e){ window.__wishlistDebug.push('ERR:'+m); return false; };
-    function __upd() { var d=document.getElementById('wishlist-debug-log'); var L=window.__wishlistDebug; if(d&&L) d.textContent = L.slice(-8).join(' | '); }
-    </script>
-    <div id="wishlist-debug-log" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);color:#0f0;font-size:10px;padding:6px;z-index:99999;max-height:80px;overflow:auto;word-break:break-all;"></div>
+    <script>window.onerror=function(m,u,l){ console.error('[WISHLIST] JS Error:',m,u,l); return false; };</script>
     <script>window.dataLayer = window.dataLayer || [];</script>
     <div class="banner-container" id="banner-container">
         <div id="background-exit" onclick="window.open(window.clickTag || window.landingPage, '_blank')" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;cursor:pointer;background:transparent;"></div>
@@ -567,8 +562,8 @@ window.PRODUCT_IMAGES = {};
  */
 window.PRODUCTS_CATALOG = [];
 
-// DIAGNÓSTICO: descubrir por qué el botón Enviar no hace nada (ver barra verde abajo)
-(function(){ var L=window.__wishlistDebug; if(L){ L.push('main_ran'); if(typeof __upd==='function')__upd(); } })();
+// DEBUG: Abre DevTools > Console. Verás [WISHLIST] cuando cargue, cuando asignes send, y al tocar Enviar (target, ENVIAR_BTN, calling_send).
+(function(){ console.log('[WISHLIST] main.js ejecutado'); })();
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TRACKING - DataLayer + Enabler (DSP/DV360) - Zero logs
@@ -650,16 +645,15 @@ function sendWishlistByMail() {
     }
 }
 window.sendWishlistByMail = sendWishlistByMail;
-(function(){ var L=window.__wishlistDebug; if(L){ L.push('send_ok'); if(typeof __upd==='function')__upd(); } })();
+console.log('[WISHLIST] sendWishlistByMail asignado a window');
 
-// Delegación click + touchend para que el botón Enviar funcione en cel (overlay ya no roba toques)
+// Delegación click + touchend para que el botón Enviar funcione en cel
 function handleEnviarWishlist(e) {
     var t = e.target;
     var modal = document.getElementById('emailModal');
     var insideModal = modal && (t === modal || modal.contains(t));
-    if (insideModal && window.__wishlistDebug) {
-        window.__wishlistDebug.push('tap:' + (t.id || t.tagName || '?'));
-        if (typeof __upd === 'function') __upd();
+    if (insideModal) {
+        console.log('[WISHLIST] tap en modal, target:', t.id || t.tagName, t.className || '');
     }
     var isBtn = t.id === 'btnEnviar';
     if (!isBtn && t.nodeType === 1) {
@@ -672,11 +666,12 @@ function handleEnviarWishlist(e) {
     if (isBtn) {
         e.preventDefault();
         e.stopPropagation();
-        if (window.__wishlistDebug) { window.__wishlistDebug.push('ENVIAR_BTN'); if (typeof __upd === 'function') __upd(); }
+        console.log('[WISHLIST] ENVIAR_BTN detectado, llamando sendWishlistByMail');
         if (typeof window.sendWishlistByMail === 'function') {
-            if (window.__wishlistDebug) { window.__wishlistDebug.push('calling_send'); if (typeof __upd === 'function') __upd(); }
             window.sendWishlistByMail();
-        } else if (window.__wishlistDebug) { window.__wishlistDebug.push('send_UNDEF'); if (typeof __upd === 'function') __upd(); }
+        } else {
+            console.error('[WISHLIST] sendWishlistByMail no está definido');
+        }
     }
 }
 if (typeof document !== 'undefined') {
