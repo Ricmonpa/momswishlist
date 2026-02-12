@@ -127,7 +127,7 @@ function renderWelcome(container) {
     container.innerHTML = `
         <div class="welcome-screen">
             <div class="ai-character">
-                <img src="assets/san-valentin.svg" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='assets/reyes-magos.svg'">
+                <img src="san-valentin.svg" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='reyes-magos.svg'">
             </div>
             
             <div class="chat-bubble">
