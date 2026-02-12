@@ -18,23 +18,16 @@ html, body {
     padding: 0;
     overflow: hidden;
     font-family: -apple-system, sans-serif;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f0f0f0;
+    background: var(--gradient-bg);
 }
 
 #banner-container,
 .banner-container {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    max-width: 640px;
-    max-height: 1280px;
-    margin: 0 auto;
     overflow: hidden;
     background: var(--gradient-bg);
     padding: 15px;
