@@ -14,7 +14,7 @@ function trackEvent(eventName, eventData) {
     }
 }
 
-// CM360/DV360: clic en producto vía onclick (no <a href>) para QA
+// MediaSmart DSP: clic en producto con click tracker
 window.handleProductClick = function (el) {
     var url = el.getAttribute('data-product-url');
     var id = el.getAttribute('data-product-id');
@@ -27,7 +27,11 @@ window.handleProductClick = function (el) {
             category: appState.category
         });
     }
-    if (url) window.open(url, '_blank');
+    if (url) {
+        // %click_url_unesc% + URL producto = MediaSmart trackea clic y redirige al producto
+        var tracker = window.clickTracker || '';
+        window.open(tracker + url, '_blank');
+    }
 };
 
 // Gift Finder Logic
@@ -127,7 +131,7 @@ function renderWelcome(container) {
     container.innerHTML = `
         <div class="welcome-screen">
             <div class="ai-character">
-                <img src="san-valentin.svg" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='reyes-magos.svg'">
+                <img src="assets/san-valentin.svg" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='assets/reyes-magos.svg'">
             </div>
             
             <div class="chat-bubble">
@@ -324,7 +328,7 @@ document.getElementById('wishlistForm').onsubmit = function (e) {
         return;
     }
     var items = appState.wishlist.map(function (p) {
-        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.clickTag)) || window.clickTag;
+        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.landingPage)) || window.landingPage;
         var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
         var price = (p.precio || 'Ver en Sanborns') || '';
         return { name: name, url: url, price: price };
@@ -339,20 +343,14 @@ document.getElementById('wishlistForm').onsubmit = function (e) {
     document.getElementById('emailModal').classList.remove('active');
 };
 
-// Función para abrir página del producto con tracking UTM
+// MediaSmart: abrir producto con click tracker
 window.openProductPage = (url) => {
     if (!url) {
-        window.open(window.clickTag, '_blank');
+        window.open(window.clickTag || window.landingPage, '_blank');
         return;
     }
-    
-    // Agregar parámetros UTM para tracking
-    const urlObj = new URL(url);
-    urlObj.searchParams.set('utm_source', 'gift_finder');
-    urlObj.searchParams.set('utm_medium', 'banner');
-    urlObj.searchParams.set('utm_campaign', 'san_valentin_2025');
-    
-    window.open(urlObj.toString(), '_blank', 'noopener,noreferrer');
+    var tracker = window.clickTracker || '';
+    window.open(tracker + url, '_blank');
 };
 
 // Start
