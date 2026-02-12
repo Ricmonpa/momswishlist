@@ -1,9 +1,17 @@
 {
-  "name": "Sanborns Wishlist San Valentín",
-  "version": "1.0",
-  "width": 300,
-  "height": 600,
+  "name": "Sanborns Gift Finder San Valentin 2025",
+  "version": "2.0.0",
+  "description": "Banner interactivo Gift Finder para campaña San Valentín",
+  "primary_asset": "index.html",
+  "dimensions": {
+    "width": 640,
+    "height": 1280
+  },
   "clickTags": {
-    "clickthrough": "https://www.sanborns.com.mx/"
+    "clickTag": "https://www.sanborns.com.mx"
+  },
+  "tracking": {
+    "impressionUrl": "",
+    "clickUrl": ""
   }
 }

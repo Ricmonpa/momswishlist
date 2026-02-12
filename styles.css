@@ -11,27 +11,44 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
+html, body {
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
     font-family: -apple-system, sans-serif;
+}
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     background: #f0f0f0;
 }
 
+#banner-container,
 .banner-container {
-    width: 300px;
-    height: 600px;
-    background: var(--gradient-bg);
     position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    max-height: 1280px;
+    margin: 0 auto;
     overflow: hidden;
+    background: var(--gradient-bg);
     padding: 15px;
     display: flex;
     flex-direction: column;
+}
+
+.content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .banner-header {
@@ -39,7 +56,9 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    position: relative;
     z-index: 10;
+    pointer-events: auto;
 }
 
 .logo { width: 80px; }
@@ -58,7 +77,9 @@ body {
     min-height: 0;
     display: flex;
     flex-direction: column;
+    position: relative;
     z-index: 10;
+    pointer-events: auto;
 }
 
 .screen-title {
@@ -180,6 +201,9 @@ body {
     font-weight: bold;
     cursor: pointer;
     text-align: center;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 /* Pantalla 3: Productos - min-height: 0 para que flex permita scroll real (evita que la última tarjeta se corte) */
@@ -200,6 +224,8 @@ body {
     display: flex;
     gap: 10px;
     position: relative;
+    z-index: 10;
+    pointer-events: auto;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
@@ -247,6 +273,9 @@ body {
     font-size: 10px;
     cursor: pointer;
     margin-top: 5px;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .back-btn {
@@ -265,6 +294,9 @@ body {
     gap: 6px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(255, 20, 147, 0.15);
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .back-btn:hover {
@@ -287,6 +319,9 @@ body {
     font-weight: bold;
     margin-top: 10px;
     cursor: pointer;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .fade-in { animation: fadeIn 0.3s ease-in; }
@@ -305,21 +340,26 @@ body {
     opacity: 0.3;
 }
 
-/* Modal */
+/* Modal - position absolute para que quede dentro del banner (DSP) */
+.email-modal,
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
 .email-modal {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
 }
 
 .email-modal.active { display: flex; }
 
 .modal-overlay {
-    position: absolute;
-    width: 100%; height: 100%;
     background: rgba(0,0,0,0.5);
 }
 

@@ -2,68 +2,67 @@
 <html lang="es-MX">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="ad.size" content="width=300,height=600">
-    <script type="text/javascript"> var clickTag = ""; </script>
-    
-    <!-- CACHE BUSTING - Prevenir caché agresivo del navegador -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="ad.size" content="width=640,height=1280">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    
     <title>Sanborns - Gift Finder San Valentín</title>
-    <link rel="stylesheet" href="styles.css?v=20250210-2000">
+    <link rel="stylesheet" href="styles.css?v=20250211-dsp">
+    <script type="text/javascript">
+      var clickTag = "https://www.sanborns.com.mx";
+    </script>
+    <script type="text/javascript">
+    function exitClickHandler(exitName) {
+        exitName = exitName || 'Background Exit';
+        if (typeof Enabler !== 'undefined' && Enabler.exit) {
+            Enabler.exit(exitName);
+        } else if (typeof EB !== 'undefined' && EB.clickthrough) {
+            EB.clickthrough();
+        } else {
+            window.open(window.clickTag, '_blank');
+        }
+    }
+    </script>
 </head>
 <body>
-    <!-- dataLayer para GTM: eventos gift_finder_* (género, categoría, producto, wishlist) -->
     <script>window.dataLayer = window.dataLayer || [];</script>
-    <div class="banner-container" id="app">
-        <!-- Header -->
+    <div class="banner-container" id="banner-container">
+        <div id="background-exit" onclick="window.open(window.clickTag, '_blank')" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;cursor:pointer;background:transparent;"></div>
         <header class="banner-header">
-            <img src="Logo_sanborns_bco.png" alt="Sanborns" class="logo" role="button" onclick="window.open(window.clickTag, '_blank');">
+            <img src="Logo_sanborns_bco.png" alt="Sanborns" class="logo" role="button" onclick="exitClickHandler('Logo Click'); event.stopPropagation();">
             <div class="wishlist-counter" id="wishlistCounter">
                 <span class="heart-icon">❤️</span>
                 <span class="counter-text"><span id="wishlistCount">0</span> en tu wishlist</span>
             </div>
         </header>
-
-        <!-- Contenido Dinámico -->
-        <div id="screen-container" class="fade-in">
-            <!-- Las pantallas se renderizan aquí -->
-        </div>
-
-        <!-- Mini productos decorativos -->
+        <div id="screen-container" class="fade-in content-wrapper"></div>
         <div class="floating-products">
             <span class="product-icon">💝</span>
             <span class="product-icon">💖</span>
             <span class="product-icon">💕</span>
         </div>
-    </div>
-
-    <!-- Modal de envío de Wishlist -->
-    <div class="email-modal" id="emailModal">
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
-            <div class="modal-header">
-                <h2>💌 Envía tu Wishlist</h2>
+        <div class="email-modal" id="emailModal">
+            <div class="modal-overlay" id="modalOverlay"></div>
+            <div class="modal-content">
+                <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+                <div class="modal-header"><h2>💌 Envía tu Wishlist</h2></div>
+                <form class="modal-form" id="wishlistForm">
+                    <div class="form-group">
+                        <label for="emailPareja">Email de destino *</label>
+                        <input type="email" id="emailPareja" name="emailPareja" required placeholder="email@ejemplo.com" class="form-input" />
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-send" id="btnEnviar">✉️ Enviar Wishlist</button>
+                        <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
+                    </div>
+                </form>
             </div>
-            <form class="modal-form" id="wishlistForm">
-                <div class="form-group">
-                    <label for="emailPareja">Email de destino *</label>
-                    <input type="email" id="emailPareja" name="emailPareja" required placeholder="email@ejemplo.com" class="form-input" />
-                </div>
-                <div class="modal-actions">
-                    <button type="submit" class="btn-send" id="btnEnviar">✉️ Enviar Wishlist</button>
-                    <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
-                </div>
-            </form>
         </div>
     </div>
-
-    <script src="products-data.js?v=20250210-2000"></script>
-    <script src="product-images.js?v=20250210-2000"></script>
-    <script src="products-catalog.js?v=20250210-2000"></script>
-    <script src="main.js?v=20250210-2000"></script>
+    <script src="products-data.js?v=20250211-dsp"></script>
+    <script src="product-images.js?v=20250211-dsp"></script>
+    <script src="products-catalog.js?v=20250211-dsp"></script>
+    <script src="main.js?v=20250211-dsp"></script>
 </body>
 </html>

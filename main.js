@@ -1,11 +1,13 @@
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// TRACKING - Performance de la pieza (GTM + Cloudflare Zaraz)
-// Reporte: género, categoría, producto clic, wishlist, envío
+// TRACKING - DataLayer + Enabler (DSP/DV360) - Zero logs
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function trackEvent(eventName, eventData) {
-    var payload = Object.assign({ event: eventName }, eventData || {});
+    var payload = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, eventData || {});
     if (typeof window.dataLayer !== 'undefined') {
         window.dataLayer.push(payload);
+    }
+    if (typeof Enabler !== 'undefined' && Enabler.counter) {
+        Enabler.counter(eventName);
     }
     if (typeof window.zaraz !== 'undefined' && typeof window.zaraz.track === 'function') {
         window.zaraz.track(eventName, eventData || {});
@@ -18,7 +20,7 @@ window.handleProductClick = function (el) {
     var id = el.getAttribute('data-product-id');
     var name = el.getAttribute('data-product-name') || '';
     if (id != null) {
-        trackEvent('gift_finder_producto_click', {
+        trackEvent('product_clicked', {
             product_id: id,
             product_name: name,
             gender: appState.gender,
@@ -237,7 +239,7 @@ function renderProducts(container) {
 window.selectGender = (gender) => {
     appState.gender = gender;
     appState.screen = 'categorias';
-    trackEvent('gift_finder_genero_seleccionado', { gender: gender });
+    trackEvent('gender_selected', { gender: gender });
     render();
 };
 
@@ -253,7 +255,7 @@ window.selectCategory = (category) => {
     /* Zero logs - QA CM360/DV360 */
     appState.category = category;
     appState.screen = 'productos';
-    trackEvent('gift_finder_categoria_seleccionada', { gender: gender, category: category });
+    trackEvent('category_selected', { gender: gender, category: category });
     render();
 };
 
@@ -270,7 +272,7 @@ window.toggleWishlist = (product) => {
     const index = appState.wishlist.findIndex(item => item.id === product.id);
     if (index === -1) {
         appState.wishlist.push(product);
-        trackEvent('gift_finder_producto_agregado_wishlist', {
+        trackEvent('product_added_to_wishlist', {
             product_id: String(product.id),
             product_name: product.nombre || '',
             gender: appState.gender,
@@ -295,32 +297,31 @@ window.openEmailModal = () => {
         alert('Agrega al menos un producto a tu wishlist primero ❤️');
         return;
     }
-    trackEvent('gift_finder_modal_wishlist_abierto', { wishlist_count: appState.wishlist.length });
+    trackEvent('wishlist_modal_opened', { wishlist_count: appState.wishlist.length });
     document.getElementById('emailModal').classList.add('active');
 };
 
-document.getElementById('modalClose').onclick = () => {
-    window.open(window.clickTag, '_blank');
+document.getElementById('modalClose').onclick = function () {
+    if (typeof exitClickHandler === 'function') exitClickHandler('Modal Close');
     document.getElementById('emailModal').classList.remove('active');
 };
 
-document.getElementById('btnCancelar').onclick = () => {
-    window.open(window.clickTag, '_blank');
+document.getElementById('btnCancelar').onclick = function () {
+    if (typeof exitClickHandler === 'function') exitClickHandler('Cancel');
     document.getElementById('emailModal').classList.remove('active');
 };
 
-document.getElementById('wishlistForm').onsubmit = async function (e) {
+document.getElementById('wishlistForm').onsubmit = function (e) {
     e.preventDefault();
+    if (!appState.wishlist || appState.wishlist.length === 0) {
+        alert('Por favor agrega productos a tu wishlist primero');
+        return;
+    }
     var toEmail = (document.getElementById('emailPareja') && document.getElementById('emailPareja').value) || '';
     toEmail = toEmail.trim();
     if (!toEmail) {
         alert('Escribe el correo de destino.');
         return;
-    }
-    var btn = document.getElementById('btnEnviar');
-    if (btn) {
-        btn.disabled = true;
-        btn.textContent = '⏳ Enviando...';
     }
     var items = appState.wishlist.map(function (p) {
         var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.clickTag)) || window.clickTag;
@@ -328,50 +329,14 @@ document.getElementById('wishlistForm').onsubmit = async function (e) {
         var price = (p.precio || 'Ver en Sanborns') || '';
         return { name: name, url: url, price: price };
     });
-    var sent = false;
-    try {
-        var res = await fetch('/api/send-wishlist', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ to: toEmail, items: items })
-        });
-        var data = await res.json().catch(function () { return {}; });
-        if (res.ok && data.ok) {
-            sent = true;
-            trackEvent('gift_finder_wishlist_enviada', {
-                wishlist_count: appState.wishlist.length,
-                gender: appState.gender,
-                category: appState.category,
-                method: 'api'
-            });
-            alert('¡Enviado! Revisa la bandeja de entrada (y carpeta de spam) en ' + toEmail + ' ❤️');
-            document.getElementById('emailModal').classList.remove('active');
-        }
-    } catch (err) {}
-    if (!sent) {
-        trackEvent('gift_finder_wishlist_enviada', {
-            wishlist_count: appState.wishlist.length,
-            gender: appState.gender,
-            category: appState.category,
-            method: 'mailto'
-        });
-        var subject = encodeURIComponent('💝 Mi wishlist de San Valentín – Sanborns');
-        var bodyLines = ['Hola ❤️', '', 'Esta es mi wishlist de San Valentín:', ''];
-        items.forEach(function (it, i) {
-            bodyLines.push((i + 1) + '. ' + it.name + (it.price ? ' – ' + it.price : ''));
-            bodyLines.push('   ' + it.url);
-            bodyLines.push('');
-        });
-        bodyLines.push('— Sanborns Gift Finder');
-        var mailto = 'mailto:' + encodeURIComponent(toEmail) + '?subject=' + subject + '&body=' + encodeURIComponent(bodyLines.join('\n'));
-        window.location.href = mailto;
-        alert('Se abrirá tu cliente de correo con la wishlist. Envía el mensaje para que llegue a ' + toEmail + '.');
-        document.getElementById('emailModal').classList.remove('active');
-    }
-    if (btn) {
-        btn.disabled = false;
-        btn.textContent = '✉️ Enviar Wishlist';
-    }
+    var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
+    var subject = encodeURIComponent('💝 Mi Wishlist de San Valentín - Sanborns');
+    var body = encodeURIComponent(
+        'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
+    );
+    window.open('mailto:' + toEmail + '?subject=' + subject + '&body=' + body, '_blank');
+    trackEvent('wishlist_sent', { products_count: appState.wishlist.length, method: 'mailto' });
+    document.getElementById('emailModal').classList.remove('active');
 };
 
 // Función para abrir página del producto con tracking UTM
@@ -391,4 +356,7 @@ window.openProductPage = (url) => {
 };
 
 // Start
-document.addEventListener('DOMContentLoaded', render);
+document.addEventListener('DOMContentLoaded', function () {
+    trackEvent('banner_loaded', {});
+    render();
+});
