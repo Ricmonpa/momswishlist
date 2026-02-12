@@ -863,7 +863,7 @@ function renderProducts(container) {
                 );
             }).join('')}
         </div>
-        <button class="btn-main" onclick="openEmailModal()">💌 ENVIAR WISHLIST POR EMAIL</button>
+        <button type="button" class="btn-main" id="send-wishlist-btn" onclick="openEmailModal()" style="border: 5px solid red !important; z-index: 99999 !important; pointer-events: auto !important; position: relative !important;">💌 ENVIAR WISHLIST POR EMAIL</button>
     `;
     // Delegated: botón wishlist (no seguir link)
     container.querySelectorAll('[data-wishlist-btn]').forEach(function (btn) {
