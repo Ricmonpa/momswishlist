@@ -80,20 +80,20 @@ var LEGACY_FALLBACK_MAP = {
         skincare: 'cuidado',
         perfumeria: 'perfumeria',
         estilismo: 'estilismo',
-        celulares: 'tecnologia',
-        gadgets: 'tecnologia',
-        fotografia: 'tecnologia',
-        regalos: 'hogar'
+        celulares: 'celulares',
+        gadgets: 'gadgets',
+        fotografia: 'fotografia',
+        regalos: 'regalos'
     },
     hombre: {
-        celulares: 'tecnologia',
-        tablets: 'tecnologia',
+        celulares: 'celulares',
+        tablets: 'tablets',
         relojes: 'relojes',
         gadgets: 'tecnologia',
-        audio: 'tecnologia',
-        fotografia: 'tecnologia',
+        audio: 'audio',
+        fotografia: 'fotografia',
         perfumeria: 'perfumeria',
-        regalos: 'accesorios'
+        regalos: 'regalos'
     }
 };
 
