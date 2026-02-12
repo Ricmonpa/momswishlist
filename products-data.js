@@ -6,18 +6,18 @@
 const productosDatabase = {
   mujer: {
     maquillaje: [
-      { id: 1, nombre: "Set Yuya Gel de ceja + polvo + tinta", precio: "$899", precioOriginal: "$1,299", img: "./Logo_sanborns_bco.png", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
-      { id: 2, nombre: "Set Yuya Gel + polvo traslúcido + tinta", precio: "$799", precioOriginal: "$1,199", img: "./Logo_sanborns_bco.png", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
-      { id: 3, nombre: "Cosmético Sanborns (ID 574428)", precio: "$1,199", precioOriginal: "$1,699", img: "./Logo_sanborns_bco.png", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
-      { id: 4, nombre: "Labial Líquido Mate Yuya Bruma", precio: "$699", precioOriginal: "$999", img: "./Logo_sanborns_bco.png", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
-      { id: 5, nombre: "Esmalte Chico Matizador Bissú", precio: "$999", precioOriginal: "$1,499", img: "./Logo_sanborns_bco.png", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
+      { id: 1, nombre: "Set Yuya Gel de ceja + polvo + tinta", precio: "$899", precioOriginal: "$1,299", img: "./images/placeholder.svg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/614484" },
+      { id: 2, nombre: "Set Yuya Gel + polvo traslúcido + tinta", precio: "$799", precioOriginal: "$1,199", img: "./images/placeholder.svg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/614483" },
+      { id: 3, nombre: "Cosmético Sanborns (ID 574428)", precio: "$1,199", precioOriginal: "$1,699", img: "./images/placeholder.svg", descuento: "29% OFF", url: "https://www.sanborns.com.mx/producto/574428" },
+      { id: 4, nombre: "Labial Líquido Mate Yuya Bruma", precio: "$699", precioOriginal: "$999", img: "./images/placeholder.svg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/553342" },
+      { id: 5, nombre: "Esmalte Chico Matizador Bissú", precio: "$999", precioOriginal: "$1,499", img: "./images/placeholder.svg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/615405" }
     ],
     cuidado: [
-      { id: 6, nombre: "Eucerin Epigenetic Serum 30ml", precio: "$1,299", precioOriginal: "$1,799", img: "./Logo_sanborns_bco.png", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
-      { id: 7, nombre: "Anti-Pigment Dual Serum Eucerin", precio: "$999", precioOriginal: "$1,499", img: "./Logo_sanborns_bco.png", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
-      { id: 8, nombre: "Avene Agua Termal Piel Sensible 300ml", precio: "$799", precioOriginal: "$1,199", img: "./Logo_sanborns_bco.png", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
-      { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "./Logo_sanborns_bco.png", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
-      { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "./Logo_sanborns_bco.png", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
+      { id: 6, nombre: "Eucerin Epigenetic Serum 30ml", precio: "$1,299", precioOriginal: "$1,799", img: "./images/placeholder.svg", descuento: "28% OFF", url: "https://www.sanborns.com.mx/producto/515019" },
+      { id: 7, nombre: "Anti-Pigment Dual Serum Eucerin", precio: "$999", precioOriginal: "$1,499", img: "./images/placeholder.svg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/59701" },
+      { id: 8, nombre: "Avene Agua Termal Piel Sensible 300ml", precio: "$799", precioOriginal: "$1,199", img: "./images/placeholder.svg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/producto/437851" },
+      { id: 9, nombre: "Cetaphil Crema Hidratante 453g", precio: "$1,499", precioOriginal: "$1,999", img: "./images/placeholder.svg", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/274804" },
+      { id: 10, nombre: "Ducray Squanorm Shampoo Anticaspa", precio: "$699", precioOriginal: "$999", img: "./images/placeholder.svg", descuento: "30% OFF", url: "https://www.sanborns.com.mx/producto/11370" }
     ],
     estilismo: [
       { id: 209620, nombre: "Wafflera Perfect Heat Revlon", precio: "Ver en Sanborns", precioOriginal: "", img: "./images/producto-209620.jpg", descuento: "Estilismo", url: "https://www.sanborns.com.mx/producto/209620/wafflera-perfect-heat-revlon" },
@@ -35,11 +35,11 @@ const productosDatabase = {
       { id: 31, nombre: "Accesorios Elegantes", precio: "Regalos", precioOriginal: "", img: "./images/placeholder.svg", descuento: "25% OFF", url: "https://www.sanborns.com.mx/c/joyeria/" }
     ],
     perfumeria: [
-      { id: 11, nombre: "Rabanne Fame Couture Edition EDP 80ml", precio: "$2,499", precioOriginal: "$3,299", img: "./Logo_sanborns_bco.png", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
-      { id: 12, nombre: "Versace Dylan Blush Pink EDP 100ml", precio: "$2,199", precioOriginal: "$2,999", img: "./Logo_sanborns_bco.png", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
-      { id: 13, nombre: "Moschino Toy 2 Bubblegum EDT 100ml", precio: "$1,999", precioOriginal: "$2,699", img: "./Logo_sanborns_bco.png", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
-      { id: 14, nombre: "Montblanc Signature Elixir EDP 90ml", precio: "$2,799", precioOriginal: "$3,499", img: "./Logo_sanborns_bco.png", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
-      { id: 15, nombre: "Carolina Herrera Good Girl Blush EDP 80ml", precio: "$2,299", precioOriginal: "$2,999", img: "./Logo_sanborns_bco.png", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
+      { id: 11, nombre: "Rabanne Fame Couture Edition EDP 80ml", precio: "$2,499", precioOriginal: "$3,299", img: "./images/placeholder.svg", descuento: "25% OFF", url: "https://www.sanborns.com.mx/producto/608266" },
+      { id: 12, nombre: "Versace Dylan Blush Pink EDP 100ml", precio: "$2,199", precioOriginal: "$2,999", img: "./images/placeholder.svg", descuento: "27% OFF", url: "https://www.sanborns.com.mx/producto/813851" },
+      { id: 13, nombre: "Moschino Toy 2 Bubblegum EDT 100ml", precio: "$1,999", precioOriginal: "$2,699", img: "./images/placeholder.svg", descuento: "26% OFF", url: "https://www.sanborns.com.mx/producto/303224" },
+      { id: 14, nombre: "Montblanc Signature Elixir EDP 90ml", precio: "$2,799", precioOriginal: "$3,499", img: "./images/placeholder.svg", descuento: "20% OFF", url: "https://www.sanborns.com.mx/producto/813852" },
+      { id: 15, nombre: "Carolina Herrera Good Girl Blush EDP 80ml", precio: "$2,299", precioOriginal: "$2,999", img: "./images/placeholder.svg", descuento: "23% OFF", url: "https://www.sanborns.com.mx/producto/310467" }
     ],
     libros: [
       { id: 32, nombre: "Best Sellers Románticos", precio: "$399", precioOriginal: "$599", img: "./images/placeholder.svg", descuento: "33% OFF", url: "https://www.sanborns.com.mx/c/libros/" },
