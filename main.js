@@ -42,6 +42,43 @@ let appState = {
     wishlist: []
 };
 
+// Enviar wishlist por mailto - asignado a window INMEDIATAMENTE para que el botón funcione aunque falle código posterior
+function sendWishlistByMail() {
+    try {
+        if (!appState.wishlist || appState.wishlist.length === 0) {
+            alert('Por favor selecciona al menos un regalo.');
+            return;
+        }
+        var toEmailEl = document.getElementById('emailPareja');
+        var toEmail = (toEmailEl && toEmailEl.value) ? toEmailEl.value.trim() : '';
+        if (!toEmail) {
+            alert('Escribe el correo de destino.');
+            return;
+        }
+        var items = appState.wishlist.map(function (p) {
+            var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.landingPage)) || window.landingPage || (p.url || '');
+            var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
+            var price = (p.precio || 'Ver en Sanborns') || '';
+            return { name: name, url: url, price: price };
+        });
+        var count = items.length;
+        console.log('Enviando correo con ' + count + ' productos');
+        var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
+        var subject = encodeURIComponent('Mi Wishlist Sanborns');
+        var body = encodeURIComponent(
+            'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
+        );
+        window.location.href = 'mailto:' + toEmail + '?subject=' + subject + '&body=' + body;
+        if (typeof trackEvent === 'function') trackEvent('wishlist_sent', { products_count: count, method: 'mailto' });
+        var emailModal = document.getElementById('emailModal');
+        if (emailModal) emailModal.classList.remove('active');
+    } catch (e) {
+        console.error('sendWishlistByMail error:', e);
+        alert('Error al preparar el correo. Revisa la consola.');
+    }
+}
+window.sendWishlistByMail = sendWishlistByMail;
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DCO-lite: Pantalla 2 – 8 categorías por género (product.category + product.gender)
 // matchCategories: al elegir esta categoría en Pantalla 3 se filtran productos con category en este array
@@ -304,37 +341,6 @@ window.openEmailModal = () => {
     trackEvent('wishlist_modal_opened', { wishlist_count: appState.wishlist.length });
     document.getElementById('emailModal').classList.add('active');
 };
-
-function sendWishlistByMail() {
-    if (!appState.wishlist || appState.wishlist.length === 0) {
-        alert('Por favor selecciona al menos un regalo.');
-        return;
-    }
-    var toEmailEl = document.getElementById('emailPareja');
-    var toEmail = (toEmailEl && toEmailEl.value) ? toEmailEl.value.trim() : '';
-    if (!toEmail) {
-        alert('Escribe el correo de destino.');
-        return;
-    }
-    var items = appState.wishlist.map(function (p) {
-        var url = (typeof buildProductUrl === 'function' ? buildProductUrl(p) : (p.url || window.landingPage)) || window.landingPage;
-        var name = (p.nombre || p.name || 'Producto ' + (p.id || '')) || 'Producto';
-        var price = (p.precio || 'Ver en Sanborns') || '';
-        return { name: name, url: url, price: price };
-    });
-    var count = items.length;
-    console.log('Enviando correo con ' + count + ' productos');
-    var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
-    var subject = encodeURIComponent('Mi Wishlist Sanborns');
-    var body = encodeURIComponent(
-        'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
-    );
-    window.location.href = 'mailto:' + toEmail + '?subject=' + subject + '&body=' + body;
-    if (typeof trackEvent === 'function') trackEvent('wishlist_sent', { products_count: count, method: 'mailto' });
-    var emailModal = document.getElementById('emailModal');
-    if (emailModal) emailModal.classList.remove('active');
-}
-window.sendWishlistByMail = sendWishlistByMail;
 
 function attachModalAndWishlistSend() {
     var emailModal = document.getElementById('emailModal');
