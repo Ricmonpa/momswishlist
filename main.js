@@ -79,6 +79,26 @@ function sendWishlistByMail() {
 }
 window.sendWishlistByMail = sendWishlistByMail;
 
+// Delegación en documento (capture) para que el botón Enviar funcione en cel/iframe aunque fallen onclick o otros handlers
+if (typeof document !== 'undefined') {
+    document.addEventListener('click', function (e) {
+        var t = e.target;
+        var isBtn = t.id === 'btnEnviar';
+        if (!isBtn && t.nodeType === 1) {
+            var p = t.parentNode;
+            while (p && p !== document.body) {
+                if (p.id === 'btnEnviar') { isBtn = true; break; }
+                p = p.parentNode;
+            }
+        }
+        if (isBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.sendWishlistByMail === 'function') window.sendWishlistByMail();
+        }
+    }, true);
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DCO-lite: Pantalla 2 – 8 categorías por género (product.category + product.gender)
 // matchCategories: al elegir esta categoría en Pantalla 3 se filtran productos con category en este array

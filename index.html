@@ -287,6 +287,7 @@ html, body {
     width: 90%;
     max-width: 300px;
     position: relative;
+    z-index: 10000;
 }
 .modal-close { position: absolute; top: 10px; right: 10px; border: none; background: none; font-size: 20px; cursor: pointer; }
 .form-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
@@ -316,7 +317,7 @@ html, body {
             <div class="modal-content">
                 <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
                 <div class="modal-header"><h2>&#128140; Envia tu Wishlist</h2></div>
-                <form class="modal-form" id="wishlistForm">
+                <form class="modal-form" id="wishlistForm" action="javascript:void(0)" method="get" onsubmit="return false;">
                     <div class="form-group">
                         <label for="emailPareja">Email de destino *</label>
                         <input type="email" id="emailPareja" name="emailPareja" required placeholder="email@ejemplo.com" class="form-input" />
@@ -640,6 +641,26 @@ function sendWishlistByMail() {
     }
 }
 window.sendWishlistByMail = sendWishlistByMail;
+
+// Delegación en documento (capture) para que el botón Enviar funcione en cel/iframe aunque fallen onclick o otros handlers
+if (typeof document !== 'undefined') {
+    document.addEventListener('click', function (e) {
+        var t = e.target;
+        var isBtn = t.id === 'btnEnviar';
+        if (!isBtn && t.nodeType === 1) {
+            var p = t.parentNode;
+            while (p && p !== document.body) {
+                if (p.id === 'btnEnviar') { isBtn = true; break; }
+                p = p.parentNode;
+            }
+        }
+        if (isBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.sendWishlistByMail === 'function') window.sendWishlistByMail();
+        }
+    }, true);
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DCO-lite: Pantalla 2 – 8 categorías por género (product.category + product.gender)
