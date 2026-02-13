@@ -845,7 +845,7 @@ function renderProducts(container) {
                 );
             }).join('')}
         </div>
-        <button type="button" class="btn-main" id="send-wishlist-btn" onclick="openEmailModal()" style="z-index: 10; pointer-events: auto; position: relative;">💌 ENVIAR WISHLIST POR EMAIL</button>
+        <button type="button" class="btn-main" id="send-wishlist-btn" style="z-index: 10; pointer-events: auto; position: relative;">💌 ENVIAR WISHLIST POR EMAIL</button>
     `;
     // Delegated: botón wishlist (no seguir link)
     container.querySelectorAll('[data-wishlist-btn]').forEach(function (btn) {
@@ -857,6 +857,36 @@ function renderProducts(container) {
             if (product) toggleWishlist(product);
         });
     });
+    // Listener DIRECTO en el botón (Chrome desktop exige gesto de usuario; delegación lo pierde)
+    var sendBtn = container.querySelector('#send-wishlist-btn');
+    if (sendBtn) {
+        sendBtn.addEventListener('click', function (e) {
+            var selectedCards = document.querySelectorAll('.product-card.selected');
+            if (selectedCards.length === 0) {
+                e.preventDefault();
+                alert('Por favor, selecciona al menos un producto para tu lista.');
+                return;
+            }
+            var productNames = Array.from(selectedCards).map(function (card) {
+                var nameEl = card.querySelector('.product-name');
+                return nameEl ? nameEl.innerText : 'Producto';
+            });
+            var subject = encodeURIComponent('Mi Wishlist de San Valentín - Sanborns');
+            var body = encodeURIComponent('¡Hola! Estos son los regalos que me encantaron:\n\n' + productNames.join('\n') + '\n\nCheca el catálogo aquí: ' + window.location.href);
+            var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + body;
+            var tempLink = document.createElement('a');
+            tempLink.href = mailtoUrl;
+            tempLink.style.display = 'none';
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            document.body.removeChild(tempLink);
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.dataLayer !== 'undefined') {
+                window.dataLayer.push({ event: 'wishlist_sent', products_count: selectedCards.length });
+            }
+        });
+    }
     /* Clic en producto: handleProductClick (onclick) hace track + window.open - QA CM360/DV360 */
 }
 
@@ -969,37 +999,6 @@ document.addEventListener('DOMContentLoaded', function () {
     trackEvent('banner_loaded', {});
     attachModalAndWishlistSend();
     render();
-    // Delegación: botón ENVIAR WISHLIST (creado dinámicamente en render) — mailto con productos seleccionados (.product-card.selected)
-    document.addEventListener('click', function (e) {
-        var t = e.target;
-        var btnSend = t.id === 'send-wishlist-btn' ? t : (t.closest && t.closest('#send-wishlist-btn'));
-        if (!btnSend) return;
-        var selectedCards = document.querySelectorAll('.product-card.selected');
-        if (selectedCards.length === 0) {
-            e.preventDefault();
-            e.stopPropagation();
-            alert('Por favor, selecciona al menos un producto para tu lista.');
-            return;
-        }
-        var productNames = Array.from(selectedCards).map(function (card) {
-            var nameEl = card.querySelector('.product-name');
-            return nameEl ? nameEl.innerText : 'Producto';
-        });
-        var subject = encodeURIComponent('Mi Wishlist de San Valentín - Sanborns');
-        var body = encodeURIComponent('¡Hola! Estos son los regalos que me encantaron:\n\n' + productNames.join('\n') + '\n\nCheca el catálogo aquí: ' + window.location.href);
-        var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + body;
-        var tempLink = document.createElement('a');
-        tempLink.href = mailtoUrl;
-        tempLink.style.display = 'none';
-        document.body.appendChild(tempLink);
-        tempLink.click();
-        document.body.removeChild(tempLink);
-        e.preventDefault();
-        e.stopPropagation();
-        if (typeof window.dataLayer !== 'undefined') {
-            window.dataLayer.push({ event: 'wishlist_sent', products_count: selectedCards.length });
-        }
-    }, true);
 });
 
 
