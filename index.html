@@ -974,10 +974,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var t = e.target;
         var btnSend = t.id === 'send-wishlist-btn' ? t : (t.closest && t.closest('#send-wishlist-btn'));
         if (!btnSend) return;
-        e.preventDefault();
-        e.stopPropagation();
         var selectedCards = document.querySelectorAll('.product-card.selected');
         if (selectedCards.length === 0) {
+            e.preventDefault();
+            e.stopPropagation();
             alert('Por favor, selecciona al menos un producto para tu lista.');
             return;
         }
@@ -994,6 +994,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(tempLink);
         tempLink.click();
         document.body.removeChild(tempLink);
+        e.preventDefault();
+        e.stopPropagation();
         if (typeof window.dataLayer !== 'undefined') {
             window.dataLayer.push({ event: 'wishlist_sent', products_count: selectedCards.length });
         }
