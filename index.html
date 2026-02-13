@@ -858,53 +858,49 @@ function renderProducts(container) {
             if (product) toggleWishlist(product);
         });
     });
-    // Listener DIRECTO en el botón (Chrome desktop exige gesto de usuario; delegación lo pierde)
+    // Híbrido final: móvil = mailto directo; desktop = clipboard + tempLink + alert
     var sendBtn = container.querySelector('#send-wishlist-btn');
     if (sendBtn) {
         sendBtn.addEventListener('click', function (e) {
+            e.preventDefault();
             var selectedCards = document.querySelectorAll('.product-card.selected');
             if (selectedCards.length === 0) {
-                e.preventDefault();
-                alert('Por favor, selecciona al menos un producto para tu lista.');
+                alert('Por favor, selecciona al menos un producto.');
                 return;
             }
-            var productNames = Array.from(selectedCards).map(function (card) {
-                var nameEl = card.querySelector('.product-name');
-                return nameEl ? nameEl.innerText : 'Producto';
+            var names = Array.from(selectedCards).map(function (c) {
+                var el = c.querySelector('.product-name');
+                return el ? el.innerText : 'Producto';
             });
+            var bodyText = '¡Hola! Estos son mis favoritos de San Valentín:\n\n' + names.join('\n') + '\n\nVer catálogo: ' + window.location.href;
             var subject = encodeURIComponent('Mi Wishlist de San Valentín - Sanborns');
-            var body = encodeURIComponent('¡Hola! Estos son los regalos que me encantaron:\n\n' + productNames.join('\n') + '\n\nCheca el catálogo aquí: ' + window.location.href);
-            var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + body;
-            e.preventDefault();
-            e.stopPropagation();
-            var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || ('ontouchstart' in window);
+            var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
-                try {
-                    var anchor = document.getElementById('mailto-anchor');
-                    if (!anchor) {
-                        anchor = document.createElement('a');
-                        anchor.id = 'mailto-anchor';
-                        anchor.style.display = 'none';
-                        document.body.appendChild(anchor);
-                    }
-                    anchor.href = mailtoUrl;
-                    anchor.click();
-                } catch (err) {
-                    window.location.href = mailtoUrl;
-                }
+                window.location.href = mailtoUrl;
             } else {
-                var wrap = document.getElementById('mailto-link-wrap');
-                if (!wrap) {
-                    wrap = document.createElement('div');
-                    wrap.id = 'mailto-link-wrap';
-                    wrap.style.cssText = 'margin-top:10px;padding:10px;background:rgba(255,255,255,0.95);border-radius:8px;font-size:14px;';
-                    sendBtn.parentNode.appendChild(wrap);
+                var cb = navigator.clipboard;
+                if (cb && typeof cb.writeText === 'function') {
+                    cb.writeText(bodyText).finally(function () {
+                        var tempLink = document.createElement('a');
+                        tempLink.href = mailtoUrl;
+                        tempLink.style.display = 'none';
+                        document.body.appendChild(tempLink);
+                        tempLink.click();
+                        document.body.removeChild(tempLink);
+                        alert('¡Wishlist lista! Se intentó abrir tu correo. También copiamos la lista a tu portapapeles por seguridad.');
+                    });
+                } else {
+                    var tempLink = document.createElement('a');
+                    tempLink.href = mailtoUrl;
+                    tempLink.style.display = 'none';
+                    document.body.appendChild(tempLink);
+                    tempLink.click();
+                    document.body.removeChild(tempLink);
                 }
-                wrap.innerHTML = 'Haz clic para abrir tu correo: <a href="' + mailtoUrl.replace(/"/g, '&quot;') + '" class="btn-main" style="display:inline-block;margin-top:6px;">Abrir en correo</a>';
-                wrap.style.display = 'block';
             }
             if (typeof window.dataLayer !== 'undefined') {
-                window.dataLayer.push({ event: 'wishlist_sent', products_count: selectedCards.length });
+                window.dataLayer.push({ event: 'wishlist_sent', count: selectedCards.length });
             }
         });
     }
