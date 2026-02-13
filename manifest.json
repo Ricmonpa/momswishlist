@@ -1,7 +1,7 @@
 {
   "name": "Sanborns Gift Finder San Valentin 2025",
   "version": "2.0.0",
-  "description": "Banner interactivo Gift Finder para campaña San Valentín",
+  "description": "Banner v2: GA4 + Meta Pixel, imagenes mas comprimidas (<250KB)",
   "primary_asset": "index.html",
   "dimensions": {
     "width": 640,
