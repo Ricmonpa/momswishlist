@@ -1,7 +1,3 @@
-// DEBUG URGENTE
-console.log('🚀 [MAIN.JS] Archivo cargado');
-(function(){ console.log('[WISHLIST] main.js ejecutado'); })();
-
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // TRACKING - DataLayer + Enabler (DSP/DV360) - Zero logs
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -66,7 +62,6 @@ function sendWishlistByMail() {
             return { name: name, url: url, price: price };
         });
         var count = items.length;
-        console.log('Enviando correo con ' + count + ' productos');
         var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
         var subject = encodeURIComponent('Mi Wishlist Sanborns');
         var body = encodeURIComponent(
@@ -77,21 +72,16 @@ function sendWishlistByMail() {
         var emailModal = document.getElementById('emailModal');
         if (emailModal) emailModal.classList.remove('active');
     } catch (e) {
-        console.error('sendWishlistByMail error:', e);
-        alert('Error al preparar el correo. Revisa la consola.');
+        alert('Error al preparar el correo.');
     }
 }
 window.sendWishlistByMail = sendWishlistByMail;
-console.log('[WISHLIST] sendWishlistByMail asignado a window');
 
 // Delegación click + touchend para que el botón Enviar funcione en cel
 function handleEnviarWishlist(e) {
     var t = e.target;
     var modal = document.getElementById('emailModal');
     var insideModal = modal && (t === modal || modal.contains(t));
-    if (insideModal) {
-        console.log('[WISHLIST] tap en modal, target:', t.id || t.tagName, t.className || '');
-    }
     var isBtn = t.id === 'btnEnviar';
     if (!isBtn && t.nodeType === 1) {
         var p = t.parentNode;
@@ -103,11 +93,8 @@ function handleEnviarWishlist(e) {
     if (isBtn) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('[WISHLIST] ENVIAR_BTN detectado, llamando sendWishlistByMail');
         if (typeof window.sendWishlistByMail === 'function') {
             window.sendWishlistByMail();
-        } else {
-            console.error('[WISHLIST] sendWishlistByMail no está definido');
         }
     }
 }
@@ -115,58 +102,6 @@ if (typeof document !== 'undefined') {
     document.addEventListener('click', handleEnviarWishlist, true);
     document.addEventListener('touchend', handleEnviarWishlist, true);
 }
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// DEBUG URGENTE: botón ENVIAR WISHLIST + modal
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-document.addEventListener('DOMContentLoaded', function () {
-    console.log('🔧 [DEBUG] DOM Ready');
-
-    var btn = document.querySelector('#send-wishlist-btn') ||
-        document.querySelector('.btn-send-wishlist') ||
-        document.querySelector('[onclick*="enviar"]') ||
-        document.querySelector('[onclick*="openEmailModal"]') ||
-        (Array.from(document.querySelectorAll('button')).find(function (b) { return b.textContent.indexOf('ENVIAR') !== -1; }) || null);
-
-    console.log('🔧 [DEBUG] Botón encontrado:', btn);
-    console.log('🔧 [DEBUG] ID del botón:', btn ? btn.id : 'N/A');
-    console.log('🔧 [DEBUG] Classes del botón:', btn ? btn.className : 'N/A');
-
-    if (btn) {
-        btn.style.border = '3px solid red'; // Debug visual
-
-        btn.addEventListener('click', function (e) {
-            console.log('🎯 [DEBUG] ¡¡¡CLICK DETECTADO!!!');
-            alert('CLICK FUNCIONÓ - Ver consola');
-
-            e.preventDefault();
-            e.stopPropagation();
-
-            var modal = document.getElementById('email-modal') ||
-                document.getElementById('emailModal') ||
-                document.querySelector('.modal') ||
-                document.querySelector('.email-modal');
-
-            console.log('🔧 [DEBUG] Modal encontrado:', modal);
-
-            if (modal) {
-                modal.style.display = 'flex';
-                modal.style.visibility = 'visible';
-                modal.style.opacity = '1';
-                modal.classList.add('active');
-                console.log('✅ [DEBUG] Modal mostrado');
-            } else {
-                console.error('❌ [DEBUG] Modal no encontrado');
-            }
-        }, true); // useCapture = true
-
-        console.log('✅ [DEBUG] Listener agregado');
-    } else {
-        console.error('❌ [DEBUG] BOTÓN NO ENCONTRADO');
-        var allButtons = document.querySelectorAll('button');
-        console.log('📋 [DEBUG] Todos los botones:', allButtons);
-    }
-});
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // DCO-lite: Pantalla 2 – 8 categorías por género (product.category + product.gender)
