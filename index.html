@@ -835,7 +835,7 @@ function renderProducts(container) {
                     : ((p.img && String(p.img).trim()) ? p.img : 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80');
                 var price = isFromCatalog ? (p.precio || 'Ver en Sanborns') : (p.precio || '');
                 return (
-                    '<div class="product-card" role="button" style="cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '" data-product-url="' + (productUrl + '').replace(/"/g, '&quot;') + '" onclick="handleProductClick(this)">' +
+                    '<div class="product-card' + (isAdded ? ' selected' : '') + '" role="button" style="cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '" data-product-url="' + (productUrl + '').replace(/"/g, '&quot;') + '" onclick="handleProductClick(this)">' +
                     '<img src="' + (imgSrc + '').replace(/"/g, '&quot;') + '" class="product-img" alt="' + (displayName + '').replace(/"/g, '&quot;') + '" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop&q=80\'">' +
                     '<div class="product-info">' +
                     '<div class="product-name">' + displayName + '</div>' +
@@ -969,14 +969,27 @@ document.addEventListener('DOMContentLoaded', function () {
     trackEvent('banner_loaded', {});
     attachModalAndWishlistSend();
     render();
-    // Delegación: botón ENVIAR WISHLIST se crea dinámicamente en render(); sin esto no dispara el modal/mailto
+    // Delegación: botón ENVIAR WISHLIST (creado dinámicamente en render) — mailto con productos seleccionados (.product-card.selected)
     document.addEventListener('click', function (e) {
         var t = e.target;
         var btnSend = t.id === 'send-wishlist-btn' ? t : (t.closest && t.closest('#send-wishlist-btn'));
-        if (btnSend) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof window.openEmailModal === 'function') window.openEmailModal();
+        if (!btnSend) return;
+        e.preventDefault();
+        e.stopPropagation();
+        var selectedCards = document.querySelectorAll('.product-card.selected');
+        if (selectedCards.length === 0) {
+            alert('Por favor, selecciona al menos un producto para tu lista.');
+            return;
+        }
+        var productNames = Array.from(selectedCards).map(function (card) {
+            var nameEl = card.querySelector('.product-name');
+            return nameEl ? nameEl.innerText : 'Producto';
+        });
+        var subject = encodeURIComponent('Mi Wishlist de San Valentín - Sanborns');
+        var body = encodeURIComponent('¡Hola! Estos son los regalos que me encantaron:\n\n' + productNames.join('\n') + '\n\nCheca el catálogo aquí: ' + window.location.href);
+        window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+        if (typeof window.dataLayer !== 'undefined') {
+            window.dataLayer.push({ event: 'wishlist_sent', products_count: selectedCards.length });
         }
     }, true);
 });
