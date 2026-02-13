@@ -845,7 +845,7 @@ function renderProducts(container) {
                 );
             }).join('')}
         </div>
-        <button type="button" class="btn-main" id="send-wishlist-btn" onclick="openEmailModal()" style="border: 5px solid red !important; z-index: 99999 !important; pointer-events: auto !important; position: relative !important;">💌 ENVIAR WISHLIST POR EMAIL</button>
+        <button type="button" class="btn-main" id="send-wishlist-btn" onclick="openEmailModal()" style="z-index: 10; pointer-events: auto; position: relative;">💌 ENVIAR WISHLIST POR EMAIL</button>
     `;
     // Delegated: botón wishlist (no seguir link)
     container.querySelectorAll('[data-wishlist-btn]').forEach(function (btn) {
@@ -969,6 +969,16 @@ document.addEventListener('DOMContentLoaded', function () {
     trackEvent('banner_loaded', {});
     attachModalAndWishlistSend();
     render();
+    // Delegación: botón ENVIAR WISHLIST se crea dinámicamente en render(); sin esto no dispara el modal/mailto
+    document.addEventListener('click', function (e) {
+        var t = e.target;
+        var btnSend = t.id === 'send-wishlist-btn' ? t : (t.closest && t.closest('#send-wishlist-btn'));
+        if (btnSend) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.openEmailModal === 'function') window.openEmailModal();
+        }
+    }, true);
 });
 
 
