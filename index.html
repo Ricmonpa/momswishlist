@@ -987,7 +987,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         var subject = encodeURIComponent('Mi Wishlist de San Valentín - Sanborns');
         var body = encodeURIComponent('¡Hola! Estos son los regalos que me encantaron:\n\n' + productNames.join('\n') + '\n\nCheca el catálogo aquí: ' + window.location.href);
-        window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+        var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + body;
+        var tempLink = document.createElement('a');
+        tempLink.href = mailtoUrl;
+        tempLink.style.display = 'none';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        document.body.removeChild(tempLink);
         if (typeof window.dataLayer !== 'undefined') {
             window.dataLayer.push({ event: 'wishlist_sent', products_count: selectedCards.length });
         }
