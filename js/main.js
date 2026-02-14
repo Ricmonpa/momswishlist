@@ -530,11 +530,12 @@ if (sendBtn) {
             alert('Por favor, selecciona al menos un producto.');
             return;
         }
-        var names = Array.from(selectedCards).map(function (c) {
-            var el = c.querySelector('.product-name');
-            return el ? el.innerText : 'Producto';
+        var items = Array.from(selectedCards).map(function (c) {
+            var name = c.getAttribute('data-product-name') || (c.querySelector('.product-name') ? c.querySelector('.product-name').innerText : 'Producto');
+            var url = c.getAttribute('data-product-url') || '';
+            return { name: name, url: url };
         });
-        var bodyText = '?Hola! Estos son mis favoritos de San Valent?n:unun' + names.join('un') + 'ununVer cat?logo: ' + window.location.href;
+        var bodyText = '¡Hola! Estos son mis favoritos de San Valentín:\n\n' + items.map(function (p) { return p.name + '\n' + p.url + '\n\n'; }).join('') + 'Ver catálogo completo:\nhttps://www.sanborns.com.mx/';
         var subject = encodeURIComponent('Mi Wishlist de San Valent?n - Sanborns');
         var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
