@@ -71,17 +71,21 @@
         /* Imagen de ramo LEGO (PNG integrado, primera pantalla) */
         .campaign-bouquet {
             position: absolute;
-            inset: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 50vh;
+            min-height: 220px;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
             display: flex;
             align-items: flex-end;
             justify-content: center;
         }
         .campaign-bouquet img {
             width: 100%;
-            max-width: 420px;
-            max-height: 50vh;
+            max-width: 480px;
+            height: 100%;
             object-fit: contain;
             object-position: center bottom;
         }
@@ -93,7 +97,7 @@
         }
         .campaign-content {
             position: relative;
-            z-index: 2;
+            z-index: 3;
             flex: 1;
             display: flex;
             flex-direction: column;
