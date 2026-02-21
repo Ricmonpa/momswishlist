@@ -19,7 +19,7 @@
     })();
     </script>
     <meta name="ad.size" content="width=640,height=1280">
-    <title>Sanborns - Gift Finder San Valentin</title>
+    <title>Sanborns - Gift Finder Día de las Madres</title>
     <script type="text/javascript">
     // MediaSmart DSP - Click macros
     var clickTag = "%target_url_unesc%";
@@ -51,7 +51,7 @@ html, body {
     padding: 0;
     overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: linear-gradient(180deg, #FFB6C1 0%, #FFC0CB 50%, #FFB6C1 100%);
+    background: var(--gradient-bg);
 }
 #banner-container, .banner-container {
     position: absolute;
@@ -60,7 +60,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: linear-gradient(180deg, #FFB6C1 0%, #FFC0CB 50%, #FFB6C1 100%);
+    background: var(--gradient-bg);
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -88,7 +88,7 @@ html, body {
     padding: 4px 8px;
     border-radius: 15px;
     font-size: 10px;
-    color: #FF1493;
+    color: var(--lavender-deep);
     font-weight: bold;
 }
 #screen-container {
@@ -101,7 +101,7 @@ html, body {
     pointer-events: auto;
 }
 .screen-title {
-    color: #DC143C;
+    color: var(--lavender-deep);
     font-size: 18px;
     text-align: center;
     margin-bottom: 20px;
@@ -123,7 +123,7 @@ html, body {
 .animated-heart-img {
     width: 180px;
     height: auto;
-    filter: drop-shadow(0 0 5px #FF1493) drop-shadow(0 0 10px rgba(255, 20, 147, 0.6));
+    filter: drop-shadow(0 0 5px var(--lavender-accent)) drop-shadow(0 0 10px rgba(139, 95, 191, 0.5));
     animation: floatHeart 3s ease-in-out infinite;
 }
 @keyframes floatHeart {
@@ -165,7 +165,7 @@ html, body {
     border: none;
     border-radius: 12px;
     background: white;
-    color: #DC143C;
+    color: var(--lavender-deep);
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -210,10 +210,10 @@ html, body {
 }
 .product-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 20, 147, 0.2);
-    background: linear-gradient(135deg, #ffffff 0%, #fff5f8 100%);
+    box-shadow: 0 6px 20px rgba(139, 95, 191, 0.2);
+    background: linear-gradient(135deg, #ffffff 0%, #F5E6FF 100%);
 }
-.product-card:active { transform: translateY(0px); box-shadow: 0 3px 12px rgba(255, 20, 147, 0.15); }
+.product-card:active { transform: translateY(0px); box-shadow: 0 3px 12px rgba(139, 95, 191, 0.15); }
 .product-card button {
     position: relative;
     z-index: 10;
@@ -230,9 +230,9 @@ html, body {
 }
 .product-info { flex: 1; }
 .product-name { font-size: 12px; font-weight: bold; margin-bottom: 4px; }
-.product-price { color: #DC143C; font-size: 13px; font-weight: bold; }
+.product-price { color: var(--lavender-deep); font-size: 13px; font-weight: bold; }
 .add-btn {
-    background: #FF1493;
+    background: var(--lavender-accent);
     color: white;
     border: none;
     border-radius: 5px;
@@ -246,8 +246,8 @@ html, body {
 }
 .back-btn {
     background: rgba(255, 255, 255, 0.9);
-    border: 2px solid #FF1493;
-    color: #FF1493;
+    border: 2px solid var(--lavender-accent);
+    color: var(--lavender-deep);
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
@@ -259,14 +259,14 @@ html, body {
     align-items: center;
     gap: 6px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(255, 20, 147, 0.15);
+    box-shadow: 0 2px 8px rgba(139, 95, 191, 0.2);
     position: relative;
     z-index: 10;
     pointer-events: auto;
 }
-.back-btn:hover { background: #FF1493; color: white; transform: translateX(-3px); }
+.back-btn:hover { background: var(--lavender-accent); color: white; transform: translateX(-3px); }
 .btn-main {
-    background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+    background: var(--gradient-button);
     color: white;
     padding: 12px;
     border-radius: 10px;
@@ -312,7 +312,7 @@ html, body {
 }
 .modal-close { position: absolute; top: 10px; right: 10px; border: none; background: none; font-size: 20px; cursor: pointer; }
 .form-input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; }
-.btn-send { width: 100%; padding: 10px; background: #FF1493; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+.btn-send { width: 100%; padding: 10px; background: var(--lavender-accent); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 .btn-cancel { width: 100%; padding: 10px; background: #eee; border: none; border-radius: 5px; margin-top: 5px; cursor: pointer; }
     </style>
 </head>
@@ -324,24 +324,24 @@ html, body {
         <header class="banner-header">
             <img src="assets/logo.png" alt="Sanborns" class="logo" role="button" onclick="exitClickHandler(); event.stopPropagation();">
             <div class="wishlist-counter" id="wishlistCounter">
-                <span class="heart-icon">&#10084;&#65039;</span>
+                <span class="heart-icon">&#127804;</span>
                 <span class="counter-text"><span id="wishlistCount">0</span> en tu wishlist</span>
             </div>
         </header>
         <div id="screen-container" class="fade-in content-wrapper"></div>
         <div class="floating-products">
-            <span class="product-icon">&#128157;</span>
-            <span class="product-icon">&#128150;</span>
-            <span class="product-icon">&#128149;</span>
+            <span class="product-icon">&#127804;</span>
+            <span class="product-icon">&#127801;</span>
+            <span class="product-icon">&#127873;</span>
         </div>
         <div class="email-modal" id="emailModal" style="display:none">
             <div class="modal-overlay" id="modalOverlay"></div>
             <div class="modal-content">
                 <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
-                <div class="modal-header"><h2>&#128140; Envia tu Wishlist</h2></div>
+                <div class="modal-header"><h2>&#127873; Envía tu Wishlist</h2></div>
                 <form class="modal-form" id="wishlistForm" action="javascript:void(0)" method="get" onsubmit="return false;">
                     <div class="form-group">
-                        <label for="emailPareja">Email de destino *</label>
+                        <label for="emailPareja">Email de quien recibe la lista *</label>
                         <input type="email" id="emailPareja" name="emailPareja" required placeholder="email@ejemplo.com" class="form-input" />
                     </div>
                     <div class="modal-actions">
@@ -354,7 +354,7 @@ html, body {
     </div>
     <script>
 /**
- * Productos Gift Finder San Valentín - Sanborns
+ * Productos Gift Finder Día de las Madres - Sanborns
  * Mapeo EXACTO por categoría. Solo imágenes locales (producto-ID) o placeholder.
  * v9 URGENT-FIX - Categorías corregidas: Celulares=celulares, Fotografía=cámaras, Gadgets=wearables, Regalos=productos reales.
  */
@@ -527,7 +527,7 @@ function buildProductUrl(product) {
   const params = new URLSearchParams({
     utm_source: 'dv360',
     utm_medium: 'display',
-    utm_campaign: 'sanborns_san_valentin_2025',
+    utm_campaign: 'sanborns_dia_de_las_madres_2025',
     utm_content: 'producto_' + (product.id || ''),
     utm_term: 'gift_finder'
   });
@@ -639,9 +639,9 @@ function sendWishlistByMail() {
         });
         var count = items.length;
         var productos = items.map(function (p) { return p.name + ' - ' + p.price + '\n' + p.url; }).join('\n\n');
-        var subject = encodeURIComponent('Mi Wishlist Sanborns');
+        var subject = encodeURIComponent('Mi Wishlist Sanborns - Día de las Madres');
         var body = encodeURIComponent(
-            'Hola amor ❤️\n\nEstos son los regalos que me gustarían para San Valentín:\n\n' + productos + '\n\nCon amor,\nTu pareja\n\n---\nCreado con Sanborns Wishlist de San Valentín'
+            'Hola 🌸\n\nEstos son los regalos que me gustarían para el Día de las Madres:\n\n' + productos + '\n\nCon cariño,\nPara mamá\n\n---\nCreado con Sanborns Wishlist Día de las Madres'
         );
         window.location.href = 'mailto:' + toEmail + '?subject=' + subject + '&body=' + body;
         if (typeof trackEvent === 'function') trackEvent('wishlist_sent', { products_count: count, method: 'mailto' });
@@ -768,13 +768,13 @@ function renderWelcome(container) {
     container.innerHTML = `
         <div class="welcome-screen">
             <div class="ai-character">
-                <img src="assets/heart.svg" alt="Corazón Animado" class="animated-heart-img" onerror="this.src='assets/heart.svg'">
+                <img src="assets/flower.svg" alt="Flor Día de las Madres" class="animated-heart-img" onerror="this.src='assets/flower.svg'">
             </div>
             
             <div class="chat-bubble">
                 <div class="chat-bubble-tail"></div>
-                <h1 class="chat-title">¿Qué te gustaría regalar este San Valentín?</h1>
-                <p class="chat-subtitle">Encuentra el regalo perfecto</p>
+                <h1 class="chat-title">¿Qué te gustaría regalar este Día de las Madres?</h1>
+                <p class="chat-subtitle">Encuentra el regalo perfecto para mamá</p>
             </div>
 
             <div class="gender-selection">
@@ -787,7 +787,7 @@ function renderWelcome(container) {
 
 function renderCategories(container) {
     const cats = CATEGORIES[appState.gender];
-    const title = appState.gender === 'mujer' ? 'Regalo para Mujer 👩' : 'Regalo para Hombre 👨';
+    const title = appState.gender === 'mujer' ? 'Algo para mamá 🌸' : 'Regalo para Hombre 👨';
     
     container.innerHTML = `
         <button class="back-btn" onclick="goBack()">
@@ -857,12 +857,12 @@ function renderProducts(container) {
                     '<div class="product-info">' +
                     '<div class="product-name">' + displayName + '</div>' +
                     '<div class="product-price">' + price + '</div>' +
-                    '<button type="button" class="add-btn" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-wishlist-btn>' + (isAdded ? '❤️ Quitar' : '🤍 Agregar') + '</button>' +
+                    '<button type="button" class="add-btn" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-wishlist-btn>' + (isAdded ? '&#127804; Quitar' : '&#127873; Agregar') + '</button>' +
                     '</div></div>'
                 );
             }).join('')}
         </div>
-        <button type="button" class="btn-main" id="send-wishlist-btn" style="z-index: 10; pointer-events: auto; position: relative;">💌 ENVIAR WISHLIST POR EMAIL</button>
+        <button type="button" class="btn-main" id="send-wishlist-btn" style="z-index: 10; pointer-events: auto; position: relative;">&#127873; ENVIAR WISHLIST POR EMAIL</button>
         <div id="mailto-link-wrap" style="display:none; margin-top:8px; font-size:14px; text-align:center;"></div>
     `;
     // Delegated: botón wishlist (no seguir link)
@@ -890,8 +890,8 @@ function renderProducts(container) {
                 var url = c.getAttribute('data-product-url') || '';
                 return { name: name, url: url };
             });
-            var bodyText = '¡Hola! Estos son mis favoritos de San Valentín:\n\n' + items.map(function (p) { return p.name + '\n' + p.url + '\n\n'; }).join('') + 'Ver catálogo completo:\nhttps://www.sanborns.com.mx/';
-            var subject = encodeURIComponent('Mi Wishlist de San Valentín - Sanborns');
+            var bodyText = '¡Hola! Estos son mis favoritos para el Día de las Madres:\n\n' + items.map(function (p) { return p.name + '\n' + p.url + '\n\n'; }).join('') + 'Ver catálogo completo:\nhttps://www.sanborns.com.mx/';
+            var subject = encodeURIComponent('Mi Wishlist Día de las Madres - Sanborns');
             var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
             var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -983,7 +983,7 @@ function updateWishlistCounter() {
 // Modal Logic
 window.openEmailModal = () => {
     if (appState.wishlist.length === 0) {
-        alert('Agrega al menos un producto a tu wishlist primero ❤️');
+        alert('Agrega al menos un producto a tu wishlist primero 🌸');
         return;
     }
     trackEvent('wishlist_modal_opened', { wishlist_count: appState.wishlist.length });
@@ -1029,8 +1029,12 @@ window.openProductPage = (url) => {
     window.open(tracker + url, '_blank');
 };
 
-// Start
+// Start — si se entra desde la campaña (#categorias), ir directo al menú de categorías (mujer por defecto)
 document.addEventListener('DOMContentLoaded', function () {
+    if (location.hash === '#categorias' || (location.search && location.search.indexOf('categorias') !== -1)) {
+        appState.screen = 'categorias';
+        appState.gender = 'mujer';
+    }
     trackEvent('banner_loaded', {});
     attachModalAndWishlistSend();
     render();

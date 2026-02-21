@@ -41,3 +41,6 @@ logs/
 .wrangler/
 .dev.vars
 config.js
+
+# OneDrive / sync (paths too long, embedded repos)
+OneDrive/

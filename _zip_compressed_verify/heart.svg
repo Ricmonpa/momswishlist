@@ -1,0 +1,74 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <defs>
+    <!-- Gradientes románticos -->
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF69B4"/>
+      <stop offset="50%" style="stop-color:#FF1493"/>
+      <stop offset="100%" style="stop-color:#DC143C"/>
+    </linearGradient>
+    <radialGradient id="heartGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FF1493;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#FF1493;stop-opacity:0"/>
+    </radialGradient>
+    <!-- Filtro de brillo -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fondo con corazones decorativos -->
+  <g opacity="0.2">
+    <path d="M50,60 C50,50 60,40 70,40 C80,40 90,50 90,60 C90,70 70,90 70,90 C70,90 50,70 50,60 Z" fill="url(#heartGradient)"/>
+    <path d="M210,60 C210,50 220,40 230,40 C240,40 250,50 250,60 C250,70 230,90 230,90 C230,90 210,70 210,60 Z" fill="url(#heartGradient)"/>
+  </g>
+
+  <!-- Corazón principal grande -->
+  <g filter="url(#glow)" transform="translate(150, 100)">
+    <!-- Aura del corazón -->
+    <circle cx="0" cy="0" r="45" fill="url(#heartGlow)" opacity="0.4">
+      <animate attributeName="r" values="45;50;45" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Corazón principal -->
+    <path d="M0,-20 C-20,-35 -40,-25 -40,-10 C-40,0 -20,10 0,30 C20,10 40,0 40,-10 C40,-25 20,-35 0,-20 Z" 
+          fill="url(#heartGradient)" 
+          stroke="#FFFFFF" 
+          stroke-width="2">
+      <animate attributeName="fill-opacity" values="1;0.8;1" dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Brillo en el corazón -->
+    <ellipse cx="-8" cy="-15" rx="8" ry="10" fill="#FFFFFF" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.8;0.6" dur="1.5s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+
+  <!-- Corazones pequeños flotantes -->
+  <g opacity="0.7">
+    <path d="M100,140 C100,135 105,130 110,130 C115,130 120,135 120,140 C120,145 110,155 110,155 C110,155 100,145 100,140 Z" fill="#FF69B4">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-10; 0,0" dur="3s" repeatCount="indefinite"/>
+    </path>
+    <path d="M180,140 C180,135 185,130 190,130 C195,130 200,135 200,140 C200,145 190,155 190,155 C190,155 180,145 180,140 Z" fill="#FF1493">
+      <animateTransform attributeName="transform" type="translate" values="0,0; 0,-8; 0,0" dur="2.5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Rayos de amor -->
+  <g opacity="0.4">
+    <line x1="150" y1="60" x2="150" y2="50" stroke="url(#heartGradient)" stroke-width="3" stroke-linecap="round">
+      <animate attributeName="y2" values="50;45;50" dur="1.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="150" y1="140" x2="150" y2="150" stroke="url(#heartGradient)" stroke-width="3" stroke-linecap="round">
+      <animate attributeName="y2" values="150;155;150" dur="1.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="100" y1="100" x2="90" y2="100" stroke="url(#heartGradient)" stroke-width="3" stroke-linecap="round">
+      <animate attributeName="x2" values="90;85;90" dur="1.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="200" y1="100" x2="210" y2="100" stroke="url(#heartGradient)" stroke-width="3" stroke-linecap="round">
+      <animate attributeName="x2" values="210;215;210" dur="1.5s" repeatCount="indefinite"/>
+    </line>
+  </g>
+</svg>

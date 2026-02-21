@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sanborns - Día de las Madres | ¡Mamá se merece lo mejor!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream-pink: #fce4ec;
+            --cream-center: #fff5f8;
+            --fuchsia-mid: #e91e63;
+            --fuchsia-deep: #c2185b;
+            --fuchsia-edge: #880e4f;
+            --gold: #d4af37;
+            --gold-light: #f4e4a6;
+            --gold-shadow: rgba(180, 140, 50, 0.5);
+            --white: #ffffff;
+            --pearl-bg: rgba(255, 255, 255, 0.92);
+            --font-elegant: 'Playfair Display', Georgia, serif;
+            --font-ui: 'Poppins', -apple-system, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            min-height: 100%;
+            font-family: var(--font-ui);
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .campaign-page {
+            min-height: 100vh;
+            position: relative;
+            background: radial-gradient(
+                ellipse 120% 100% at 50% 40%,
+                var(--cream-center) 0%,
+                var(--cream-pink) 25%,
+                #f8bbd0 50%,
+                #f06292 75%,
+                var(--fuchsia-mid) 90%,
+                var(--fuchsia-deep) 95%,
+                var(--fuchsia-edge) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            padding: clamp(16px, 5vw, 24px);
+            padding-bottom: max(env(safe-area-inset-bottom), 24px);
+        }
+        .petals-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .petal {
+            position: absolute;
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.5;
+            animation: floatPetal 12s ease-in-out infinite;
+        }
+        .petal--1 { width: 14px; height: 14px; background: #f8bbd0; top: 12%; left: 8%; animation-delay: 0s; transform: rotate(20deg); }
+        .petal--2 { width: 18px; height: 18px; background: #f48fb1; top: 25%; right: 10%; animation-delay: -3s; transform: rotate(-15deg); }
+        .petal--3 { width: 12px; height: 12px; background: #fce4ec; top: 45%; left: 5%; animation-delay: -6s; transform: rotate(40deg); }
+        .petal--4 { width: 16px; height: 16px; background: #f4e4a6; top: 60%; right: 8%; animation-delay: -2s; transform: rotate(-25deg); }
+        .petal--5 { width: 10px; height: 10px; background: #f8bbd0; top: 75%; left: 15%; animation-delay: -8s; transform: rotate(10deg); }
+        .petal--6 { width: 14px; height: 14px; background: #f48fb1; top: 35%; right: 18%; animation-delay: -4s; transform: rotate(35deg); }
+        .petal--7 { width: 11px; height: 11px; background: #fce4ec; bottom: 25%; left: 10%; animation-delay: -7s; transform: rotate(-10deg); }
+        .petal--8 { width: 15px; height: 15px; background: #f4e4a6; bottom: 40%; right: 12%; animation-delay: -1s; transform: rotate(5deg); }
+        @keyframes floatPetal {
+            0%, 100% { transform: translate(0, 0) rotate(var(--r, 0deg)); opacity: 0.5; }
+            25% { transform: translate(8px, -15px) rotate(calc(var(--r, 0deg) + 10deg)); opacity: 0.7; }
+            50% { transform: translate(-5px, -8px) rotate(calc(var(--r, 0deg) - 5deg)); opacity: 0.5; }
+            75% { transform: translate(10px, 5px) rotate(calc(var(--r, 0deg) + 15deg)); opacity: 0.6; }
+        }
+        .campaign-content {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .campaign-logo {
+            width: clamp(70px, 22vw, 100px);
+            height: auto;
+            margin-bottom: clamp(20px, 5vw, 32px);
+            display: block;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
+        }
+        .campaign-title {
+            font-family: var(--font-elegant);
+            font-weight: 700;
+            font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+            line-height: 1.2;
+            margin-bottom: clamp(12px, 3vw, 20px);
+            padding: 0 8px;
+            color: #8b6914;
+            text-shadow:
+                0 0 1px rgba(255,255,255,0.8),
+                0 1px 2px rgba(0,0,0,0.2),
+                0 2px 4px rgba(212,175,55,0.4),
+                1px 1px 0 rgba(255,255,255,0.5),
+                -1px -1px 0 rgba(100,80,20,0.3);
+            background: linear-gradient(180deg, #f4e4a6 0%, #d4af37 30%, #b8860b 70%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @supports not (background-clip: text) {
+            .campaign-title {
+                color: #b8860b;
+                text-shadow: 0 0 1px #fff, 0 2px 4px var(--gold-shadow);
+                background: none;
+                -webkit-text-fill-color: inherit;
+            }
+        }
+        .campaign-subtitle {
+            font-family: var(--font-ui);
+            font-weight: 600;
+            font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+            color: var(--fuchsia-edge);
+            margin-bottom: clamp(24px, 6vw, 36px);
+            padding: 0 12px;
+            line-height: 1.35;
+        }
+        .countdown {
+            display: flex;
+            gap: clamp(8px, 2.5vw, 14px);
+            margin-bottom: clamp(28px, 7vw, 44px);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .countdown-box {
+            flex: 0 0 auto;
+            min-width: clamp(64px, 18vw, 82px);
+            padding: clamp(10px, 2.5vw, 14px) clamp(8px, 2vw, 12px);
+            background: var(--pearl-bg);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background-image:
+                linear-gradient(var(--pearl-bg), var(--pearl-bg)),
+                linear-gradient(135deg, #f4e4a6, #d4af37, #8b6914, #d4af37);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            box-shadow:
+                0 4px 14px rgba(136, 14, 79, 0.15),
+                inset 0 1px 0 rgba(255,255,255,0.9),
+                0 0 0 1px rgba(212,175,55,0.3);
+        }
+        .countdown-number {
+            display: block;
+            font-family: var(--font-ui);
+            font-weight: 700;
+            font-size: clamp(1.75rem, 5vw, 2.25rem);
+            line-height: 1.1;
+            color: var(--fuchsia-deep);
+            letter-spacing: -0.02em;
+        }
+        .countdown-label {
+            font-family: var(--font-ui);
+            font-size: clamp(0.6rem, 2vw, 0.75rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--fuchsia-edge);
+            margin-top: 2px;
+        }
+        .cta-wrap { width: 100%; max-width: 360px; margin: 0 auto; }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: clamp(14px, 4vw, 18px) clamp(20px, 5vw, 28px);
+            background: linear-gradient(90deg, var(--fuchsia-deep) 0%, #e91e63 35%, #ff6f00 100%);
+            background-size: 200% 100%;
+            color: var(--white);
+            text-decoration: none;
+            font-family: var(--font-ui);
+            font-weight: 700;
+            font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+            text-align: center;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow:
+                0 6px 20px rgba(194, 24, 91, 0.45),
+                0 4px 10px rgba(255, 111, 0, 0.25),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-position 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 10px 28px rgba(194, 24, 91, 0.5),
+                0 6px 16px rgba(255, 111, 0, 0.35);
+            background-position: 100% 0;
+        }
+        .cta-button:active { transform: translateY(-1px); }
+        @media (min-width: 480px) {
+            .campaign-page { padding: 28px; }
+            .countdown { gap: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="campaign-page" role="main">
+        <div class="petals-layer" aria-hidden="true">
+            <span class="petal petal--1"></span>
+            <span class="petal petal--2"></span>
+            <span class="petal petal--3"></span>
+            <span class="petal petal--4"></span>
+            <span class="petal petal--5"></span>
+            <span class="petal petal--6"></span>
+            <span class="petal petal--7"></span>
+            <span class="petal petal--8"></span>
+        </div>
+
+        <div class="campaign-content">
+            <img src="assets/logo.png" alt="Sanborns" class="campaign-logo" width="90" height="40">
+
+            <h1 class="campaign-title">¡MAMÁ SE MERECE<br>LO MEJOR!</h1>
+            <p class="campaign-subtitle">No dejes pasar las ofertas exclusivas. Termina en:</p>
+
+            <div class="countdown" role="timer" aria-live="polite" aria-label="Cuenta regresiva para el Día de las Madres">
+                <div class="countdown-box">
+                    <span class="countdown-number" id="countdown-days">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="countdown-hours">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="countdown-mins">00</span>
+                    <span class="countdown-label">Min</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-number" id="countdown-secs">00</span>
+                    <span class="countdown-label">Seg</span>
+                </div>
+            </div>
+
+            <div class="cta-wrap">
+                <a href="index.html#categorias" class="cta-button" id="cta-regalo">¡ESCOGER EL REGALO PERFECTO!</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            'use strict';
+            var targetDate = new Date();
+            targetDate.setMonth(4);
+            targetDate.setDate(10);
+            targetDate.setHours(23, 59, 59, 999);
+            var els = {
+                days: document.getElementById('countdown-days'),
+                hours: document.getElementById('countdown-hours'),
+                mins: document.getElementById('countdown-mins'),
+                secs: document.getElementById('countdown-secs')
+            };
+            function pad2(n) { return (n < 10 ? '0' : '') + n; }
+            function updateCountdown() {
+                var now = new Date();
+                if (now >= targetDate) {
+                    els.days.textContent = '00';
+                    els.hours.textContent = '00';
+                    els.mins.textContent = '00';
+                    els.secs.textContent = '00';
+                    return;
+                }
+                var diff = targetDate - now;
+                els.days.textContent = pad2(Math.floor(diff / 86400000));
+                els.hours.textContent = pad2(Math.floor((diff / 3600000) % 24));
+                els.mins.textContent = pad2(Math.floor((diff / 60000) % 60));
+                els.secs.textContent = pad2(Math.floor((diff / 1000) % 60));
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
+    </script>
+</body>
+</html>
