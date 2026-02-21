@@ -68,41 +68,257 @@
         .petal--6 { width: 14px; height: 14px; background: #f48fb1; top: 35%; right: 18%; animation-delay: -4s; transform: rotate(35deg); }
         .petal--7 { width: 11px; height: 11px; background: #fce4ec; bottom: 25%; left: 10%; animation-delay: -7s; transform: rotate(-10deg); }
         .petal--8 { width: 15px; height: 15px; background: #f4e4a6; bottom: 40%; right: 12%; animation-delay: -1s; transform: rotate(5deg); }
-        /* Ramos florales: esquina superior izq. y borde inferior (referencia guía visual). */
-        .floral-layer {
+        /* --- LEGO floral: solo CSS, sin imágenes ni SVG --- */
+        :root {
+            --lego-pink: #FF69B4;
+            --lego-deeppink: #FF1493;
+            --lego-purple: #9370DB;
+            --lego-blueviolet: #8A2BE2;
+            --lego-gold: #FFD700;
+            --lego-green: #32CD32;
+            --lego-green-dark: #228B22;
+            --lego-highlight: rgba(255,255,255,0.6);
+            --lego-shadow: rgba(0,0,0,0.25);
+            --lego-edge: rgba(0,0,0,0.15);
+        }
+        .lego-floral-layer {
             position: absolute;
             inset: 0;
             pointer-events: none;
             overflow: visible;
             z-index: 1;
         }
-        .floral-layer svg {
+        .lego-floral-layer .flower-top-left,
+        .lego-floral-layer .flower-top-right,
+        .lego-floral-layer .flower-bottom {
+            pointer-events: auto;
+        }
+        .flower-top-left {
             position: absolute;
-            opacity: 0.95;
+            top: -2%;
+            left: -5%;
+            width: min(72%, 260px);
+            height: min(38%, 200px);
+            z-index: 1;
         }
-        .floral-top {
+        .flower-top-right {
+            position: absolute;
             top: 0;
-            left: 0;
-            width: min(70%, 280px);
-            height: auto;
-            transform: translate(-5%, -3%);
+            right: -4%;
+            width: min(50%, 180px);
+            height: min(45%, 220px);
+            z-index: 1;
         }
-        .floral-bottom {
+        .flower-bottom {
+            position: absolute;
             bottom: 0;
             left: 0;
-            width: 100%;
-            height: auto;
-            max-height: 32%;
-            object-fit: cover;
-            object-position: left bottom;
-        }
-        .floral-bottom-right {
-            bottom: 0;
             right: 0;
-            width: min(58%, 240px);
-            height: auto;
-            transform: translate(2%, 8%);
+            height: min(30%, 140px);
+            z-index: 1;
         }
+        /* Pieza LEGO base: textura plástico + stud (::after) */
+        .lego-piece {
+            position: absolute;
+            border-radius: 50%;
+            background-image:
+                linear-gradient(145deg, var(--lego-highlight) 0%, transparent 25%),
+                linear-gradient(180deg, currentColor 0%, currentColor 70%, var(--lego-shadow) 100%);
+            background-color: var(--lego-pink);
+            border: 2px solid var(--lego-edge);
+            box-shadow:
+                inset 2px 2px 4px var(--lego-highlight),
+                inset -1px -1px 3px var(--lego-shadow),
+                1px 1px 0 rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .lego-piece::after {
+            content: '';
+            position: absolute;
+            width: 45%;
+            height: 45%;
+            top: -8%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, var(--lego-highlight), currentColor 60%, var(--lego-shadow));
+            box-shadow:
+                0 2px 4px var(--lego-shadow),
+                inset 0 1px 0 var(--lego-highlight);
+            border: 1px solid var(--lego-edge);
+        }
+        .lego-piece:hover {
+            transform: scale(1.02);
+            box-shadow:
+                inset 2px 2px 4px var(--lego-highlight),
+                inset -1px -1px 3px var(--lego-shadow),
+                2px 2px 8px var(--lego-shadow);
+        }
+        /* Rosa: pétalos circulares + centro amarillo */
+        .lego-rose {
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            width: 56px;
+            height: 56px;
+        }
+        .lego-rose .lego-petal.lego-piece {
+            width: 22px;
+            height: 22px;
+            color: var(--lego-deeppink);
+            background-color: var(--lego-deeppink);
+        }
+        .lego-rose .lego-petal:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+        .lego-rose .lego-petal:nth-child(2) { top: 18px; left: 0; }
+        .lego-rose .lego-petal:nth-child(3) { top: 18px; right: 0; left: auto; }
+        .lego-rose .lego-petal:nth-child(4) { bottom: 18px; left: 4px; top: auto; }
+        .lego-rose .lego-petal:nth-child(5) { bottom: 18px; right: 4px; left: auto; top: auto; }
+        .lego-rose .lego-center.lego-piece {
+            width: 14px;
+            height: 14px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--lego-gold);
+            background-color: var(--lego-gold);
+        }
+        .lego-rose .lego-center::after {
+            width: 50%;
+            height: 50%;
+            top: -15%;
+        }
+        /* Segunda rosa */
+        .lego-rose-2 {
+            top: 8%;
+            left: 38%;
+            width: 48px;
+            height: 48px;
+        }
+        .lego-rose-2 .lego-petal { width: 18px; height: 18px; color: var(--lego-pink); background-color: var(--lego-pink); }
+        .lego-rose-2 .lego-petal:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+        .lego-rose-2 .lego-petal:nth-child(2) { top: 14px; left: 0; }
+        .lego-rose-2 .lego-petal:nth-child(3) { top: 14px; right: 0; left: auto; }
+        .lego-rose-2 .lego-petal:nth-child(4) { bottom: 14px; left: 2px; top: auto; }
+        .lego-rose-2 .lego-petal:nth-child(5) { bottom: 14px; right: 2px; left: auto; top: auto; }
+        .lego-rose-2 .lego-center { width: 12px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--lego-gold); background-color: var(--lego-gold); }
+        .lego-rose-2 .lego-center::after { width: 50%; height: 50%; top: -15%; }
+        /* Tulipán: pétalos ovalados */
+        .lego-tulip {
+            position: absolute;
+            top: 42%;
+            left: 5%;
+            width: 44px;
+            height: 40px;
+        }
+        .lego-tulip .lego-petal {
+            width: 16px;
+            height: 24px;
+            border-radius: 50% 50% 45% 45%;
+            color: var(--lego-pink);
+            background-color: var(--lego-pink);
+        }
+        .lego-tulip .lego-petal:nth-child(1) { top: 4px; left: 14px; }
+        .lego-tulip .lego-petal:nth-child(2) { top: 8px; left: 0; }
+        .lego-tulip .lego-petal:nth-child(3) { top: 8px; right: 0; left: auto; }
+        .lego-tulip .lego-petal:nth-child(4) { top: 12px; left: 14px; }
+        /* Hojas LEGO (verde, forma alargada) */
+        .lego-leaf {
+            position: absolute;
+            width: 28px;
+            height: 14px;
+            border-radius: 50% 50% 50% 10%;
+            color: var(--lego-green-dark);
+            background-color: var(--lego-green);
+            transform: rotate(var(--leaf-rot, -25deg));
+        }
+        .lego-leaf::after {
+            width: 40%;
+            height: 50%;
+            top: -20%;
+        }
+        .flower-top-left .lego-leaf:nth-of-type(1) { bottom: 18%; left: 0; --leaf-rot: -35deg; }
+        .flower-top-left .lego-leaf:nth-of-type(2) { bottom: 5%; left: 22%; --leaf-rot: 15deg; }
+        .flower-top-left .lego-leaf:nth-of-type(3) { top: 55%; left: 2%; --leaf-rot: -50deg; }
+        /* Orquídea: pétalos alargados púrpura */
+        .lego-orchid {
+            position: absolute;
+            top: 12%;
+            right: 5%;
+            width: 70px;
+            height: 90px;
+        }
+        .lego-orchid .lego-petal {
+            width: 18px;
+            height: 36px;
+            border-radius: 45% 45% 50% 50%;
+            color: var(--lego-purple);
+            background-color: var(--lego-purple);
+        }
+        .lego-orchid .lego-petal:nth-child(1) { top: 0; left: 26px; }
+        .lego-orchid .lego-petal:nth-child(2) { top: 18px; left: 0; transform: rotate(-25deg); transform-origin: bottom center; }
+        .lego-orchid .lego-petal:nth-child(3) { top: 18px; right: 0; left: auto; transform: rotate(25deg); transform-origin: bottom center; }
+        .lego-orchid .lego-petal:nth-child(4) { bottom: 20px; left: 8px; top: auto; transform: rotate(-15deg); transform-origin: top center; }
+        .lego-orchid .lego-petal:nth-child(5) { bottom: 20px; right: 8px; left: auto; top: auto; transform: rotate(15deg); transform-origin: top center; }
+        .lego-orchid .lego-center {
+            width: 16px;
+            height: 16px;
+            top: 38px;
+            left: 27px;
+            color: var(--lego-blueviolet);
+            background-color: var(--lego-blueviolet);
+        }
+        .flower-top-right .lego-leaf:nth-of-type(1) { bottom: 25%; right: 15%; left: auto; --leaf-rot: 40deg; }
+        .flower-top-right .lego-leaf:nth-of-type(2) { top: 60%; right: 0; left: auto; --leaf-rot: -20deg; }
+        /* Base inferior: follaje y flores pequeñas */
+        .lego-stem {
+            position: absolute;
+            width: 8px;
+            height: 50px;
+            border-radius: 2px;
+            bottom: 0;
+            color: var(--lego-green-dark);
+            background: linear-gradient(90deg, var(--lego-shadow) 0%, var(--lego-green) 20%, var(--lego-green) 80%, var(--lego-green-dark) 100%);
+            border: 1px solid var(--lego-edge);
+            box-shadow: inset 1px 0 0 var(--lego-highlight);
+        }
+        .lego-stem::after {
+            width: 60%;
+            height: 30%;
+            top: -5%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .flower-bottom .lego-stem:nth-child(1) { left: 8%; height: 44px; transform: rotate(5deg); }
+        .flower-bottom .lego-stem:nth-child(2) { left: 28%; height: 52px; transform: rotate(-3deg); }
+        .flower-bottom .lego-stem:nth-child(3) { right: 25%; left: auto; height: 48px; transform: rotate(4deg); }
+        .flower-bottom .lego-leaf { width: 24px; height: 12px; }
+        .flower-bottom .lego-leaf:nth-child(4) { bottom: 22px; left: 5%; --leaf-rot: -20deg; }
+        .flower-bottom .lego-leaf:nth-child(5) { bottom: 28px; left: 22%; --leaf-rot: 25deg; }
+        .flower-bottom .lego-leaf:nth-child(6) { bottom: 24px; right: 28%; left: auto; --leaf-rot: -15deg; }
+        .flower-bottom .lego-leaf:nth-child(7) { bottom: 30px; right: 8%; left: auto; --leaf-rot: 30deg; }
+        /* Flores pequeñas en la base */
+        .lego-flower-small {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            bottom: 38px;
+        }
+        .lego-flower-small .lego-petal {
+            width: 12px;
+            height: 12px;
+            color: var(--lego-deeppink);
+            background-color: var(--lego-deeppink);
+        }
+        .lego-flower-small .lego-petal:nth-child(1) { top: 0; left: 10px; }
+        .lego-flower-small .lego-petal:nth-child(2) { top: 10px; left: 0; }
+        .lego-flower-small .lego-petal:nth-child(3) { top: 10px; right: 0; left: auto; }
+        .lego-flower-small .lego-petal:nth-child(4) { bottom: 10px; left: 6px; top: auto; }
+        .lego-flower-small .lego-petal:nth-child(5) { bottom: 10px; right: 6px; left: auto; top: auto; }
+        .lego-flower-small .lego-center { width: 8px; height: 8px; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--lego-gold); background-color: var(--lego-gold); }
+        .lego-flower-small .lego-center::after { width: 55%; height: 55%; top: -25%; }
+        .lego-flower-small.f1 { left: 12%; }
+        .lego-flower-small.f2 { left: 48%; }
+        .lego-flower-small.f3 { right: 12%; left: auto; }
         @keyframes floatPetal {
             0%, 100% { transform: translate(0, 0) rotate(var(--r, 0deg)); opacity: 0.5; }
             25% { transform: translate(8px, -15px) rotate(calc(var(--r, 0deg) + 10deg)); opacity: 0.7; }
@@ -268,54 +484,78 @@
             <span class="petal petal--8"></span>
         </div>
 
-        <!-- Ramos florales: esquina superior izq. y borde inferior (guía visual). -->
-        <div class="floral-layer" aria-hidden="true">
-            <svg class="floral-top" viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="62" cy="82" rx="28" ry="32" fill="#f8bbd0"/>
-                <ellipse cx="62" cy="82" rx="18" ry="22" fill="#fce4ec"/>
-                <ellipse cx="108" cy="62" rx="26" ry="30" fill="#f48fb1"/>
-                <ellipse cx="108" cy="62" rx="16" ry="20" fill="#fce4ec"/>
-                <ellipse cx="92" cy="108" rx="24" ry="28" fill="#e91e63"/>
-                <ellipse cx="92" cy="108" rx="14" ry="18" fill="#f8bbd0"/>
-                <ellipse cx="48" cy="52" rx="18" ry="22" fill="#f4e4a6"/>
-                <ellipse cx="128" cy="95" rx="16" ry="20" fill="#e1bee7"/>
-                <ellipse cx="128" cy="95" rx="10" ry="13" fill="#f3e5f5"/>
-                <path d="M38 115 Q22 148 55 158 Q88 145 78 112" fill="#2e7d32"/>
-                <path d="M78 112 Q92 142 72 152 Q48 140 55 108" fill="#388e3c"/>
-                <path d="M118 92 L132 128 L108 122 Z" fill="#f4e4a6"/>
-                <path d="M28 68 L14 98 L36 92 Z" fill="#d4af37"/>
-                <path d="M135 72 L148 52 L158 78 Z" fill="#f4e4a6"/>
-            </svg>
-            <svg class="floral-bottom" viewBox="0 0 500 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-                <ellipse cx="70" cy="88" rx="35" ry="28" fill="#f8bbd0"/>
-                <ellipse cx="70" cy="88" rx="22" ry="18" fill="#fce4ec"/>
-                <ellipse cx="170" cy="82" rx="32" ry="26" fill="#f48fb1"/>
-                <ellipse cx="170" cy="82" rx="20" ry="16" fill="#fce4ec"/>
-                <ellipse cx="270" cy="85" rx="34" ry="27" fill="#e91e63"/>
-                <ellipse cx="270" cy="85" rx="21" ry="17" fill="#f8bbd0"/>
-                <ellipse cx="370" cy="80" rx="30" ry="24" fill="#f4e4a6"/>
-                <ellipse cx="370" cy="80" rx="18" ry="14" fill="#fff8e1"/>
-                <ellipse cx="430" cy="88" rx="26" ry="20" fill="#e1bee7"/>
-                <path d="M0 95 Q120 55 250 98 Q380 50 500 90 L500 140 L0 140 Z" fill="#2e7d32" opacity="0.75"/>
-                <path d="M55 108 L82 58 L108 108 Z" fill="#388e3c"/>
-                <path d="M230 105 L258 62 L282 105 Z" fill="#2e7d32"/>
-                <path d="M355 102 L378 68 L400 102 Z" fill="#388e3c"/>
-                <path d="M420 100 L445 75 L460 102 Z" fill="#2e7d32"/>
-                <path d="M180 95 L195 70 L210 95 Z" fill="#d4af37" opacity="0.9"/>
-                <path d="M310 92 L322 68 L338 92 Z" fill="#f4e4a6"/>
-            </svg>
-            <svg class="floral-bottom-right" viewBox="0 0 140 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="68" cy="68" rx="30" ry="34" fill="#f8bbd0"/>
-                <ellipse cx="68" cy="68" rx="18" ry="22" fill="#fce4ec"/>
-                <ellipse cx="102" cy="52" rx="26" ry="30" fill="#f48fb1"/>
-                <ellipse cx="102" cy="52" rx="15" ry="18" fill="#fce4ec"/>
-                <ellipse cx="85" cy="92" rx="24" ry="28" fill="#e91e63"/>
-                <ellipse cx="85" cy="92" rx="14" ry="18" fill="#f8bbd0"/>
-                <path d="M48 102 Q28 132 62 142 Q96 128 88 98" fill="#2e7d32"/>
-                <path d="M88 100 Q108 128 88 138 Q62 132 72 102" fill="#388e3c"/>
-                <path d="M112 82 L128 112 L108 108 Z" fill="#f4e4a6"/>
-                <path d="M38 72 L28 98 L52 92 Z" fill="#d4af37"/>
-            </svg>
+        <!-- Flores estilo LEGO: solo CSS (studs, gradientes, formas geométricas). -->
+        <div class="lego-floral-layer" aria-hidden="true">
+            <div class="flower-top-left">
+                <div class="lego-rose">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-center"></span>
+                </div>
+                <div class="lego-rose lego-rose-2">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-center"></span>
+                </div>
+                <div class="lego-tulip">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                </div>
+                <span class="lego-piece lego-leaf"></span>
+                <span class="lego-piece lego-leaf"></span>
+                <span class="lego-piece lego-leaf"></span>
+            </div>
+            <div class="flower-top-right">
+                <div class="lego-orchid">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-center"></span>
+                </div>
+                <span class="lego-piece lego-leaf"></span>
+                <span class="lego-piece lego-leaf"></span>
+            </div>
+            <div class="flower-bottom">
+                <span class="lego-piece lego-stem"></span>
+                <span class="lego-piece lego-stem"></span>
+                <span class="lego-piece lego-stem"></span>
+                <span class="lego-piece lego-leaf"></span>
+                <span class="lego-piece lego-leaf"></span>
+                <span class="lego-piece lego-leaf"></span>
+                <span class="lego-piece lego-leaf"></span>
+                <div class="lego-flower-small f1">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-center"></span>
+                </div>
+                <div class="lego-flower-small f2">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-center"></span>
+                </div>
+                <div class="lego-flower-small f3">
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-petal"></span>
+                    <span class="lego-piece lego-center"></span>
+                </div>
+            </div>
         </div>
 
         <div class="campaign-content">
