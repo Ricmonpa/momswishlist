@@ -922,8 +922,26 @@ function renderProducts(container) {
             var bodyText = '¡Hola! Estos son mis favoritos para el Día de las Madres:\n\n' + items.map(function (p) { return p.name + '\n' + p.url + '\n\n'; }).join('') + 'Ver catálogo completo:\nhttps://www.sanborns.com.mx/';
             var subject = encodeURIComponent('Mi Wishlist Día de las Madres - Sanborns');
             var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
-            // Abrimos siempre el correo directamente en el gesto de clic
-            window.location.href = mailtoUrl;
+            // Intento robusto (en iframes/ad environments a veces se bloquea window.location)
+            var opened = false;
+            try { window.top.location.href = mailtoUrl; opened = true; } catch (err) {}
+            if (!opened) {
+                try { window.location.href = mailtoUrl; opened = true; } catch (err2) {}
+            }
+            if (!opened) {
+                try { window.open(mailtoUrl, '_self'); opened = true; } catch (err3) {}
+            }
+            if (!opened) {
+                try { window.open(mailtoUrl, '_blank'); opened = true; } catch (err4) {}
+            }
+
+            // Fallback visible si el navegador/iframe bloquea mailto
+            var wrap = document.getElementById('mailto-link-wrap');
+            if (wrap) {
+                wrap.style.display = 'block';
+                wrap.innerHTML =
+                    '<a href="' + mailtoUrl.replace(/"/g, '&quot;') + '" style="display:inline-block; padding:10px 12px; border-radius:10px; background:#fff; color:#5b2b8a; font-weight:700; text-decoration:none; box-shadow:0 2px 10px rgba(0,0,0,0.12);">Si no se abrió tu correo, toca aquí</a>';
+            }
             if (typeof window.dataLayer !== 'undefined') {
                 window.dataLayer.push({ event: 'wishlist_sent', count: selectedCards.length });
             }
