@@ -935,12 +935,18 @@ function renderProducts(container) {
                 try { window.open(mailtoUrl, '_blank'); opened = true; } catch (err4) {}
             }
 
-            // Fallback visible si el navegador/iframe bloquea mailto
+            // Fallback visible si el navegador/iframe o la compu no tienen handler de correo
             var wrap = document.getElementById('mailto-link-wrap');
             if (wrap) {
                 wrap.style.display = 'block';
                 wrap.innerHTML =
-                    '<a href="' + mailtoUrl.replace(/"/g, '&quot;') + '" style="display:inline-block; padding:10px 12px; border-radius:10px; background:#fff; color:#5b2b8a; font-weight:700; text-decoration:none; box-shadow:0 2px 10px rgba(0,0,0,0.12);">Si no se abrió tu correo, toca aquí</a>';
+                    '<a href="' + mailtoUrl.replace(/"/g, '&quot;') + '" style="display:inline-block; padding:10px 12px; border-radius:10px; background:#fff; color:#5b2b8a; font-weight:700; text-decoration:none; box-shadow:0 2px 10px rgba(0,0,0,0.12); margin-bottom:8px;">Si no se abrió tu correo, toca aquí</a>' +
+                    '<p style="margin:4px 0 4px; font-size:12px; color:#5b2b8a;">Si aún así no se abre, copia este texto y pégalo en tu correo:</p>' +
+                    '<textarea readonly style="width:100%; min-height:80px; border-radius:8px; border:1px solid #e1d4f7; padding:6px; font-size:11px; resize:vertical;" id="wishlistFallbackText"></textarea>';
+                var txt = document.getElementById('wishlistFallbackText');
+                if (txt) {
+                    txt.value = bodyText;
+                }
             }
             if (typeof window.dataLayer !== 'undefined') {
                 window.dataLayer.push({ event: 'wishlist_sent', count: selectedCards.length });
