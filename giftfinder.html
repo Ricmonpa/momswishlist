@@ -922,30 +922,8 @@ function renderProducts(container) {
             var bodyText = '¡Hola! Estos son mis favoritos para el Día de las Madres:\n\n' + items.map(function (p) { return p.name + '\n' + p.url + '\n\n'; }).join('') + 'Ver catálogo completo:\nhttps://www.sanborns.com.mx/';
             var subject = encodeURIComponent('Mi Wishlist Día de las Madres - Sanborns');
             var mailtoUrl = 'mailto:?subject=' + subject + '&body=' + encodeURIComponent(bodyText);
-            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (isMobile) {
-                window.location.href = mailtoUrl;
-            } else {
-                var cb = navigator.clipboard;
-                if (cb && typeof cb.writeText === 'function') {
-                    cb.writeText(bodyText).finally(function () {
-                        var tempLink = document.createElement('a');
-                        tempLink.href = mailtoUrl;
-                        tempLink.style.display = 'none';
-                        document.body.appendChild(tempLink);
-                        tempLink.click();
-                        document.body.removeChild(tempLink);
-                        alert('¡Wishlist lista! Se intentó abrir tu correo. También copiamos la lista a tu portapapeles por seguridad.');
-                    });
-                } else {
-                    var tempLink = document.createElement('a');
-                    tempLink.href = mailtoUrl;
-                    tempLink.style.display = 'none';
-                    document.body.appendChild(tempLink);
-                    tempLink.click();
-                    document.body.removeChild(tempLink);
-                }
-            }
+            // Abrimos siempre el correo directamente en el gesto de clic
+            window.location.href = mailtoUrl;
             if (typeof window.dataLayer !== 'undefined') {
                 window.dataLayer.push({ event: 'wishlist_sent', count: selectedCards.length });
             }
