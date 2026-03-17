@@ -214,10 +214,38 @@ html, body {
     background: linear-gradient(135deg, #ffffff 0%, #F5E6FF 100%);
 }
 .product-card:active { transform: translateY(0px); box-shadow: 0 3px 12px rgba(139, 95, 191, 0.15); }
+.product-card.selected {
+    box-shadow: 0 4px 16px rgba(139, 95, 191, 0.25);
+    border: 2px solid rgba(139, 95, 191, 0.7);
+    background: linear-gradient(135deg, #ffffff 0%, #F7ECFF 100%);
+}
 .product-card button {
     position: relative;
     z-index: 10;
     pointer-events: auto;
+}
+.product-select-box {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    border: 2px solid rgba(139, 95, 191, 0.7);
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(139, 95, 191, 1);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    padding: 0;
+}
+.product-card.selected .product-select-box {
+    background: rgba(139, 95, 191, 1);
+    color: #ffffff;
 }
 .product-img, .product-card img, .product-image {
     width: 100%;
@@ -853,6 +881,7 @@ function renderProducts(container) {
                 var price = isFromCatalog ? (p.precio || 'Ver en Sanborns') : (p.precio || '');
                 return (
                     '<div class="product-card' + (isAdded ? ' selected' : '') + '" role="button" style="cursor: pointer; display: block;" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-product-name="' + (displayName + '').replace(/"/g, '&quot;') + '" data-product-url="' + (productUrl + '').replace(/"/g, '&quot;') + '" onclick="handleProductClick(this)">' +
+                    '<button type="button" class="product-select-box" aria-label="' + (isAdded ? 'Quitar de mi lista' : 'Agregar a mi lista') + '" data-product-id="' + String(pid).replace(/"/g, '&quot;') + '" data-wishlist-btn>' + (isAdded ? '✓' : '+') + '</button>' +
                     '<img src="' + (imgSrc + '').replace(/"/g, '&quot;') + '" class="product-img" alt="' + (displayName + '').replace(/"/g, '&quot;') + '" loading="lazy" onerror="this.src=\'assets/placeholder.svg\'; this.onerror=null;">' +
                     '<div class="product-info">' +
                     '<div class="product-name">' + displayName + '</div>' +
