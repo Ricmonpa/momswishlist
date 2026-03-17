@@ -643,7 +643,9 @@ let appState = {
     screen: 'inicio', // 'inicio' | 'categorias' | 'productos'
     gender: null,
     category: null,
-    wishlist: []
+    wishlist: [],
+    // Flag para saber si el usuario llegó directo desde la campaña (#categorias)
+    startedFromCategorias: false
 };
 
 // Enviar wishlist por mailto - asignado a window INMEDIATAMENTE para que el botón funcione aunque falle código posterior
@@ -983,6 +985,12 @@ window.goBack = () => {
     if (appState.screen === 'productos') {
         appState.screen = 'categorias';
     } else if (appState.screen === 'categorias') {
+        // Si el flujo viene de la campaña (#categorias), no mostramos la pantalla de bienvenida "fantasma":
+        // el botón Volver desde categorías actúa como "salir al sitio" (clickTag).
+        if (appState.startedFromCategorias && typeof exitClickHandler === 'function') {
+            exitClickHandler();
+            return;
+        }
         appState.screen = 'inicio';
     }
     render();
@@ -1065,6 +1073,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (location.hash === '#categorias' || (location.search && location.search.indexOf('categorias') !== -1)) {
         appState.screen = 'categorias';
         appState.gender = 'mujer';
+        appState.startedFromCategorias = true;
     }
     trackEvent('banner_loaded', {});
     attachModalAndWishlistSend();
