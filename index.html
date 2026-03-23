@@ -112,8 +112,8 @@
             height: auto;
             margin-bottom: clamp(20px, 5vw, 32px);
             display: block;
-            /* Morado para contrastar con el fondo rosa/fucsia del banner */
-            filter: brightness(0) saturate(100%) invert(18%) sepia(98%) saturate(2000%) hue-rotate(262deg) drop-shadow(0 2px 6px rgba(94, 53, 177, 0.4));
+            /* Logo en rojo corporativo */
+            filter: brightness(0) saturate(100%) invert(14%) sepia(97%) saturate(6215%) hue-rotate(354deg) brightness(94%) contrast(109%);
         }
         /* Título como en guía: fucsia fuerte, contorno dorado, fondo más claro detrás. */
         .campaign-title-wrap {
@@ -236,6 +236,29 @@
             background-position: 100% 0;
         }
         .cta-button:active { transform: translateY(-1px); }
+        .privacy-link-wrap {
+            width: 100%;
+            margin-top: 12px;
+            text-align: center;
+        }
+        .privacy-link {
+            display: inline-block;
+            font-size: clamp(0.72rem, 2.2vw, 0.82rem);
+            color: #8b1b3f;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.72);
+            padding: 6px 10px;
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .privacy-link:hover,
+        .privacy-link:focus-visible {
+            color: #6f1332;
+            background: rgba(255, 255, 255, 0.88);
+            outline: none;
+        }
         @media (min-width: 480px) {
             .campaign-page { padding: 28px; }
             .countdown { gap: 14px; }
@@ -289,6 +312,9 @@
 
             <div class="cta-wrap">
                 <a href="giftfinder.html#categorias" class="cta-button" id="cta-regalo">¡ESCOGER EL REGALO PERFECTO!</a>
+                <div class="privacy-link-wrap">
+                    <a class="privacy-link" href="https://www.sanborns.com.mx/aviso-privacidad/" target="_blank" rel="noopener noreferrer">Aviso de confidencialidad</a>
+                </div>
             </div>
         </div>
     </main>
